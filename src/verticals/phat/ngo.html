@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NGO/นักสังคมสงเคราะห์ · PHAT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', sans-serif; background: #FAFAF9; min-height: 100vh; color: #0A1628; }
+.hero { background: linear-gradient(135deg, #BE185D, #0A1628); color: #fff; padding: 60px 24px; text-align: center; }
+.hero .ico { font-size: 56px; margin-bottom: 12px; line-height: 1; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; margin: 0 0 10px; }
+.hero .tagline { opacity: 0.85; font-size: 17px; }
+.section { max-width: 1000px; margin: 40px auto; padding: 0 24px; }
+.section h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; text-align: center; margin-bottom: 24px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
+.item { background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 18px; }
+.item .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #BE185D; margin-right: 8px; }
+.item strong { color: #BE185D; }
+.cta { background: linear-gradient(135deg, #0A1628, #312E81); color: #fff; padding: 56px 24px; text-align: center; }
+.cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; margin: 0 0 18px; color: #fff; }
+.cta a { display: inline-block; padding: 14px 32px; background: #BE185D; color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; margin: 6px; }
+.cta a.line { background: #06C755; }
+footer { padding: 24px; text-align: center; font-size: 13px; color: #6B7280; }
+footer a { color: #BE185D; text-decoration: none; margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="ico">🤝</div>
+  <h1>PHAT for NGO/นักสังคมสงเคราะห์</h1>
+  <div class="tagline">ผู้ช่วย NGO · case · ระดมทุน · impact</div>
+</div>
+
+<div class="section">
+  <h2>✨ Features</h2>
+  <div class="grid" id="features"></div>
+</div>
+
+<div class="section">
+  <h2>🔄 Workflows</h2>
+  <div class="grid" id="workflows"></div>
+</div>
+
+<div class="section">
+  <h2>📊 KPIs</h2>
+  <div class="grid" id="kpis"></div>
+</div>
+
+<div class="cta">
+  <h2>เริ่มใช้ PHAT for NGO/นักสังคมสงเคราะห์ วันนี้</h2>
+  <a class="line" href="https://line.me/R/ti/p/@280ezsqs">📲 เพิ่มเพื่อน @PHAT</a>
+  <a href="/business.html">🏢 ติดต่อทีมขาย</a>
+</div>
+
+<footer>
+  <a href="/verticals/phat/">← ดู 12 อาชีพ</a> · <a href="/start.html">PHAT consumer</a> · <a href="/business.html">PHAT for Business</a>
+</footer>
+
+<script>
+const V = {"id": "ngo", "name": "NGO/นักสังคมสงเคราะห์", "name_en": "NGO", "emoji": "🤝", "color": "#BE185D", "tagline": "ผู้ช่วย NGO · case · ระดมทุน · impact", "features": ["case management", "fundraise email", "impact report", "หาทรัพยากร", "ติดต่อรัฐ", "ดวงให้กำลังใจ"], "workflows": ["intake", "support", "monitor", "graduate"], "kpis": ["beneficiaries", "funds", "impact"]};
+const cards = (arr, prefix) => arr.map(x => `<div class="item"><span class="dot"></span><strong>${prefix}</strong> ${x}</div>`).join('');
+document.getElementById('features').innerHTML = cards(V.features, '✓');
+document.getElementById('workflows').innerHTML = cards(V.workflows, '→');
+document.getElementById('kpis').innerHTML = cards(V.kpis, '📈');
+</script>
+</body>
+</html>

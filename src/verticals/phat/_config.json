@@ -1,16 +1,975 @@
 {
   "verticals": [
-    { "id": "farmer", "name": "เกษตรกร", "name_en": "Farmer", "emoji": "🌾", "color": "#16A34A", "tagline": "ผู้ช่วยเกษตรกร · ราคา · พืช · อากาศ", "features": ["ราคาผลผลิตรายวัน", "วินิจฉัยโรคพืชจากภาพ", "พยากรณ์อากาศ 7 วัน", "ขายผ่าน LINE", "ตลาดผลผลิต", "ดวงและฤกษ์เกษตร"], "workflows": ["บันทึกผลผลิต", "ติดตามต้นทุน", "วงจรการปลูก", "broadcast ลูกค้า"], "kpis": ["ราคาขายเฉลี่ย", "ปริมาณผลผลิต", "ROI ต่อไร่"] },
-    { "id": "merchant", "name": "ค้าขาย/ร้านค้า", "name_en": "Merchant", "emoji": "🏪", "color": "#F59E0B", "tagline": "ผู้ช่วยร้านค้า · โปสเตอร์ · เสียง · broadcast", "features": ["สร้างภาพโปรโมท AI", "เสียงโฆษณา TTS", "broadcast ลูกค้า", "ตอบ FAQ อัตโนมัติ", "สต็อกรายวัน", "บัญชีรายรับ-จ่าย"], "workflows": ["รับ order LINE", "ส่งสินค้า", "เก็บเงิน", "follow-up"], "kpis": ["ยอดขายรายวัน", "จำนวนลูกค้าใหม่", "AOV"] },
-    { "id": "teacher", "name": "ครู/อาจารย์", "name_en": "Teacher", "emoji": "👨‍🏫", "color": "#3B82F6", "tagline": "ผู้ช่วยครู · แผนสอน · ตรวจ · slide", "features": ["แผนการสอน auto", "ตรวจการบ้าน", "สร้าง slide PowerPoint", "แปลภาษา", "ดวงสอบ student", "AI tutor 24/7 ให้ลูกศิษย์"], "workflows": ["จัดตารางสอน", "บันทึกคะแนน", "ส่งการบ้าน", "รายงานผู้ปกครอง"], "kpis": ["จำนวนคาบ", "คะแนนเฉลี่ย", "satisfaction"] },
-    { "id": "student", "name": "นักเรียน/นักศึกษา", "name_en": "Student", "emoji": "📚", "color": "#8B5CF6", "tagline": "ผู้ช่วยเรียน · ติว · เขียน · แปล", "features": ["อธิบายเรื่องยาก", "ช่วยเขียนเรียงความ", "ติวสอบ", "แปลภาษา", "ดวงสอบ", "career guidance"], "workflows": ["จัดตารางอ่าน", "ส่งการบ้าน", "ทบทวนสอบ", "เลือกคณะ"], "kpis": ["เกรดเฉลี่ย", "คาบเรียน completed", "study hours"] },
-    { "id": "health", "name": "หมอ/พยาบาล", "name_en": "Healthcare", "emoji": "👩‍⚕️", "color": "#EC4899", "tagline": "ผู้ช่วยสาธารณสุข · drug · เคส · guideline", "features": ["ค้น drug info", "สรุปเคส SOAP", "guideline clinical", "ตารางนัดผู้ป่วย", "แปลศัพท์การแพทย์", "consult AI"], "workflows": ["รับผู้ป่วย", "บันทึกเคส", "ติดตามผล", "ส่งต่อ"], "kpis": ["จำนวนผู้ป่วย", "satisfaction", "follow-up rate"] },
-    { "id": "exec", "name": "ผู้บริหาร", "name_en": "Executive", "emoji": "💼", "color": "#1E40AF", "tagline": "ผู้ช่วยผู้บริหาร · สรุป · email · ฤกษ์", "features": ["สรุป report", "ร่างอีเมล", "เตรียม agenda ประชุม", "ฤกษ์เซ็นสัญญา", "วิเคราะห์ข้อมูล", "executive briefing"], "workflows": ["meeting prep", "decision log", "delegate task", "follow-up"], "kpis": ["meetings completed", "decisions made", "team OKRs"] },
-    { "id": "dev", "name": "วิศวกร/Dev", "name_en": "Engineer", "emoji": "💻", "color": "#6366F1", "tagline": "ผู้ช่วย dev · code · debug · architecture", "features": ["ช่วยเขียนโค้ด", "debug", "architecture review", "อธิบาย concept", "code review", "documentation auto"], "workflows": ["sprint plan", "code review", "deploy", "incident response"], "kpis": ["commits", "PRs merged", "uptime"] },
-    { "id": "senior", "name": "ผู้สูงอายุ", "name_en": "Senior", "emoji": "👵", "color": "#A78BFA", "tagline": "เพื่อนผู้สูงอายุ · คุย · สุขภาพ · ดวง", "features": ["คุยเป็นเพื่อน", "สิทธิ์รักษาพยาบาล", "ดวงรายวัน", "วันพระ", "เตือนยา", "ฟังข่าวเสียง"], "workflows": ["ตรวจสุขภาพประจำ", "นัดหมอ", "ติดต่อลูกหลาน", "ทำบุญ"], "kpis": ["interactions/wk", "mood score", "health checkin"] },
-    { "id": "monk", "name": "พระ/นักบวช", "name_en": "Monk", "emoji": "🙏", "color": "#D97706", "tagline": "ผู้ช่วยพระ · พระไตรปิฎก · บาลี · ธรรม", "features": ["ค้นพระไตรปิฎก", "บทสวด", "แปลบาลี", "ธรรมะรายวัน", "ตารางสวด", "ติดต่อญาติโยม"], "workflows": ["บันทึกศาสนกิจ", "ปฏิทินวันพระ", "สื่อสารญาติโยม", "ตำราเตรียม"], "kpis": ["ธรรมะที่เผยแพร่", "ญาติโยมเข้าร่วม"] },
-    { "id": "lawyer", "name": "ทนาย/กฎหมาย", "name_en": "Lawyer", "emoji": "⚖️", "color": "#7C3AED", "tagline": "ผู้ช่วยทนาย · กฎหมาย · สัญญา · คำพิพากษา", "features": ["ค้นกฎหมาย", "ร่างสัญญา", "ตีความข้อกฎหมาย", "ค้นคำพิพากษา", "เตรียมคดี", "ติดตามกำหนดศาล"], "workflows": ["รับคดี", "ร่างเอกสาร", "ขึ้นศาล", "เก็บค่าธรรมเนียม"], "kpis": ["คดี active", "ชนะ%", "ค่าธรรมเนียม"] },
-    { "id": "media", "name": "นักข่าว/Creator", "name_en": "Creator", "emoji": "🎥", "color": "#DC2626", "tagline": "ผู้ช่วย creator · ข่าว · บทความ · script", "features": ["สรุปข่าว", "เขียนบทความ", "script คลิป", "trending topics", "thumbnail AI", "เสียง voiceover"], "workflows": ["plan content", "produce", "publish", "analyze engagement"], "kpis": ["views", "engagement", "subscribers"] },
-    { "id": "govt", "name": "ราชการ/หน่วยงานรัฐ", "name_en": "Government", "emoji": "🏛️", "color": "#0891B2", "tagline": "ผู้ช่วยข้าราชการ · หนังสือ · ระเบียบ · มติ", "features": ["ร่างหนังสือราชการ", "ค้นระเบียบ", "มติ ครม.", "รายงาน", "ติดตาม KPI", "ประสานหน่วยงาน"], "workflows": ["รับเรื่อง", "พิจารณา", "ตอบ", "รายงานเสนอผู้บังคับบัญชา"], "kpis": ["เรื่องเสร็จ/วัน", "SLA", "satisfaction"] }
+    {
+      "id": "farmer",
+      "name": "เกษตรกร",
+      "name_en": "Farmer",
+      "emoji": "🌾",
+      "color": "#16A34A",
+      "tagline": "ผู้ช่วยเกษตรกร · ราคา · พืช · อากาศ",
+      "features": [
+        "ราคาผลผลิตรายวัน",
+        "วินิจฉัยโรคพืชจากภาพ",
+        "พยากรณ์อากาศ 7 วัน",
+        "ขายผ่าน LINE",
+        "ตลาดผลผลิต",
+        "ดวงและฤกษ์เกษตร"
+      ],
+      "workflows": [
+        "บันทึกผลผลิต",
+        "ติดตามต้นทุน",
+        "วงจรการปลูก",
+        "broadcast ลูกค้า"
+      ],
+      "kpis": [
+        "ราคาขายเฉลี่ย",
+        "ปริมาณผลผลิต",
+        "ROI ต่อไร่"
+      ]
+    },
+    {
+      "id": "merchant",
+      "name": "ค้าขาย/ร้านค้า",
+      "name_en": "Merchant",
+      "emoji": "🏪",
+      "color": "#F59E0B",
+      "tagline": "ผู้ช่วยร้านค้า · โปสเตอร์ · เสียง · broadcast",
+      "features": [
+        "สร้างภาพโปรโมท AI",
+        "เสียงโฆษณา TTS",
+        "broadcast ลูกค้า",
+        "ตอบ FAQ อัตโนมัติ",
+        "สต็อกรายวัน",
+        "บัญชีรายรับ-จ่าย"
+      ],
+      "workflows": [
+        "รับ order LINE",
+        "ส่งสินค้า",
+        "เก็บเงิน",
+        "follow-up"
+      ],
+      "kpis": [
+        "ยอดขายรายวัน",
+        "จำนวนลูกค้าใหม่",
+        "AOV"
+      ]
+    },
+    {
+      "id": "teacher",
+      "name": "ครู/อาจารย์",
+      "name_en": "Teacher",
+      "emoji": "👨‍🏫",
+      "color": "#3B82F6",
+      "tagline": "ผู้ช่วยครู · แผนสอน · ตรวจ · slide",
+      "features": [
+        "แผนการสอน auto",
+        "ตรวจการบ้าน",
+        "สร้าง slide PowerPoint",
+        "แปลภาษา",
+        "ดวงสอบ student",
+        "AI tutor 24/7 ให้ลูกศิษย์"
+      ],
+      "workflows": [
+        "จัดตารางสอน",
+        "บันทึกคะแนน",
+        "ส่งการบ้าน",
+        "รายงานผู้ปกครอง"
+      ],
+      "kpis": [
+        "จำนวนคาบ",
+        "คะแนนเฉลี่ย",
+        "satisfaction"
+      ]
+    },
+    {
+      "id": "student",
+      "name": "นักเรียน/นักศึกษา",
+      "name_en": "Student",
+      "emoji": "📚",
+      "color": "#8B5CF6",
+      "tagline": "ผู้ช่วยเรียน · ติว · เขียน · แปล",
+      "features": [
+        "อธิบายเรื่องยาก",
+        "ช่วยเขียนเรียงความ",
+        "ติวสอบ",
+        "แปลภาษา",
+        "ดวงสอบ",
+        "career guidance"
+      ],
+      "workflows": [
+        "จัดตารางอ่าน",
+        "ส่งการบ้าน",
+        "ทบทวนสอบ",
+        "เลือกคณะ"
+      ],
+      "kpis": [
+        "เกรดเฉลี่ย",
+        "คาบเรียน completed",
+        "study hours"
+      ]
+    },
+    {
+      "id": "health",
+      "name": "หมอ/พยาบาล",
+      "name_en": "Healthcare",
+      "emoji": "👩‍⚕️",
+      "color": "#EC4899",
+      "tagline": "ผู้ช่วยสาธารณสุข · drug · เคส · guideline",
+      "features": [
+        "ค้น drug info",
+        "สรุปเคส SOAP",
+        "guideline clinical",
+        "ตารางนัดผู้ป่วย",
+        "แปลศัพท์การแพทย์",
+        "consult AI"
+      ],
+      "workflows": [
+        "รับผู้ป่วย",
+        "บันทึกเคส",
+        "ติดตามผล",
+        "ส่งต่อ"
+      ],
+      "kpis": [
+        "จำนวนผู้ป่วย",
+        "satisfaction",
+        "follow-up rate"
+      ]
+    },
+    {
+      "id": "exec",
+      "name": "ผู้บริหาร",
+      "name_en": "Executive",
+      "emoji": "💼",
+      "color": "#1E40AF",
+      "tagline": "ผู้ช่วยผู้บริหาร · สรุป · email · ฤกษ์",
+      "features": [
+        "สรุป report",
+        "ร่างอีเมล",
+        "เตรียม agenda ประชุม",
+        "ฤกษ์เซ็นสัญญา",
+        "วิเคราะห์ข้อมูล",
+        "executive briefing"
+      ],
+      "workflows": [
+        "meeting prep",
+        "decision log",
+        "delegate task",
+        "follow-up"
+      ],
+      "kpis": [
+        "meetings completed",
+        "decisions made",
+        "team OKRs"
+      ]
+    },
+    {
+      "id": "dev",
+      "name": "วิศวกร/Dev",
+      "name_en": "Engineer",
+      "emoji": "💻",
+      "color": "#6366F1",
+      "tagline": "ผู้ช่วย dev · code · debug · architecture",
+      "features": [
+        "ช่วยเขียนโค้ด",
+        "debug",
+        "architecture review",
+        "อธิบาย concept",
+        "code review",
+        "documentation auto"
+      ],
+      "workflows": [
+        "sprint plan",
+        "code review",
+        "deploy",
+        "incident response"
+      ],
+      "kpis": [
+        "commits",
+        "PRs merged",
+        "uptime"
+      ]
+    },
+    {
+      "id": "senior",
+      "name": "ผู้สูงอายุ",
+      "name_en": "Senior",
+      "emoji": "👵",
+      "color": "#A78BFA",
+      "tagline": "เพื่อนผู้สูงอายุ · คุย · สุขภาพ · ดวง",
+      "features": [
+        "คุยเป็นเพื่อน",
+        "สิทธิ์รักษาพยาบาล",
+        "ดวงรายวัน",
+        "วันพระ",
+        "เตือนยา",
+        "ฟังข่าวเสียง"
+      ],
+      "workflows": [
+        "ตรวจสุขภาพประจำ",
+        "นัดหมอ",
+        "ติดต่อลูกหลาน",
+        "ทำบุญ"
+      ],
+      "kpis": [
+        "interactions/wk",
+        "mood score",
+        "health checkin"
+      ]
+    },
+    {
+      "id": "monk",
+      "name": "พระ/นักบวช",
+      "name_en": "Monk",
+      "emoji": "🙏",
+      "color": "#D97706",
+      "tagline": "ผู้ช่วยพระ · พระไตรปิฎก · บาลี · ธรรม",
+      "features": [
+        "ค้นพระไตรปิฎก",
+        "บทสวด",
+        "แปลบาลี",
+        "ธรรมะรายวัน",
+        "ตารางสวด",
+        "ติดต่อญาติโยม"
+      ],
+      "workflows": [
+        "บันทึกศาสนกิจ",
+        "ปฏิทินวันพระ",
+        "สื่อสารญาติโยม",
+        "ตำราเตรียม"
+      ],
+      "kpis": [
+        "ธรรมะที่เผยแพร่",
+        "ญาติโยมเข้าร่วม"
+      ]
+    },
+    {
+      "id": "lawyer",
+      "name": "ทนาย/กฎหมาย",
+      "name_en": "Lawyer",
+      "emoji": "⚖️",
+      "color": "#7C3AED",
+      "tagline": "ผู้ช่วยทนาย · กฎหมาย · สัญญา · คำพิพากษา",
+      "features": [
+        "ค้นกฎหมาย",
+        "ร่างสัญญา",
+        "ตีความข้อกฎหมาย",
+        "ค้นคำพิพากษา",
+        "เตรียมคดี",
+        "ติดตามกำหนดศาล"
+      ],
+      "workflows": [
+        "รับคดี",
+        "ร่างเอกสาร",
+        "ขึ้นศาล",
+        "เก็บค่าธรรมเนียม"
+      ],
+      "kpis": [
+        "คดี active",
+        "ชนะ%",
+        "ค่าธรรมเนียม"
+      ]
+    },
+    {
+      "id": "media",
+      "name": "นักข่าว/Creator",
+      "name_en": "Creator",
+      "emoji": "🎥",
+      "color": "#DC2626",
+      "tagline": "ผู้ช่วย creator · ข่าว · บทความ · script",
+      "features": [
+        "สรุปข่าว",
+        "เขียนบทความ",
+        "script คลิป",
+        "trending topics",
+        "thumbnail AI",
+        "เสียง voiceover"
+      ],
+      "workflows": [
+        "plan content",
+        "produce",
+        "publish",
+        "analyze engagement"
+      ],
+      "kpis": [
+        "views",
+        "engagement",
+        "subscribers"
+      ]
+    },
+    {
+      "id": "govt",
+      "name": "ราชการ/หน่วยงานรัฐ",
+      "name_en": "Government",
+      "emoji": "🏛️",
+      "color": "#0891B2",
+      "tagline": "ผู้ช่วยข้าราชการ · หนังสือ · ระเบียบ · มติ",
+      "features": [
+        "ร่างหนังสือราชการ",
+        "ค้นระเบียบ",
+        "มติ ครม.",
+        "รายงาน",
+        "ติดตาม KPI",
+        "ประสานหน่วยงาน"
+      ],
+      "workflows": [
+        "รับเรื่อง",
+        "พิจารณา",
+        "ตอบ",
+        "รายงานเสนอผู้บังคับบัญชา"
+      ],
+      "kpis": [
+        "เรื่องเสร็จ/วัน",
+        "SLA",
+        "satisfaction"
+      ]
+    },
+    {
+      "id": "police",
+      "name": "ตำรวจ/ทหาร",
+      "name_en": "Police/Military",
+      "emoji": "👮",
+      "color": "#1E3A8A",
+      "tagline": "ผู้ช่วยตำรวจ-ทหาร · ระเบียบ · รายงาน · ติดตาม",
+      "features": [
+        "ค้นระเบียบกองทัพ/ตร.",
+        "ร่างรายงาน",
+        "ตามคดี",
+        "ตารางเวร",
+        "แปลภาษาต่างประเทศ",
+        "ดวง"
+      ],
+      "workflows": [
+        "รับเรื่อง",
+        "สอบสวน",
+        "รายงานผู้บังคับ",
+        "ปิดเรื่อง"
+      ],
+      "kpis": [
+        "คดีปิด",
+        "SLA",
+        "คะแนนประเมิน"
+      ]
+    },
+    {
+      "id": "office",
+      "name": "พนักงานบริษัท",
+      "name_en": "Office Worker",
+      "emoji": "💼",
+      "color": "#0EA5E9",
+      "tagline": "ผู้ช่วยพนักงาน · email · slide · เพิ่มผลิตภาพ",
+      "features": [
+        "ร่างอีเมล",
+        "สรุปประชุม",
+        "ทำ slide",
+        "สรุปเอกสาร",
+        "ดูแลตารางงาน",
+        "วันลา/วันหยุด"
+      ],
+      "workflows": [
+        "เริ่มงาน",
+        "ระหว่างวัน",
+        "สิ้นวัน",
+        "สรุปสัปดาห์"
+      ],
+      "kpis": [
+        "ชั่วโมงงาน",
+        "tasks เสร็จ",
+        "KPI ราย Q"
+      ]
+    },
+    {
+      "id": "homemaker",
+      "name": "แม่บ้าน/พ่อบ้าน",
+      "name_en": "Homemaker",
+      "emoji": "🏠",
+      "color": "#F472B6",
+      "tagline": "เพื่อนแม่บ้าน · สูตรอาหาร · ของใช้ · ลูก",
+      "features": [
+        "สูตรอาหารรายวัน",
+        "ราคาตลาดสด",
+        "ดูแลลูก",
+        "งานบ้าน schedule",
+        "งบรายเดือน",
+        "โปรโมชั่นห้าง"
+      ],
+      "workflows": [
+        "เช้า-ตักบาตร",
+        "กลางวัน-ทำกับข้าว",
+        "เย็น-ลูกกลับ",
+        "ค่ำ-สรุปงาน"
+      ],
+      "kpis": [
+        "มื้อทำเอง",
+        "งบที่ประหยัด",
+        "ความสุขลูก"
+      ]
+    },
+    {
+      "id": "craftsman",
+      "name": "ช่างฝีมือ/ช่าง",
+      "name_en": "Craftsman",
+      "emoji": "🔧",
+      "color": "#92400E",
+      "tagline": "ผู้ช่วยช่าง · ราคา · นัด · บัญชี",
+      "features": [
+        "ราคาวัสดุ",
+        "นัดลูกค้า",
+        "ใบเสนอราคา",
+        "บัญชีงาน",
+        "ตามงานเก็บเงิน",
+        "โพสต์ผลงาน"
+      ],
+      "workflows": [
+        "รับงาน",
+        "วัด-quote",
+        "ทำ",
+        "ส่ง-เก็บเงิน"
+      ],
+      "kpis": [
+        "งาน/เดือน",
+        "margin",
+        "repeat client"
+      ]
+    },
+    {
+      "id": "driver",
+      "name": "ขับรถ/Taxi/Grab",
+      "name_en": "Driver",
+      "emoji": "🚖",
+      "color": "#FACC15",
+      "tagline": "เพื่อนคนขับ · แผนที่ · ราคา · ดูแลรถ",
+      "features": [
+        "เส้นทางเลี่ยงรถติด",
+        "ราคาน้ำมัน",
+        "นัดเซอร์วิส",
+        "สิทธิ์ประกันสังคม",
+        "ดวงเดินทาง",
+        "ฟังข่าวเสียง"
+      ],
+      "workflows": [
+        "เริ่มกะ",
+        "ระหว่างขับ",
+        "พักกินข้าว",
+        "ปิดกะ-สรุป"
+      ],
+      "kpis": [
+        "รายได้/วัน",
+        "ระยะ km",
+        "เรตติ้ง"
+      ]
+    },
+    {
+      "id": "chef",
+      "name": "เชฟ/ทำอาหาร",
+      "name_en": "Chef",
+      "emoji": "👨‍🍳",
+      "color": "#EF4444",
+      "tagline": "ผู้ช่วยเชฟ · เมนู · ต้นทุน · ลูกค้า",
+      "features": [
+        "คำนวณ recipe cost",
+        "menu engineering",
+        "แปลเมนู ENG",
+        "ราคาตลาดวัตถุดิบ",
+        "reservation",
+        "โปรโมท IG"
+      ],
+      "workflows": [
+        "prep",
+        "service",
+        "clean",
+        "stock-take"
+      ],
+      "kpis": [
+        "food cost%",
+        "plates/hr",
+        "review score"
+      ]
+    },
+    {
+      "id": "artist",
+      "name": "ศิลปิน/นักดนตรี",
+      "name_en": "Artist",
+      "emoji": "🎨",
+      "color": "#A855F7",
+      "tagline": "เพื่อนศิลปิน · ไอเดีย · ขายงาน · แสดง",
+      "features": [
+        "ไอเดียงาน",
+        "สร้างภาพ AI ประกอบ",
+        "เนื้อเพลง",
+        "กำหนดราคา commission",
+        "ลูกค้า inquiry",
+        "ตารางแสดง"
+      ],
+      "workflows": [
+        "concept",
+        "produce",
+        "promote",
+        "sell"
+      ],
+      "kpis": [
+        "ผลงานต่อเดือน",
+        "ราย",
+        "engagement"
+      ]
+    },
+    {
+      "id": "athlete",
+      "name": "นักกีฬา/โค้ช",
+      "name_en": "Athlete",
+      "emoji": "⚽",
+      "color": "#10B981",
+      "tagline": "ผู้ช่วยนักกีฬา · ฟิต · โภชนาการ · แข่ง",
+      "features": [
+        "meal plan",
+        "training log",
+        "วิเคราะห์คู่แข่ง",
+        "สรุปสถิติ",
+        "ดวงแข่ง",
+        "สิทธิ์รักษา injury"
+      ],
+      "workflows": [
+        "off-season",
+        "pre-season",
+        "season",
+        "recovery"
+      ],
+      "kpis": [
+        "fitness score",
+        "wins",
+        "PR"
+      ]
+    },
+    {
+      "id": "patient",
+      "name": "ผู้ป่วย/พิการ",
+      "name_en": "Patient/Disability",
+      "emoji": "🦽",
+      "color": "#06B6D4",
+      "tagline": "เพื่อนผู้ป่วย · ยา · นัดหมอ · สิทธิ์",
+      "features": [
+        "เตือนกินยา",
+        "นัดหมอ-รพ.",
+        "สิทธิ์ผู้พิการ/บัตรทอง",
+        "กำลังใจ",
+        "วินิจฉัยคำที่หมอพูด",
+        "ติดต่อครอบครัว"
+      ],
+      "workflows": [
+        "routine ดูแล",
+        "เหตุฉุกเฉิน",
+        "นัด follow-up",
+        "คลีนิคใกล้บ้าน"
+      ],
+      "kpis": [
+        "adherence",
+        "admissions",
+        "mood"
+      ]
+    },
+    {
+      "id": "jobseeker",
+      "name": "คนหางาน",
+      "name_en": "Jobseeker",
+      "emoji": "📄",
+      "color": "#F97316",
+      "tagline": "ผู้ช่วยหางาน · resume · สัมภาษณ์ · skill",
+      "features": [
+        "เขียน resume",
+        "ฝึกสัมภาษณ์",
+        "หางานตรง",
+        "skill assessment",
+        "สิทธิ์ว่างงาน ปกส.",
+        "ดวงสมัครงาน"
+      ],
+      "workflows": [
+        "update resume",
+        "apply",
+        "interview prep",
+        "negotiate"
+      ],
+      "kpis": [
+        "applications",
+        "interviews",
+        "offers"
+      ]
+    },
+    {
+      "id": "migrant",
+      "name": "แรงงานต่างด้าว/ลี้ภัย",
+      "name_en": "Migrant",
+      "emoji": "🌏",
+      "color": "#84CC16",
+      "tagline": "เพื่อนแรงงาน · แปลภาษา · สิทธิ์ · ส่งเงิน",
+      "features": [
+        "แปลไทย-เมียนมา/ลาว/เขมร",
+        "สิทธิ์แรงงาน",
+        "ส่งเงินกลับบ้าน",
+        "หาที่พัก",
+        "ตม. visa renewal",
+        "ติดต่อกงสุล"
+      ],
+      "workflows": [
+        "entry",
+        "work",
+        "monthly remit",
+        "exit"
+      ],
+      "kpis": [
+        "legal status",
+        "wages",
+        "savings"
+      ]
+    },
+    {
+      "id": "aviation",
+      "name": "นักบิน/ลูกเรือ",
+      "name_en": "Aviation",
+      "emoji": "✈️",
+      "color": "#3B82F6",
+      "tagline": "ผู้ช่วยลูกเรือ · ตาราง · weather · ภาษา",
+      "features": [
+        "weather route",
+        "ตารางบิน",
+        "ภาษาอังกฤษ aviation",
+        "สรุปประกาศ",
+        "สิทธิ์ที่พัก",
+        "ดวงเดินทาง"
+      ],
+      "workflows": [
+        "pre-flight",
+        "flight",
+        "post-flight",
+        "rest"
+      ],
+      "kpis": [
+        "flights/mo",
+        "on-time",
+        "fatigue"
+      ]
+    },
+    {
+      "id": "tourism",
+      "name": "ไกด์/โรงแรม",
+      "name_en": "Tourism",
+      "emoji": "🏨",
+      "color": "#14B8A6",
+      "tagline": "ผู้ช่วยท่องเที่ยว · ลูกค้า · แปล · จอง",
+      "features": [
+        "ทักทายภาษาต่างประเทศ",
+        "สถานที่แนะนำ",
+        "แปลเมนู",
+        "ราคาตั๋ว",
+        "review",
+        "โปรแกรมทัวร์"
+      ],
+      "workflows": [
+        "รับลูกค้า",
+        "นำเที่ยว",
+        "บริการ",
+        "ส่งกลับ"
+      ],
+      "kpis": [
+        "tips",
+        "reviews",
+        "repeat"
+      ]
+    },
+    {
+      "id": "fisherman",
+      "name": "ประมง/ชาวเล",
+      "name_en": "Fisherman",
+      "emoji": "🎣",
+      "color": "#0284C7",
+      "tagline": "ผู้ช่วยชาวประมง · คลื่น · ราคา · ตลาด",
+      "features": [
+        "พยากรณ์คลื่น",
+        "ราคาปลาท่าเรือ",
+        "สิทธิ์ประมง",
+        "ขายผ่าน LINE",
+        "ดวงออกเรือ",
+        "ติดตามเครื่องมือ"
+      ],
+      "workflows": [
+        "ออกเรือ",
+        "จับปลา",
+        "กลับท่า",
+        "ขาย"
+      ],
+      "kpis": [
+        "catch/trip",
+        "ราคา",
+        "น้ำมัน cost"
+      ]
+    },
+    {
+      "id": "livestock",
+      "name": "ปศุสัตว์/เลี้ยงสัตว์",
+      "name_en": "Livestock",
+      "emoji": "🐄",
+      "color": "#65A30D",
+      "tagline": "ผู้ช่วยเลี้ยงสัตว์ · สุขภาพ · ราคา · อาหาร",
+      "features": [
+        "ราคาสุกร/โค",
+        "อาหารสัตว์ลด cost",
+        "วัคซีน schedule",
+        "วินิจฉัยจากภาพ",
+        "ตลาดส่งออก",
+        "ดวงเลี้ยง"
+      ],
+      "workflows": [
+        "feed",
+        "วัคซีน",
+        "ผสมพันธุ์",
+        "ขาย"
+      ],
+      "kpis": [
+        "FCR",
+        "weight gain",
+        "margin"
+      ]
+    },
+    {
+      "id": "investor",
+      "name": "นักลงทุน/เทรดเดอร์",
+      "name_en": "Investor",
+      "emoji": "📈",
+      "color": "#0F766E",
+      "tagline": "ผู้ช่วยนักลงทุน · ตลาด · วิเคราะห์ · ดวงเงิน",
+      "features": [
+        "ราคา SET/crypto",
+        "วิเคราะห์งบการเงิน",
+        "สรุปข่าวเศรษฐกิจ",
+        "portfolio tracker",
+        "ภาษีกำไร",
+        "ดวงลงทุน"
+      ],
+      "workflows": [
+        "research",
+        "entry",
+        "monitor",
+        "exit"
+      ],
+      "kpis": [
+        "return",
+        "sharpe",
+        "drawdown"
+      ]
+    },
+    {
+      "id": "entrepreneur",
+      "name": "Startup/Entrepreneur",
+      "name_en": "Entrepreneur",
+      "emoji": "🚀",
+      "color": "#9333EA",
+      "tagline": "เพื่อน startup · pitch · growth · fundraise",
+      "features": [
+        "business plan",
+        "competitive analysis",
+        "investor email",
+        "financial model",
+        "growth hack",
+        "ดวงผู้ก่อตั้ง"
+      ],
+      "workflows": [
+        "idea",
+        "MVP",
+        "growth",
+        "scale/exit"
+      ],
+      "kpis": [
+        "MRR",
+        "CAC",
+        "runway"
+      ]
+    },
+    {
+      "id": "freelancer",
+      "name": "ฟรีแลนซ์",
+      "name_en": "Freelancer",
+      "emoji": "💻",
+      "color": "#DB2777",
+      "tagline": "ผู้ช่วยฟรีแลนซ์ · client · invoice · skill",
+      "features": [
+        "proposal",
+        "invoice",
+        "ตามเก็บเงิน",
+        "portfolio",
+        "upwork/fastwork",
+        "ภาษี ภงด.90"
+      ],
+      "workflows": [
+        "pitch",
+        "scope",
+        "deliver",
+        "invoice"
+      ],
+      "kpis": [
+        "clients",
+        "ราย",
+        "พักผ่อน"
+      ]
+    },
+    {
+      "id": "politician",
+      "name": "นักการเมือง",
+      "name_en": "Politician",
+      "emoji": "🗳️",
+      "color": "#7C2D12",
+      "tagline": "ผู้ช่วยนักการเมือง · กฎหมาย · ประชาชน · แถลง",
+      "features": [
+        "ค้นกฎหมาย/มติ",
+        "ร่างคำปราศรัย",
+        "สรุปประชาชนร้อง",
+        "เตรียมประชุมสภา",
+        "แถลงข่าว",
+        "ดวงการเมือง"
+      ],
+      "workflows": [
+        "รับเรื่องราษฎร",
+        "ผลักดันกฎหมาย",
+        "แถลงข่าว",
+        "หาเสียง"
+      ],
+      "kpis": [
+        "เรื่อง",
+        "คะแนนเสียง",
+        "สื่อ"
+      ]
+    },
+    {
+      "id": "researcher",
+      "name": "นักวิจัย/นักวิชาการ",
+      "name_en": "Researcher",
+      "emoji": "🔬",
+      "color": "#1D4ED8",
+      "tagline": "ผู้ช่วยวิจัย · paper · data · ทุน",
+      "features": [
+        "literature review",
+        "แปล paper",
+        "วิเคราะห์ข้อมูล",
+        "เขียน abstract",
+        "หา grant",
+        "ตีพิมพ์"
+      ],
+      "workflows": [
+        "proposal",
+        "experiment",
+        "analyze",
+        "publish"
+      ],
+      "kpis": [
+        "papers",
+        "citations",
+        "grants"
+      ]
+    },
+    {
+      "id": "ngo",
+      "name": "NGO/นักสังคมสงเคราะห์",
+      "name_en": "NGO",
+      "emoji": "🤝",
+      "color": "#BE185D",
+      "tagline": "ผู้ช่วย NGO · case · ระดมทุน · impact",
+      "features": [
+        "case management",
+        "fundraise email",
+        "impact report",
+        "หาทรัพยากร",
+        "ติดต่อรัฐ",
+        "ดวงให้กำลังใจ"
+      ],
+      "workflows": [
+        "intake",
+        "support",
+        "monitor",
+        "graduate"
+      ],
+      "kpis": [
+        "beneficiaries",
+        "funds",
+        "impact"
+      ]
+    },
+    {
+      "id": "fortune",
+      "name": "โหร/ผู้พยากรณ์",
+      "name_en": "Fortune Teller",
+      "emoji": "🔮",
+      "color": "#A21CAF",
+      "tagline": "ผู้ช่วยโหร · ดวง · ฤกษ์ · นัดลูกค้า",
+      "features": [
+        "คำนวณดวง",
+        "ฤกษ์งามยามดี",
+        "ตำราโหร",
+        "นัดลูกค้า",
+        "quote ราคา",
+        "สูตรสะเดาะ"
+      ],
+      "workflows": [
+        "รับนัด",
+        "ดูดวง",
+        "แนะนำ",
+        "ตามผล"
+      ],
+      "kpis": [
+        "sessions",
+        "ค่าครู",
+        "review"
+      ]
+    },
+    {
+      "id": "celebrity",
+      "name": "ดารา/Influencer",
+      "name_en": "Celebrity",
+      "emoji": "⭐",
+      "color": "#E11D48",
+      "tagline": "ผู้ช่วยดารา · brief · script · แฟน",
+      "features": [
+        "script ad",
+        "ตอบ DM แฟน",
+        "brief แบรนด์",
+        "สรุปกระแส",
+        "schedule",
+        "ดวงงาน"
+      ],
+      "workflows": [
+        "brief",
+        "produce",
+        "post",
+        "analyze"
+      ],
+      "kpis": [
+        "followers",
+        "engagement",
+        "brand deals"
+      ]
+    },
+    {
+      "id": "expat",
+      "name": "คนต่างชาติในไทย",
+      "name_en": "Expat",
+      "emoji": "🌐",
+      "color": "#475569",
+      "tagline": "PHAT for expats · TH-EN · visa · daily",
+      "features": [
+        "TH-EN translate",
+        "visa/work permit",
+        "Thai culture",
+        "banking",
+        "health",
+        "weather"
+      ],
+      "workflows": [
+        "arrive",
+        "settle",
+        "work",
+        "renew"
+      ],
+      "kpis": [
+        "docs valid",
+        "integration",
+        "comfort"
+      ]
+    }
   ]
 }
