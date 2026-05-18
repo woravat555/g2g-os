@@ -1,0 +1,28 @@
+{
+  "common_modules": [
+    {"id":"dashboard","name":"Dashboard","emoji":"📊","desc":"ภาพรวมประจำวัน · KPI · alerts"},
+    {"id":"members","name":"สมาชิก/ลูกค้า","emoji":"👥","desc":"ทะเบียน · ค้น · เพิ่ม · profile"},
+    {"id":"today","name":"งานวันนี้","emoji":"📅","desc":"รับงาน · บันทึก · ปิดงาน"},
+    {"id":"calendar","name":"ปฏิทิน","emoji":"🗓️","desc":"นัด · กำหนด · reminder"},
+    {"id":"invoice","name":"ใบเสร็จ/Invoice","emoji":"🧾","desc":"ใบเสร็จ · กำกับภาษี · ส่งสินค้า"},
+    {"id":"reports","name":"รายงาน","emoji":"📈","desc":"วิเคราะห์ประกอบการ"},
+    {"id":"catalog","name":"บริการ & ราคา","emoji":"💰","desc":"Service catalog · price list"},
+    {"id":"inventory","name":"สต๊อก/วัสดุ","emoji":"📦","desc":"การเคลื่อนไหว · low-stock alert"},
+    {"id":"pos","name":"POS · ขายหน้าร้าน","emoji":"🛒","desc":"ขาย · ตัดสต๊อก · พิมพ์ใบเสร็จ"},
+    {"id":"expenses","name":"รายจ่าย","emoji":"📝","desc":"OpEx · VAT/WHT calculation"},
+    {"id":"hr","name":"HR & เงินเดือน","emoji":"👨‍💼","desc":"จ้าง · ลา · ประเมิน · payroll"},
+    {"id":"pnl","name":"กำไร-ขาดทุน","emoji":"💹","desc":"P&L · revenue · COGS · OpEx · Net"},
+    {"id":"tax","name":"ภาษี & ใบอนุญาต","emoji":"🏛️","desc":"ภาษี · ใบอนุญาต · ต่ออายุ"},
+    {"id":"copilot","name":"AI Co-pilot","emoji":"💬","desc":"ปรึกษา AI · วิเคราะห์เคส"},
+    {"id":"suggestions","name":"AI Suggestions","emoji":"🤖","desc":"รอการพิจารณา · approve"},
+    {"id":"framework","name":"Framework","emoji":"📚","desc":"มาตรฐาน · SOP · best practices"},
+    {"id":"staff","name":"เจ้าหน้าที่","emoji":"🧑‍💼","desc":"ทีม · roles · permissions"},
+    {"id":"mlm","name":"MLM Network","emoji":"🌐","desc":"แนะนำต่อ · สร้างรายได้ · downline"},
+    {"id":"line","name":"LINE OA","emoji":"📱","desc":"กด broadcast · chat · template"},
+    {"id":"history","name":"ประวัติ","emoji":"📂","desc":"timeline · search · audit log"},
+    {"id":"activity","name":"Activity Log","emoji":"📋","desc":"บันทึก + AI trend"},
+    {"id":"vault","name":"Knowledge Vault","emoji":"🔒","desc":"ความรู้เฉพาะทาง · encrypted"},
+    {"id":"ocr","name":"OCR · สแกนเอกสาร","emoji":"✍️","desc":"อ่านลายมือ · doc → text"},
+    {"id":"power","name":"Processing Power","emoji":"⚡","desc":"compute · tokens · quota"}
+  ]
+}

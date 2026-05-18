@@ -3,45 +3,1310 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ปศุสัตว์/เลี้ยงสัตว์ · professional · PHAT</title>
+<title>PHAT ปศุสัตว์/เลี้ยงสัตว์ · Professional Portal · 24 modules</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root { --brand: #65A30D; --brand-soft: #65A30D22; --line: rgba(0,0,0,0.08); --ink-1: #0A1628; --ink-2: #4B5563; --ink-3: #9CA3AF; --bg-app: #FAFAF9; --bg-sidebar: #fff; --bg-card: #fff; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Sarabun', sans-serif; background: #FAFAF9; color: #0A1628; min-height: 100vh; }
-.hero { background: linear-gradient(135deg, #65A30D, #0A1628); color: #fff; padding: 60px 24px; text-align: center; }
-.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; margin: 12px 0 10px; }
-.hero h1 em { color: #FFD700; font-style: normal; }
-.hero p { opacity: 0.85; font-size: 17px; max-width: 600px; margin: 0 auto; }
-.section { max-width: 900px; margin: 40px auto; padding: 0 24px; }
-.section h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin: 32px 0 16px; color: #65A30D; }
-.section p { font-size: 16px; line-height: 1.7; color: #374151; margin-bottom: 12px; }
-.grid-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 700px) { .grid-list { grid-template-columns: 1fr; } }
-.grid-list li { background: #fff; border: 1px solid #E5E7EB; border-radius: 10px; padding: 12px 16px; font-size: 14.5px; }
-.grid-list li a { color: #65A30D; text-decoration: none; }
-.nav-cards { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
-.nav-cards a { background: rgba(255,255,255,0.15); color: #fff; padding: 10px 18px; border-radius: 999px; text-decoration: none; font-size: 13.5px; border: 1px solid rgba(255,255,255,0.3); }
-.nav-cards a:hover { background: rgba(255,255,255,0.25); }
-.btn-line { display: inline-block; padding: 14px 32px; background: #06C755; color: #fff; border-radius: 999px; text-decoration: none; font-weight: 700; margin-top: 16px; }
-footer { text-align: center; padding: 30px 20px; color: #6B7280; font-size: 13px; background: #fff; border-top: 1px solid #E5E7EB; }
-footer a { color: #65A30D; margin: 0 8px; text-decoration: none; }
+body { font-family: 'Sarabun', sans-serif; background: var(--bg-app); color: var(--ink-1); display: flex; min-height: 100vh; }
+.sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--line); overflow-y: auto; max-height: 100vh; position: sticky; top: 0; }
+.sidebar-h { padding: 18px 16px; border-bottom: 1px solid var(--line); background: linear-gradient(135deg, var(--brand), #0A1628); color: #fff; }
+.sidebar-h h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; }
+.sidebar-h .sub { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid #F3F4F6; color: var(--ink-1); text-decoration: none; font-size: 13.5px; transition: background 0.15s; }
+.nav-item:hover { background: var(--brand-soft); }
+.nav-item.active { background: var(--brand-soft); border-left: 3px solid var(--brand); }
+.nav-item .ico { font-size: 16px; }
+.main { flex: 1; padding: 24px; max-width: calc(100% - 260px); }
+.mod { display: none; }
+.mod.active { display: block; animation: fadeIn 0.2s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.mod-h { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 12px; }
+.mod-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--brand); }
+.mod-sub { color: var(--ink-2); font-size: 13.5px; margin-top: 4px; }
+.mod-actions { display: flex; gap: 8px; }
+.btn-pri { padding: 8px 16px; background: var(--brand); color: #fff; border: 0; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.btn-sec { padding: 8px 16px; background: #fff; color: var(--ink-1); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.btn-sm { padding: 6px 12px; background: #fff; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 12px; color: var(--ink-1); }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+@media (max-width: 800px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } .sidebar { display: none; } .main { max-width: 100%; } }
+.kpi { background: var(--bg-card); padding: 16px; border-radius: 10px; border: 1px solid var(--line); text-align: center; }
+.kpi-v { font-size: 28px; font-weight: 700; color: var(--brand); line-height: 1; }
+.kpi-l { font-size: 11px; color: var(--ink-3); text-transform: uppercase; margin-top: 6px; letter-spacing: 0.04em; }
+.grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+.panel { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+.panel h3 { font-size: 14px; margin-bottom: 14px; color: var(--ink-1); }
+.t-data { width: 100%; font-size: 13px; }
+.t-data th { text-align: left; padding: 8px; border-bottom: 1px solid var(--line); color: var(--ink-3); font-size: 11px; text-transform: uppercase; }
+.t-data td { padding: 10px 8px; border-bottom: 1px solid #F3F4F6; }
+.t-data .empty { text-align: center; color: var(--ink-3); padding: 24px; }
+.ai-card { background: var(--brand-soft); border-radius: 8px; padding: 12px; margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+.ai-card strong { color: var(--brand); }
+.quick-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.workflow-list { list-style: none; padding: 0; }
+.workflow-list li { padding: 10px 0; border-bottom: 1px dashed #F3F4F6; font-size: 13.5px; }
+.workflow-list li:last-child { border-bottom: 0; }
 </style>
 </head>
 <body>
-<div class="hero"><div style="font-size:48px">🐄</div><h1>🐄 ผู้เลี้ยง · Portal</h1><p>เครื่องมือสำหรับคนที่ทำอาชีพปศุสัตว์/เลี้ยงสัตว์</p></div>
-<div class="section">
-  <h2>🛠️ Tools สำหรับ ปศุสัตว์/เลี้ยงสัตว์</h2>
-  <ul class="grid-list"><li>✓ ราคาสุกร/โค</li><li>✓ อาหารสัตว์ลด cost</li><li>✓ วัคซีน schedule</li><li>✓ วินิจฉัยจากภาพ</li><li>✓ ตลาดส่งออก</li><li>✓ ดวงเลี้ยง</li></ul>
-  <h2>🔄 Workflow ประจำวัน</h2>
-  <ol class="grid-list"><li>1. feed</li><li>2. วัคซีน</li><li>3. ผสมพันธุ์</li><li>4. ขาย</li></ol>
-  <h2>📊 ติดตาม KPI</h2>
-  <ul class="grid-list"><li>📈 FCR</li><li>📈 weight gain</li><li>📈 margin</li></ul>
-  <p style="margin-top:24px"><a class="btn-line" href="https://line.me/R/ti/p/@280ezsqs">📲 เริ่มใช้ใน LINE</a></p>
-</div>
-<footer>
-<a href="index.html">หน้าแรก</a> · <a href="about.html">เกี่ยวกับ</a> · <a href="enter.html">เริ่มใช้</a> · <a href="professional.html">Professional</a> · <a href="client.html">Client</a> · <a href="manual.html">คู่มือ</a> · <a href="toc.html">สารบัญ</a>
-<br><br>
-<a href="/verticals/phat/">← 36 อาชีพ</a> · <a href="/start.html">PHAT</a> · <a href="/business.html">Business</a> · powered by G2G AgriTech
-</footer>
+
+<aside class="sidebar">
+  <div class="sidebar-h">
+    <h2>🐄 PHAT ปศุสัตว์/เลี้ยงสัตว์</h2>
+    <div class="sub">Professional Portal · 24 modules</div>
+  </div>
+  <a href="#dashboard" class="nav-item" data-mod="dashboard"><span class="ico">📊</span><span class="lbl">Dashboard</span></a>
+<a href="#members" class="nav-item" data-mod="members"><span class="ico">👥</span><span class="lbl">สมาชิก/ลูกค้า</span></a>
+<a href="#today" class="nav-item" data-mod="today"><span class="ico">📅</span><span class="lbl">งานวันนี้</span></a>
+<a href="#calendar" class="nav-item" data-mod="calendar"><span class="ico">🗓️</span><span class="lbl">ปฏิทิน</span></a>
+<a href="#invoice" class="nav-item" data-mod="invoice"><span class="ico">🧾</span><span class="lbl">ใบเสร็จ/Invoice</span></a>
+<a href="#reports" class="nav-item" data-mod="reports"><span class="ico">📈</span><span class="lbl">รายงาน</span></a>
+<a href="#catalog" class="nav-item" data-mod="catalog"><span class="ico">💰</span><span class="lbl">บริการ & ราคา</span></a>
+<a href="#inventory" class="nav-item" data-mod="inventory"><span class="ico">📦</span><span class="lbl">สต๊อก/วัสดุ</span></a>
+<a href="#pos" class="nav-item" data-mod="pos"><span class="ico">🛒</span><span class="lbl">POS · ขายหน้าร้าน</span></a>
+<a href="#expenses" class="nav-item" data-mod="expenses"><span class="ico">📝</span><span class="lbl">รายจ่าย</span></a>
+<a href="#hr" class="nav-item" data-mod="hr"><span class="ico">👨‍💼</span><span class="lbl">HR & เงินเดือน</span></a>
+<a href="#pnl" class="nav-item" data-mod="pnl"><span class="ico">💹</span><span class="lbl">กำไร-ขาดทุน</span></a>
+<a href="#tax" class="nav-item" data-mod="tax"><span class="ico">🏛️</span><span class="lbl">ภาษี & ใบอนุญาต</span></a>
+<a href="#copilot" class="nav-item" data-mod="copilot"><span class="ico">💬</span><span class="lbl">AI Co-pilot</span></a>
+<a href="#suggestions" class="nav-item" data-mod="suggestions"><span class="ico">🤖</span><span class="lbl">AI Suggestions</span></a>
+<a href="#framework" class="nav-item" data-mod="framework"><span class="ico">📚</span><span class="lbl">Framework</span></a>
+<a href="#staff" class="nav-item" data-mod="staff"><span class="ico">🧑‍💼</span><span class="lbl">เจ้าหน้าที่</span></a>
+<a href="#mlm" class="nav-item" data-mod="mlm"><span class="ico">🌐</span><span class="lbl">MLM Network</span></a>
+<a href="#line" class="nav-item" data-mod="line"><span class="ico">📱</span><span class="lbl">LINE OA</span></a>
+<a href="#history" class="nav-item" data-mod="history"><span class="ico">📂</span><span class="lbl">ประวัติ</span></a>
+<a href="#activity" class="nav-item" data-mod="activity"><span class="ico">📋</span><span class="lbl">Activity Log</span></a>
+<a href="#vault" class="nav-item" data-mod="vault"><span class="ico">🔒</span><span class="lbl">Knowledge Vault</span></a>
+<a href="#ocr" class="nav-item" data-mod="ocr"><span class="ico">✍️</span><span class="lbl">OCR · สแกนเอกสาร</span></a>
+<a href="#power" class="nav-item" data-mod="power"><span class="ico">⚡</span><span class="lbl">Processing Power</span></a>
+</aside>
+
+<main class="main">
+<section class="mod" id="dashboard" data-mod="dashboard">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📊 Dashboard</h1>
+      <p class="mod-sub">ภาพรวมประจำวัน · KPI · alerts</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('dashboard','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('dashboard','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Dashboard วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Dashboard เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Dashboard ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>Dashboard</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-dashboard"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-dashboard">วิเคราะห์ Dashboard ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-dashboard">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-dashboard">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('dashboard','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('dashboard','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('dashboard','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('dashboard','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ Dashboard</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="members" data-mod="members">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">👥 สมาชิก/ลูกค้า</h1>
+      <p class="mod-sub">ทะเบียน · ค้น · เพิ่ม · profile</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('members','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('members','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สมาชิก/ลูกค้า วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สมาชิก/ลูกค้า เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สมาชิก/ลูกค้า ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>สมาชิก/ลูกค้า</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-members"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-members">วิเคราะห์ สมาชิก/ลูกค้า ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-members">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-members">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('members','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('members','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('members','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('members','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ สมาชิก/ลูกค้า</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="today" data-mod="today">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📅 งานวันนี้</h1>
+      <p class="mod-sub">รับงาน · บันทึก · ปิดงาน</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('today','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('today','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">งานวันนี้ วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">งานวันนี้ เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">งานวันนี้ ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>งานวันนี้</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-today"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-today">วิเคราะห์ งานวันนี้ ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-today">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-today">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('today','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('today','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('today','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('today','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ งานวันนี้</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="calendar" data-mod="calendar">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🗓️ ปฏิทิน</h1>
+      <p class="mod-sub">นัด · กำหนด · reminder</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('calendar','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('calendar','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ปฏิทิน วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ปฏิทิน เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ปฏิทิน ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>ปฏิทิน</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-calendar"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-calendar">วิเคราะห์ ปฏิทิน ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-calendar">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-calendar">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('calendar','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('calendar','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('calendar','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('calendar','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ ปฏิทิน</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="invoice" data-mod="invoice">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🧾 ใบเสร็จ/Invoice</h1>
+      <p class="mod-sub">ใบเสร็จ · กำกับภาษี · ส่งสินค้า</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('invoice','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('invoice','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ใบเสร็จ/Invoice วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ใบเสร็จ/Invoice เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ใบเสร็จ/Invoice ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>ใบเสร็จ/Invoice</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-invoice"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-invoice">วิเคราะห์ ใบเสร็จ/Invoice ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-invoice">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-invoice">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('invoice','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('invoice','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('invoice','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('invoice','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ ใบเสร็จ/Invoice</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="reports" data-mod="reports">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📈 รายงาน</h1>
+      <p class="mod-sub">วิเคราะห์ประกอบการ</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('reports','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('reports','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายงาน วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายงาน เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายงาน ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>รายงาน</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-reports"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-reports">วิเคราะห์ รายงาน ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-reports">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-reports">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('reports','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('reports','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('reports','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('reports','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ รายงาน</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="catalog" data-mod="catalog">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">💰 บริการ & ราคา</h1>
+      <p class="mod-sub">Service catalog · price list</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('catalog','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('catalog','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">บริการ & ราคา วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">บริการ & ราคา เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">บริการ & ราคา ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>บริการ & ราคา</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-catalog"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-catalog">วิเคราะห์ บริการ & ราคา ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-catalog">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-catalog">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('catalog','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('catalog','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('catalog','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('catalog','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ บริการ & ราคา</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="inventory" data-mod="inventory">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📦 สต๊อก/วัสดุ</h1>
+      <p class="mod-sub">การเคลื่อนไหว · low-stock alert</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('inventory','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('inventory','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สต๊อก/วัสดุ วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สต๊อก/วัสดุ เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">สต๊อก/วัสดุ ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>สต๊อก/วัสดุ</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-inventory"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-inventory">วิเคราะห์ สต๊อก/วัสดุ ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-inventory">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-inventory">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('inventory','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('inventory','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('inventory','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('inventory','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ สต๊อก/วัสดุ</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="pos" data-mod="pos">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🛒 POS · ขายหน้าร้าน</h1>
+      <p class="mod-sub">ขาย · ตัดสต๊อก · พิมพ์ใบเสร็จ</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('pos','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('pos','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">POS · ขายหน้าร้าน วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">POS · ขายหน้าร้าน เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">POS · ขายหน้าร้าน ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>POS · ขายหน้าร้าน</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-pos"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-pos">วิเคราะห์ POS · ขายหน้าร้าน ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-pos">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-pos">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('pos','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('pos','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('pos','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('pos','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ POS · ขายหน้าร้าน</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="expenses" data-mod="expenses">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📝 รายจ่าย</h1>
+      <p class="mod-sub">OpEx · VAT/WHT calculation</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('expenses','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('expenses','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายจ่าย วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายจ่าย เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">รายจ่าย ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>รายจ่าย</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-expenses"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-expenses">วิเคราะห์ รายจ่าย ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-expenses">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-expenses">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('expenses','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('expenses','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('expenses','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('expenses','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ รายจ่าย</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="hr" data-mod="hr">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">👨‍💼 HR & เงินเดือน</h1>
+      <p class="mod-sub">จ้าง · ลา · ประเมิน · payroll</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('hr','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('hr','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">HR & เงินเดือน วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">HR & เงินเดือน เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">HR & เงินเดือน ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>HR & เงินเดือน</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-hr"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-hr">วิเคราะห์ HR & เงินเดือน ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-hr">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-hr">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('hr','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('hr','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('hr','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('hr','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ HR & เงินเดือน</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="pnl" data-mod="pnl">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">💹 กำไร-ขาดทุน</h1>
+      <p class="mod-sub">P&L · revenue · COGS · OpEx · Net</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('pnl','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('pnl','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">กำไร-ขาดทุน วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">กำไร-ขาดทุน เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">กำไร-ขาดทุน ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>กำไร-ขาดทุน</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-pnl"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-pnl">วิเคราะห์ กำไร-ขาดทุน ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-pnl">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-pnl">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('pnl','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('pnl','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('pnl','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('pnl','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ กำไร-ขาดทุน</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="tax" data-mod="tax">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🏛️ ภาษี & ใบอนุญาต</h1>
+      <p class="mod-sub">ภาษี · ใบอนุญาต · ต่ออายุ</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('tax','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('tax','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ภาษี & ใบอนุญาต วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ภาษี & ใบอนุญาต เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ภาษี & ใบอนุญาต ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>ภาษี & ใบอนุญาต</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-tax"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-tax">วิเคราะห์ ภาษี & ใบอนุญาต ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-tax">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-tax">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('tax','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('tax','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('tax','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('tax','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ ภาษี & ใบอนุญาต</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="copilot" data-mod="copilot">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">💬 AI Co-pilot</h1>
+      <p class="mod-sub">ปรึกษา AI · วิเคราะห์เคส</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('copilot','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('copilot','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Co-pilot วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Co-pilot เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Co-pilot ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>AI Co-pilot</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-copilot"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-copilot">วิเคราะห์ AI Co-pilot ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-copilot">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-copilot">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('copilot','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('copilot','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('copilot','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('copilot','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ AI Co-pilot</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="suggestions" data-mod="suggestions">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🤖 AI Suggestions</h1>
+      <p class="mod-sub">รอการพิจารณา · approve</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('suggestions','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('suggestions','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Suggestions วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Suggestions เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">AI Suggestions ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>AI Suggestions</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-suggestions"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-suggestions">วิเคราะห์ AI Suggestions ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-suggestions">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-suggestions">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('suggestions','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('suggestions','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('suggestions','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('suggestions','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ AI Suggestions</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="framework" data-mod="framework">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📚 Framework</h1>
+      <p class="mod-sub">มาตรฐาน · SOP · best practices</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('framework','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('framework','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Framework วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Framework เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Framework ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>Framework</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-framework"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-framework">วิเคราะห์ Framework ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-framework">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-framework">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('framework','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('framework','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('framework','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('framework','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ Framework</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="staff" data-mod="staff">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🧑‍💼 เจ้าหน้าที่</h1>
+      <p class="mod-sub">ทีม · roles · permissions</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('staff','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('staff','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เจ้าหน้าที่ วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เจ้าหน้าที่ เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เจ้าหน้าที่ ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>เจ้าหน้าที่</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-staff"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-staff">วิเคราะห์ เจ้าหน้าที่ ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-staff">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-staff">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('staff','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('staff','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('staff','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('staff','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ เจ้าหน้าที่</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="mlm" data-mod="mlm">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🌐 MLM Network</h1>
+      <p class="mod-sub">แนะนำต่อ · สร้างรายได้ · downline</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('mlm','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('mlm','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">MLM Network วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">MLM Network เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">MLM Network ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>MLM Network</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-mlm"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-mlm">วิเคราะห์ MLM Network ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-mlm">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-mlm">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('mlm','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('mlm','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('mlm','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('mlm','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ MLM Network</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="line" data-mod="line">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📱 LINE OA</h1>
+      <p class="mod-sub">กด broadcast · chat · template</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('line','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('line','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">LINE OA วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">LINE OA เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">LINE OA ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>LINE OA</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-line"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-line">วิเคราะห์ LINE OA ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-line">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-line">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('line','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('line','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('line','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('line','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ LINE OA</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="history" data-mod="history">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📂 ประวัติ</h1>
+      <p class="mod-sub">timeline · search · audit log</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('history','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('history','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ประวัติ วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ประวัติ เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">ประวัติ ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>ประวัติ</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-history"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-history">วิเคราะห์ ประวัติ ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-history">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-history">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('history','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('history','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('history','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('history','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ ประวัติ</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="activity" data-mod="activity">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">📋 Activity Log</h1>
+      <p class="mod-sub">บันทึก + AI trend</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('activity','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('activity','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Activity Log วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Activity Log เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Activity Log ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>Activity Log</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-activity"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-activity">วิเคราะห์ Activity Log ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-activity">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-activity">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('activity','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('activity','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('activity','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('activity','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ Activity Log</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="vault" data-mod="vault">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">🔒 Knowledge Vault</h1>
+      <p class="mod-sub">ความรู้เฉพาะทาง · encrypted</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('vault','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('vault','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Knowledge Vault วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Knowledge Vault เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Knowledge Vault ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>Knowledge Vault</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-vault"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-vault">วิเคราะห์ Knowledge Vault ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-vault">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-vault">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('vault','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('vault','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('vault','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('vault','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ Knowledge Vault</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="ocr" data-mod="ocr">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">✍️ OCR · สแกนเอกสาร</h1>
+      <p class="mod-sub">อ่านลายมือ · doc → text</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('ocr','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('ocr','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">OCR · สแกนเอกสาร วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">OCR · สแกนเอกสาร เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">OCR · สแกนเอกสาร ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>OCR · สแกนเอกสาร</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-ocr"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-ocr">วิเคราะห์ OCR · สแกนเอกสาร ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-ocr">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-ocr">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('ocr','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('ocr','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('ocr','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('ocr','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ OCR · สแกนเอกสาร</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+<section class="mod" id="power" data-mod="power">
+  <header class="mod-h">
+    <div>
+      <h1 class="mod-title">⚡ Processing Power</h1>
+      <p class="mod-sub">compute · tokens · quota</p>
+    </div>
+    <div class="mod-actions">
+      <button class="btn-sec" onclick="modAction('power','refresh')">🔄 Refresh</button>
+      <button class="btn-pri" onclick="modAction('power','add')">➕ Add</button>
+    </div>
+  </header>
+  <div class="mod-body">
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Processing Power วันนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Processing Power เดือนนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">Processing Power ปีนี้</div></div>
+      <div class="kpi"><div class="kpi-v">—</div><div class="kpi-l">เปลี่ยนแปลง</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="panel">
+        <h3>📊 ข้อมูลล่าสุด</h3>
+        <table class="t-data"><thead><tr><th>วันที่</th><th>Processing Power</th><th>สถานะ</th><th>Action</th></tr></thead>
+        <tbody id="tb-power"><tr><td colspan="4" class="empty">⏳ Loading from PHAT API...</td></tr></tbody></table>
+      </div>
+      <div class="panel">
+        <h3>🤖 AI Insights</h3>
+        <div class="ai-card"><strong>หนู PHAT แนะนำ:</strong> <span id="ai-power">วิเคราะห์ Processing Power ของ ปศุสัตว์/เลี้ยงสัตว์ แล้ว · กำลังประมวลผลแนวโน้ม...</span></div>
+        <div class="ai-card"><strong>Trend 7 วัน:</strong> <span id="tr-power">—</span></div>
+        <div class="ai-card"><strong>Alert:</strong> <span id="al-power">—</span></div>
+        <div class="quick-actions">
+          <button class="btn-sm" onclick="modAction('power','export')">📥 Export</button>
+          <button class="btn-sm" onclick="modAction('power','broadcast')">📣 Broadcast</button>
+          <button class="btn-sm" onclick="modAction('power','ai-deep')">🧠 AI deep analyze</button>
+          <button class="btn-sm" onclick="modAction('power','print')">🖨️ Print</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📋 Workflow steps สำหรับ Processing Power</h3>
+      <ol class="workflow-list">
+        <li>1. เข้าสู่หน้า · ดู KPI · ตรวจ alerts</li>
+        <li>2. เพิ่ม/แก้รายการ · บันทึก</li>
+        <li>3. AI วิเคราะห์ trend · แจ้งสิ่งผิดปกติ</li>
+        <li>4. ส่งรายงาน / broadcast / export</li>
+        <li>5. ติดตามผล + ปิด task</li>
+      </ol>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+const VID = "livestock";
+const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec';
+
+function showMod(id) {
+  document.querySelectorAll('.mod').forEach(m => m.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const t = document.getElementById(id);
+  if (t) t.classList.add('active');
+  document.querySelectorAll('[data-mod="' + id + '"]').forEach(n => {
+    if (n.classList.contains('nav-item')) n.classList.add('active');
+  });
+  loadModData(id);
+}
+
+async function loadModData(modId) {
+  // Load stats from PHAT API
+  try {
+    const r = await fetch(`${APPS_SCRIPT}?action=verticalStats&vertical=${VID}`);
+    const j = await r.json();
+    if (j.ok) {
+      const kpis = document.querySelectorAll(`#${modId} .kpi-v`);
+      if (kpis[0]) kpis[0].textContent = j.users || 0;
+      if (kpis[1]) kpis[1].textContent = j.totalTokens || 0;
+      if (kpis[2]) kpis[2].textContent = j.active24 || 0;
+      if (kpis[3]) kpis[3].textContent = '+' + Math.round((j.active24||0)/Math.max(1,j.users||1)*100) + '%';
+    }
+  } catch (e) {}
+}
+
+function modAction(modId, act) {
+  alert(`Action "${act}" on module "${modId}" of vertical "${VID}" — กำลังเชื่อม Apps Script endpoint (TODO: phase 2)`);
+}
+
+document.querySelectorAll('.nav-item').forEach(n => {
+  n.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = n.dataset.mod;
+    history.replaceState(null, '', '#' + id);
+    showMod(id);
+  });
+});
+
+// Init: select hash or first module
+const hash = location.hash.substring(1);
+showMod(hash || 'dashboard');
+</script>
 </body>
 </html>
