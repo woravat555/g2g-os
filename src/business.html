@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G2G สำหรับธุรกิจ · LIFF App + AI สำหรับบริษัทคุณ</title>
+<meta name="description" content="รับทำแอพบริษัท · LIFF + LINE OA + AI · เริ่มต้น 990 บาท/เดือน · ตัวอย่าง AIM Clinic, NK Law">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun','Inter',sans-serif; color: #0A1628; background: #fff; line-height: 1.6; }
+.hero { background: linear-gradient(135deg,#0A1628,#581C87); color: #fff; padding: 60px 20px 80px; text-align: center; }
+.hero-inner { max-width: 760px; margin: 0 auto; }
+.badge { display: inline-block; padding: 6px 16px; background: rgba(201,169,97,0.15); border: 1px solid rgba(201,169,97,0.4); border-radius: 999px; font-size: 13px; color: #C9A961; margin-bottom: 24px; }
+.hero h1 { font-family: 'Cormorant Garamond',serif; font-size: 46px; font-weight: 600; line-height: 1.15; margin-bottom: 18px; }
+.hero h1 em { color: #C9A961; font-style: normal; }
+.hero p { font-size: 17px; opacity: 0.85; margin-bottom: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; border: 0; font-family: inherit; }
+.btn-gold { background: #C9A961; color: #0A1628; }
+.btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); }
+.btn-line { background: #06C755; color: #fff; }
+
+.section { padding: 70px 20px; max-width: 1080px; margin: 0 auto; }
+.section h2 { font-family: 'Cormorant Garamond',serif; font-size: 36px; text-align: center; margin-bottom: 14px; }
+.section .lead { text-align: center; font-size: 16px; color: #4B5563; max-width: 560px; margin: 0 auto 40px; }
+
+.examples { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+@media (max-width: 800px) { .examples { grid-template-columns: 1fr; } .hero h1 { font-size: 32px; } }
+.example { background: #fff; border: 1px solid #E5E7EB; border-radius: 14px; overflow: hidden; }
+.example-img { aspect-ratio: 16/9; background: linear-gradient(135deg,#0A1628,#581C87); display: flex; align-items: center; justify-content: center; color: #C9A961; font-size: 28px; font-weight: 700; font-family: 'Cormorant Garamond',serif; }
+.example-body { padding: 20px; }
+.example-body h3 { font-size: 18px; margin-bottom: 6px; }
+.example-body .tag { display: inline-block; padding: 2px 10px; background: #F0FDF4; color: #16A34A; border-radius: 6px; font-size: 11px; margin-bottom: 10px; }
+.example-body p { font-size: 13.5px; color: #4B5563; }
+
+.pricing { background: #F9FAFB; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+@media (max-width: 900px) { .pricing-grid { grid-template-columns: 1fr; } }
+.tier { background: #fff; border: 2px solid #E5E7EB; border-radius: 18px; padding: 32px 26px; position: relative; }
+.tier.featured { border-color: #C9A961; box-shadow: 0 20px 40px rgba(201,169,97,0.15); }
+.tier .label { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #C9A961; color: #0A1628; padding: 4px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; }
+.tier h3 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.tier .target { font-size: 13px; color: #6B7280; margin-bottom: 16px; }
+.tier .price { font-size: 32px; font-weight: 700; }
+.tier .price .baht { color: #C9A961; }
+.tier .price .unit { font-size: 14px; color: #6B7280; font-weight: 400; }
+.tier .setup { font-size: 12px; color: #4B5563; margin-bottom: 18px; }
+.tier ul { list-style: none; margin: 18px 0; }
+.tier ul li { padding: 6px 0; font-size: 14px; color: #1F2937; display: flex; gap: 8px; }
+.tier ul li::before { content: '✓'; color: #16A34A; font-weight: 700; }
+.tier .btn-tier { display: block; width: 100%; padding: 12px; text-align: center; background: #0A1628; color: #fff; border-radius: 10px; text-decoration: none; font-weight: 600; margin-top: 18px; }
+.tier.featured .btn-tier { background: #C9A961; color: #0A1628; }
+
+.signup { background: #0A1628; color: #fff; padding: 70px 20px; }
+.signup-inner { max-width: 560px; margin: 0 auto; }
+.signup h2 { font-family: 'Cormorant Garamond',serif; font-size: 32px; text-align: center; margin-bottom: 12px; }
+.signup p { text-align: center; opacity: 0.8; margin-bottom: 30px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-grid .full { grid-column: 1/3; }
+input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-family: inherit; font-size: 14px; }
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.4); }
+label { display: block; font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 4px; margin-top: 8px; }
+#submit-btn { background: #C9A961; color: #0A1628; padding: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; margin-top: 20px; font-size: 15px; width: 100%; }
+#submit-result { margin-top: 16px; padding: 14px; border-radius: 10px; display: none; }
+
+footer { padding: 30px 20px; text-align: center; color: #9CA3AF; font-size: 13px; }
+footer a { color: #6B7280; text-decoration: none; margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge">🏢 G2G FOR BUSINESS</div>
+    <h1>เพิ่มขีดความสามารถบริษัท<br>ด้วย <em>LIFF App + AI</em></h1>
+    <p>แอพประจำตัวลูกค้า · AI ตอบ 24 ชม. · LINE Broadcast · เริ่มต้น 990 บาท/เดือน · ใช้งานได้ใน 24 ชั่วโมง</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="#pricing" class="btn btn-gold">ดูแพ็คเกจ</a>
+      <a href="https://line.me/R/ti/p/@280ezsqs" class="btn btn-line">ติดต่อทาง LINE</a>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>ตัวอย่างที่เราทำจริงแล้ว</h2>
+  <p class="lead">ลูกค้าจริงที่ใช้ G2G ในวันนี้</p>
+  <div class="examples">
+    <div class="example">
+      <div class="example-img">AIM</div>
+      <div class="example-body">
+        <span class="tag">คลินิก · Custom</span>
+        <h3>AIM Clinic</h3>
+        <p>ระบบคลินิก AI · นัดหมาย · บันทึกประวัติ · ที่ปรึกษา · เสียงนิวัตน์/เปรมวดี</p>
+      </div>
+    </div>
+    <div class="example">
+      <div class="example-img">NK</div>
+      <div class="example-body">
+        <span class="tag">สำนักทนาย · Custom</span>
+        <h3>NK Law</h3>
+        <p>ที่ปรึกษากฎหมาย AI · จัดทำเอกสาร · ติดตามคดี · งบ TOC</p>
+      </div>
+    </div>
+    <div class="example">
+      <div class="example-img" style="background:linear-gradient(135deg,#831843,#FCD34D)">LP</div>
+      <div class="example-body">
+        <span class="tag">จิวเวลรี่ · Enterprise</span>
+        <h3>Le Phaya Jewelry</h3>
+        <p>แอพประจำตัวลูกค้า · tier system · ดูดวง · subscription · payment</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section pricing" id="pricing">
+  <h2>แพ็คเกจที่ใช่สำหรับบริษัทท่าน</h2>
+  <p class="lead">เริ่มต้นเล็กๆ ขยายเมื่อพร้อม · ยกเลิกได้ทุกเดือน</p>
+  <div class="pricing-grid">
+    <div class="tier">
+      <h3>เริ่มต้น</h3>
+      <div class="target">ร้านค้า · SME · บุคคลธรรมดา</div>
+      <div class="price"><span class="baht">฿</span>990<span class="unit">/เดือน</span></div>
+      <div class="setup">ไม่มีค่า setup · เริ่มใช้ได้ทันที</div>
+      <ul>
+        <li>LIFF App ของบริษัท</li>
+        <li>LINE OA Light (ของท่านเอง)</li>
+        <li>AI Tutor 500 msg/เดือน</li>
+        <li>Customer database 100 ราย</li>
+        <li>Broadcast 100 ครั้ง/เดือน</li>
+        <li>Analytics dashboard</li>
+        <li>1 admin</li>
+      </ul>
+      <a href="#signup-form" data-plan="starter" class="btn-tier select-plan">เลือกแพ็คเกจนี้</a>
+    </div>
+    <div class="tier featured">
+      <div class="label">⭐ ยอดนิยม</div>
+      <h3>ธุรกิจ</h3>
+      <div class="target">บริษัท SMB · ลูกค้าระดับ AIM/NK</div>
+      <div class="price"><span class="baht">฿</span>4,900<span class="unit">/เดือน</span></div>
+      <div class="setup">+ ฿9,900 setup ครั้งเดียว</div>
+      <ul>
+        <li>ทุกอย่างจากเริ่มต้น</li>
+        <li>AI Tutor unlimited</li>
+        <li>Customer 5,000 ราย</li>
+        <li>Broadcast unlimited</li>
+        <li>Studio AI 500 use/เดือน</li>
+        <li>Payment integration</li>
+        <li>White-label LIFF</li>
+        <li>5 admins</li>
+        <li>Custom AI agent</li>
+      </ul>
+      <a href="#signup-form" data-plan="business" class="btn-tier select-plan">เลือกแพ็คเกจนี้</a>
+    </div>
+    <div class="tier">
+      <h3>เอ็นเทอร์ไพรซ์</h3>
+      <div class="target">องค์กรใหญ่ · ภาครัฐ · ห้าง</div>
+      <div class="price"><span class="baht">฿</span>19,900<span class="unit">/เดือน</span></div>
+      <div class="setup">+ ฿49,000 setup ครั้งเดียว</div>
+      <ul>
+        <li>ทุกอย่างจากธุรกิจ</li>
+        <li>Multiple AI agents</li>
+        <li>Studio AI unlimited</li>
+        <li>Customer unlimited</li>
+        <li>LINE + Email + SMS + Web</li>
+        <li>ERP/CRM integration</li>
+        <li>On-premise option</li>
+        <li>Dedicated manager</li>
+        <li>SLA 99.9% + PDPA audit</li>
+      </ul>
+      <a href="#signup-form" data-plan="enterprise" class="btn-tier select-plan">เลือกแพ็คเกจนี้</a>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:30px;font-size:14px;color:#6B7280">
+    ต้องการ Custom (เหมือน AIM Clinic / NK Law / Le Phaya) ขนาดใหญ่กว่า ติดต่อ <a href="mailto:g2g@gov2global.com" style="color:#C9A961">g2g@gov2global.com</a>
+  </p>
+</div>
+
+<div class="signup" id="signup-form">
+  <div class="signup-inner">
+    <h2>เริ่มใช้งานวันนี้</h2>
+    <p>กรอกฟอร์ม · เราจะติดต่อกลับใน 24 ชั่วโมง</p>
+    <div class="form-grid">
+      <div class="full">
+        <label>ชื่อองค์กร/บริษัท *</label>
+        <input id="f-name" type="text" placeholder="เช่น ร้านผลไม้คุณภาพ">
+      </div>
+      <div>
+        <label>ชื่อผู้ติดต่อ *</label>
+        <input id="f-contact" type="text" placeholder="ชื่อ-สกุล">
+      </div>
+      <div>
+        <label>เบอร์โทร *</label>
+        <input id="f-phone" type="tel" placeholder="08x-xxx-xxxx">
+      </div>
+      <div class="full">
+        <label>อีเมล</label>
+        <input id="f-email" type="email" placeholder="contact@example.com">
+      </div>
+      <div>
+        <label>หมวดธุรกิจ</label>
+        <select id="f-category">
+          <option value="retail">ค้าปลีก/ร้านค้า</option>
+          <option value="agriculture">เกษตร/ผลไม้</option>
+          <option value="service">บริการ</option>
+          <option value="government">หน่วยงานราชการ</option>
+          <option value="clinic">คลินิก/สุขภาพ</option>
+          <option value="education">การศึกษา</option>
+          <option value="manufacturing">การผลิต</option>
+          <option value="other">อื่นๆ</option>
+        </select>
+      </div>
+      <div>
+        <label>แพ็คเกจ</label>
+        <select id="f-plan">
+          <option value="starter">เริ่มต้น 990 บาท/เดือน</option>
+          <option value="business">ธุรกิจ 4,900 บาท/เดือน</option>
+          <option value="enterprise">เอ็นเทอร์ไพรซ์ 19,900 บาท/เดือน</option>
+        </select>
+      </div>
+      <div class="full">
+        <label>รายละเอียดเพิ่มเติม (optional)</label>
+        <textarea id="f-notes" rows="3" placeholder="ความต้องการพิเศษ / คำถาม"></textarea>
+      </div>
+    </div>
+    <button id="submit-btn" onclick="submitOrg()">📩 ส่งใบสมัคร</button>
+    <div id="submit-result"></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 G2G AgriTech</p>
+  <p>
+    <a href="/start.html">G2G สำหรับประชาชน</a> ·
+    <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ·
+    <a href="/terms">ข้อกำหนด</a> ·
+    <a href="mailto:g2g@gov2global.com">g2g@gov2global.com</a>
+  </p>
+</footer>
+
+<script>
+document.querySelectorAll('.select-plan').forEach(a => {
+  a.addEventListener('click', e => {
+    document.getElementById('f-plan').value = a.dataset.plan;
+  });
+});
+
+async function submitOrg() {
+  const name = document.getElementById('f-name').value.trim();
+  const contact = document.getElementById('f-contact').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if (!name || !contact || !phone) { alert('กรุณากรอกชื่อบริษัท · ผู้ติดต่อ · เบอร์โทร'); return; }
+  const out = document.getElementById('submit-result');
+  out.style.display = 'block';
+  out.style.background = 'rgba(201,169,97,0.15)';
+  out.style.color = '#C9A961';
+  out.textContent = 'กำลังส่งใบสมัคร...';
+  const body = {
+    orgName: name,
+    contactName: contact,
+    contactPhone: phone,
+    contactEmail: document.getElementById('f-email').value.trim(),
+    category: document.getElementById('f-category').value,
+    plan: document.getElementById('f-plan').value,
+    notes: document.getElementById('f-notes').value.trim()
+  };
+  try {
+    const r = await fetch('https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec?action=orgProvision', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(body)
+    });
+    const j = await r.json();
+    if (j.ok) {
+      out.style.background = '#F0FDF4'; out.style.color = '#16A34A';
+      out.innerHTML = '<strong>✅ ส่งใบสมัครเรียบร้อย</strong><br>รหัสอ้างอิง: ' + j.orgCode + '<br>' + j.nextStep + '<br><br>📲 <a href="https://line.me/R/ti/p/@280ezsqs" style="color:#06C755">เพิ่มเพื่อน LINE @G2G ประชาชน</a> เพื่อรับการติดต่อกลับเร็วที่สุด';
+    } else {
+      out.style.background = '#FEF2F2'; out.style.color = '#DC2626';
+      out.textContent = '❌ ' + (j.error || 'ส่งไม่สำเร็จ');
+    }
+  } catch (e) {
+    out.style.background = '#FEF2F2'; out.style.color = '#DC2626';
+    out.textContent = '❌ เกิดข้อผิดพลาด: ' + e;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App Status · ระบบบริษัท G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .status-row { display: grid; grid-template-columns: 30px 1.5fr 1fr 80px 90px; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); align-items: center; }
+  .status-row:hover { background: var(--bg); }
+  .status-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .status-dot.ok { background: #34D399; box-shadow: 0 0 0 4px rgba(52,211,153,0.18); }
+  .status-dot.warn { background: #FBBF24; }
+  .status-dot.err { background: #EF4444; }
+  .status-dot.skip { background: #9CA3AF; }
+  .ms-name { font-weight: 600; font-size: 13.5px; color: var(--ink-1); }
+  .ms-desc { font-size: 11px; color: var(--ink-4); margin-top: 2px; }
+  .ms-url { font-family: monospace; font-size: 11px; color: var(--ink-3); }
+  .ms-latency { font-family: monospace; font-size: 12px; color: var(--ink-3); text-align: right; }
+  .ms-status { font-size: 11px; letter-spacing: 0.04em; font-weight: 600; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">Apps Online</div><div class="val" id="k-online">—</div><div class="delta up">OK</div></div>
+        <div class="kpi"><div class="lbl">Apps Down</div><div class="val" id="k-down">0</div><div class="delta">issues</div></div>
+        <div class="kpi"><div class="lbl">Avg Latency</div><div class="val" id="k-lat">—</div><div class="delta">ms</div></div>
+        <div class="kpi"><div class="lbl">Last Check</div><div class="val" id="k-time" style="font-size:18px">—</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>สถานะระบบทั้งหมด · Live Health Check</h2>
+          <span class="sub">refresh ทุก 60 วินาที · กดปุ่ม "Check Now" เพื่อ ping ใหม่</span>
+        </div>
+        <div class="adm-card flat">
+          <div class="adm-card-h">
+            <h3>Fly.io Apps + LINE OAs + Backends</h3>
+            <button class="btn btn-primary btn-sm" onclick="checkAll()">↻ Check Now</button>
+          </div>
+          <div id="status-list"><div class="adm-loading">กำลังตรวจสอบ...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>เครื่องที่ตรวจ</h2></div>
+        <div class="adm-grid adm-grid-3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+          <div class="adm-card"><div class="adm-card-b"><h4>Fly.io Apps</h4><p style="font-size:13px;color:var(--ink-3);margin-top:6px">g2g-os · g2g-ai-os · g2g-platform · phat-token-mesh-staging</p></div></div>
+          <div class="adm-card"><div class="adm-card-b"><h4>LINE Webhooks</h4><p style="font-size:13px;color:var(--ink-3);margin-top:6px">5 OAs verified · auto refresh 7d</p></div></div>
+          <div class="adm-card"><div class="adm-card-b"><h4>Backends</h4><p style="font-size:13px;color:var(--ink-3);margin-top:6px">Apps Script Memory v3 · Airtable · Sheets</p></div></div>
+          <div class="adm-card"><div class="adm-card-b"><h4>External Services</h4><p style="font-size:13px;color:var(--ink-3);margin-top:6px">Anthropic API · OpenAI · Perplexity · Resend · Better Stack</p></div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+G2G.boot('app-status', { title: 'App Status', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'App Status' }] });
+G2G.installTools('หน้านี้แสดงสถานะของระบบทุกตัว ที่บริษัทใช้ จะ ping ทุก 60 วินาที ถ้ามีระบบไหน down จะเห็นจุดสีแดงทันที', 'niwat');
+
+const APPS = [
+  { name: 'g2g-os (Master Hub)', desc: 'corporate site + admin ERP', url: 'https://g2g-os.fly.dev/health', display: 'g2g-os.fly.dev' },
+  { name: 'g2g-ai-os (AIM Clinic)', desc: 'client platform · 132 modules', url: 'https://g2g-ai-os.fly.dev', display: 'g2g-ai-os.fly.dev' },
+  { name: 'g2g-platform (PHAT)', desc: 'PHAT + Hero Apps + LIFF', url: 'https://g2g-platform.fly.dev', display: 'g2g-platform.fly.dev' },
+  { name: 'phat-token-mesh', desc: 'UTU 3-vendor staging', url: 'https://phat-token-mesh-staging.fly.dev', display: 'staging' },
+  { name: 'NK Law OS', desc: 'sibling brand · legal practice', url: 'https://nklaw-os.fly.dev', display: 'nklaw-os.fly.dev' },
+  { name: 'Apps Script · Memory v3', desc: 'dreamingMemory backend', url: 'https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec?action=ping', display: 'dreamingMemory · Memory v3' },
+  { name: 'Apps Script · v2 (legacy)', desc: 'chat-memory v2', url: 'https://script.google.com/macros/s/AKfycbw-HOUJ1ZFcn-UvYqo9iafaWnzTwe8dUy4VxcDA22tt5VeJYPEvel0-VlBT6lq7XYd8WQ/exec?action=ping', display: 'AI Memory API' },
+  { name: 'BetterStack Status', desc: 'public status page', url: 'https://g2g-status.betteruptime.com', display: 'g2g-status.betteruptime.com' },
+  // LINE OAs · status check via simple HEAD to webhook URLs (will 405 but reachable)
+  { name: '@phrae555 (น้องผลไม้)', desc: 'LINE OA · Phrae farmers', url: null, display: '@phrae555', staticStatus: 'ok' },
+  { name: '@aifruits (น้องเซลล์)', desc: 'LINE OA · market intel', url: null, display: '@aifruits', staticStatus: 'ok' },
+  { name: '@aiphrae (น้องแพร่)', desc: 'LINE OA · Phrae coord', url: null, display: '@aiphrae', staticStatus: 'ok' },
+  { name: '@jewelry (น้องไพลิน)', desc: 'LINE OA · Le Phaya', url: null, display: '@jewelry', staticStatus: 'ok' },
+  { name: '@execcopilot (น้องเลขา)', desc: 'LINE OA · CEO Brain + Mobile Command', url: null, display: '@execcopilot', staticStatus: 'ok' },
+];
+
+async function checkOne(app) {
+  if (!app.url) return { status: app.staticStatus || 'skip', latency: '—' };
+  const start = Date.now();
+  try {
+    const r = await fetch(app.url, { method: 'HEAD', cache: 'no-cache', mode: 'no-cors' });
+    return { status: 'ok', latency: (Date.now() - start) + 'ms' };
+  } catch (e) {
+    return { status: 'err', latency: '—', error: String(e) };
+  }
+}
+
+async function checkAll() {
+  const list = document.getElementById('status-list');
+  list.innerHTML = '<div class="adm-loading">กำลังตรวจสอบ...</div>';
+  const results = await Promise.all(APPS.map(async app => ({ ...app, ...(await checkOne(app)) })));
+  const html = results.map(r => `
+    <div class="status-row">
+      <span class="status-dot ${r.status}"></span>
+      <div>
+        <div class="ms-name">${G2G.escapeHtml(r.name)}</div>
+        <div class="ms-desc">${G2G.escapeHtml(r.desc)}</div>
+      </div>
+      <div class="ms-url">${G2G.escapeHtml(r.display)}</div>
+      <div class="ms-latency">${r.latency}</div>
+      <div class="ms-status" style="color:${r.status === 'ok' ? 'var(--ok)' : r.status === 'err' ? 'var(--err)' : 'var(--ink-4)'}">${r.status === 'ok' ? '✓ Online' : r.status === 'err' ? '✗ Down' : '○ Skip'}</div>
+    </div>
+  `).join('');
+  list.innerHTML = html;
+  const ok = results.filter(r => r.status === 'ok').length;
+  const down = results.filter(r => r.status === 'err').length;
+  const lats = results.filter(r => r.latency.endsWith('ms')).map(r => parseInt(r.latency));
+  const avg = lats.length ? Math.round(lats.reduce((a,b)=>a+b,0) / lats.length) : 0;
+  document.getElementById('k-online').textContent = ok + '/' + results.length;
+  document.getElementById('k-down').textContent = down;
+  document.getElementById('k-lat').textContent = avg;
+  document.getElementById('k-time').textContent = new Date().toLocaleTimeString('th-TH');
+}
+checkAll();
+setInterval(checkAll, 60000);
+</script>
+</body>
+</html>

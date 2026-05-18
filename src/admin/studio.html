@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio · เครื่องมือสร้างสรรค์ · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+  .studio-tile { background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; cursor: pointer; transition: all .12s; }
+  .studio-tile:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-2); }
+  .studio-tile .ic { font-size: 32px; }
+  .studio-tile h4 { font-size: 15px; margin-top: 10px; }
+  .studio-tile .api { font-size: 11px; color: var(--ink-4); margin-top: 4px; }
+  .studio-tile .cost { display: inline-block; padding: 2px 8px; background: var(--gold-soft); color: var(--gold-deep); font-size: 11px; border-radius: 999px; margin-top: 8px; font-weight: 600; }
+  .panel { display: none; padding: 20px; background: var(--bg-card); border: 1px solid var(--line); border-radius: 12px; margin-top: 14px; }
+  .panel.active { display: block; }
+  .panel h3 { margin-bottom: 14px; }
+  .out { margin-top: 14px; padding: 14px; background: var(--bg); border-radius: 8px; min-height: 60px; font-size: 13px; white-space: pre-wrap; }
+  .out img { max-width: 100%; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero" style="--staff-color:#9333EA;background:linear-gradient(135deg,#9333EA 0%,#4F46E5 100%)">
+        <div class="role-line">🎨 Studio · เครื่องมือสร้างสรรค์</div>
+        <h1>G2G <em>Studio</em></h1>
+        <p>ภาพ · เสียง · วิดีโอ · แปลภาษา · OCR · PDF · LINE Broadcast · Mascot Pipeline · ทุกคนใช้ได้ · Token เก็บจากส่วนกลาง</p>
+      </div>
+
+      <div class="studio-grid" id="tools"></div>
+
+      <div class="panel" id="panel-image">
+        <h3>🎨 สร้างภาพ AI (Ideogram 3.0)</h3>
+        <textarea id="img-prompt" rows="3" placeholder="เช่น Imperial Fruitia durian premium box · gold royal navy background · luxury packaging" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <select id="img-aspect" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option value="1:1">1:1 (square)</option>
+            <option value="9:16">9:16 (portrait)</option>
+            <option value="16:9">16:9 (landscape)</option>
+          </select>
+          <button class="btn btn-primary" onclick="runImage()">สร้างภาพ · 40 tokens</button>
+        </div>
+        <div class="out" id="out-image"></div>
+      </div>
+
+      <div class="panel" id="panel-voice">
+        <h3>🔊 ลงเสียง TTS · Niwat/Premwadee</h3>
+        <textarea id="voice-text" rows="4" placeholder="พิมพ์ข้อความที่จะให้เสียงพูด..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <select id="voice-narrator" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option value="niwat">Niwat (ชาย)</option>
+            <option value="premwadee">Premwadee (หญิง)</option>
+          </select>
+          <select id="voice-rate" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option value="0.5">0.5x ช้า</option>
+            <option value="0.75">0.75x</option>
+            <option value="0.78" selected>0.78x (Iron Rule)</option>
+            <option value="1.0">1.0x ปกติ</option>
+            <option value="1.25">1.25x เร็ว</option>
+          </select>
+          <button class="btn btn-primary" onclick="runVoice()">ลงเสียง · ~$0.001/100chars</button>
+        </div>
+        <div class="out" id="out-voice"></div>
+      </div>
+
+      <div class="panel" id="panel-translate">
+        <h3>🌐 แปลภาษา</h3>
+        <textarea id="tr-text" rows="4" placeholder="ใส่ข้อความที่จะแปล..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;align-items:center">
+          <span>จาก</span>
+          <select id="tr-from" style="padding:8px;border:1px solid var(--line);border-radius:6px"><option value="">auto</option><option value="th">ไทย</option><option value="en">English</option></select>
+          <span>→</span>
+          <select id="tr-to" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option value="en">English</option><option value="th">ไทย</option>
+            <option value="kh">เขมร</option><option value="vi">เวียดนาม</option>
+            <option value="id">อินโดฯ</option><option value="zh">จีน</option>
+            <option value="ja">ญี่ปุ่น</option><option value="my">พม่า</option>
+          </select>
+          <button class="btn btn-primary" onclick="runTranslate()">แปล · 10 tokens</button>
+        </div>
+        <div class="out" id="out-translate"></div>
+      </div>
+
+      <div class="panel" id="panel-ocr">
+        <h3>📷 OCR · ดึงข้อความจากภาพ</h3>
+        <input type="text" id="ocr-url" placeholder="URL ของรูปภาพ" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px">
+        <button class="btn btn-primary" style="margin-top:10px" onclick="runOCR()">OCR · 20 tokens</button>
+        <div class="out" id="out-ocr"></div>
+      </div>
+
+      <div class="panel" id="panel-pdf">
+        <h3>📄 สร้าง PDF</h3>
+        <input type="text" id="pdf-title" placeholder="ชื่อเอกสาร" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;margin-bottom:10px">
+        <textarea id="pdf-content" rows="8" placeholder="เนื้อหา · ใช้ # header · ## subheader · ปกติเป็น paragraph" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="runPDF()">สร้าง PDF · 5 tokens</button>
+        <div class="out" id="out-pdf"></div>
+      </div>
+
+      <div class="panel" id="panel-summarize">
+        <h3>📝 สรุปข้อความยาว</h3>
+        <textarea id="sum-text" rows="8" placeholder="วางข้อความยาวที่ต้องการสรุป..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+          <select id="sum-style" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option value="bullet">Bullet (5-7 ข้อ)</option>
+            <option value="paragraph">Paragraph (2 ย่อหน้า)</option>
+            <option value="exec">Executive (3 bullets)</option>
+          </select>
+          <button class="btn btn-primary" onclick="runSummarize()">สรุป · 5 tokens</button>
+        </div>
+        <div class="out" id="out-summarize"></div>
+      </div>
+
+      <div class="panel" id="panel-broadcast">
+        <h3>📢 LINE OA Broadcast</h3>
+        <select id="bc-channel" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;margin-bottom:10px">
+          <option value="">เลือก channel...</option>
+          <option value="aifruits">@aifruits</option>
+          <option value="phrae555">@phrae555</option>
+          <option value="aiphrae">@aiphrae</option>
+          <option value="jewelry">@jewelry</option>
+          <option value="execcopilot">@execcopilot</option>
+        </select>
+        <textarea id="bc-msg" rows="4" placeholder="ข้อความที่จะ broadcast..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="runBroadcast()">📢 Broadcast · 50 tokens</button>
+        <div class="out" id="out-broadcast"></div>
+      </div>
+
+      <div class="panel" id="panel-mascot">
+        <h3>🐰 Mascot Video Pipeline (12 Iron Rules)</h3>
+        <select id="mascot-fruit" style="padding:10px;border:1px solid var(--line);border-radius:6px">
+          <option value="durian">ทุเรียน</option>
+          <option value="pomelo">ส้มโอ</option>
+          <option value="mayongchid">มะยงชิด</option>
+          <option value="longan">ลำไย</option>
+        </select>
+        <button class="btn btn-primary" style="margin-left:10px" onclick="runMascot()">เริ่ม pipeline · 2000 tokens</button>
+        <div class="out" id="out-mascot"></div>
+      </div>
+
+      <div class="panel" id="panel-video">
+        <h3>🎬 สร้างวิดีโอ (Veo3)</h3>
+        <textarea id="vid-prompt" rows="4" placeholder="prompt สำหรับ Veo3..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="runVideo()">สร้างวิดีโอ · 1000 tokens</button>
+        <div class="out" id="out-video"></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+G2G.boot('studio', { title: 'Studio · เครื่องมือสร้างสรรค์', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Studio' }] });
+G2G.installTools('Studio Hub รวมเครื่องมือ AI สำหรับสร้างภาพ ลงเสียง สร้างวิดีโอ แปลภาษา OCR PDF และ broadcast ข้อความ ทุกพนักงานใช้ได้ ค่าใช้จ่ายเก็บที่ส่วนกลาง', 'premwadee');
+
+const slug = (G2G.getUser() || {}).slug || 'company';
+
+const TOOLS = ['image','voice','video','translate','ocr','pdf','summarize','broadcast','mascot'];
+
+async function loadTools() {
+  const r = await G2G.api('studioListAll');
+  const tools = r.tools || [];
+  document.getElementById('tools').innerHTML = tools.map(t => `
+    <div class="studio-tile" onclick="showPanel('${t.id}')">
+      <div class="ic">${t.name.split(' ')[0]}</div>
+      <h4>${G2G.escapeHtml(t.name.replace(/^[^ ]+ /, ''))}</h4>
+      <div class="api">${G2G.escapeHtml(t.api)}</div>
+      <div class="cost">${G2G.escapeHtml(t.cost)}</div>
+    </div>
+  `).join('');
+}
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('panel-' + id);
+  if (el) { el.classList.add('active'); el.scrollIntoView({ behavior: 'smooth' }); }
+}
+
+async function runImage() {
+  const out = document.getElementById('out-image');
+  out.textContent = 'กำลังสร้างภาพ...';
+  const r = await G2G.apiPost('studioImage', { slug, prompt: document.getElementById('img-prompt').value, aspect: document.getElementById('img-aspect').value });
+  if (r.ok && r.url) out.innerHTML = `<img src="${r.url}"><div style="margin-top:8px"><a href="${r.url}" target="_blank">เปิดภาพ →</a></div>`;
+  else out.textContent = JSON.stringify(r, null, 2);
+}
+async function runVoice() {
+  const out = document.getElementById('out-voice');
+  out.textContent = 'กำลังลงเสียง...';
+  const r = await G2G.apiPost('studioVoice', { slug, text: document.getElementById('voice-text').value, narrator: document.getElementById('voice-narrator').value, rate: parseFloat(document.getElementById('voice-rate').value) });
+  if (r.ok && r.url) out.innerHTML = `<audio controls src="${r.url}" style="width:100%"></audio><div style="margin-top:8px"><a href="${r.url}" target="_blank">ดาวน์โหลด →</a></div>`;
+  else out.textContent = JSON.stringify(r, null, 2);
+}
+async function runTranslate() {
+  const out = document.getElementById('out-translate');
+  out.textContent = 'กำลังแปล...';
+  const r = await G2G.apiPost('studioTranslate', { slug, text: document.getElementById('tr-text').value, from: document.getElementById('tr-from').value, to: document.getElementById('tr-to').value });
+  out.textContent = r.ok ? r.translation : JSON.stringify(r);
+}
+async function runOCR() {
+  const out = document.getElementById('out-ocr');
+  out.textContent = 'กำลัง OCR...';
+  const r = await G2G.apiPost('studioOCR', { slug, imageUrl: document.getElementById('ocr-url').value });
+  out.textContent = r.ok ? r.text : JSON.stringify(r);
+}
+async function runPDF() {
+  const out = document.getElementById('out-pdf');
+  out.textContent = 'กำลังสร้าง PDF...';
+  const r = await G2G.apiPost('studioPDF', { slug, title: document.getElementById('pdf-title').value, content: document.getElementById('pdf-content').value });
+  out.innerHTML = r.ok ? `<a href="${r.pdfUrl}" target="_blank">📄 ดาวน์โหลด PDF</a> · <a href="${r.docUrl}" target="_blank">เปิด Doc</a>` : JSON.stringify(r);
+}
+async function runSummarize() {
+  const out = document.getElementById('out-summarize');
+  out.textContent = 'กำลังสรุป...';
+  const r = await G2G.apiPost('studioSummarize', { slug, text: document.getElementById('sum-text').value, style: document.getElementById('sum-style').value });
+  out.textContent = r.ok ? r.summary : JSON.stringify(r);
+}
+async function runBroadcast() {
+  if (!confirm('ยืนยัน broadcast ไปที่ ' + document.getElementById('bc-channel').value + '?\nข้อความนี้จะส่งหา followers ทุกคน · ใช้ token 50')) return;
+  const out = document.getElementById('out-broadcast');
+  out.textContent = 'กำลังส่ง...';
+  const r = await G2G.apiPost('studioLineBroadcast', { slug, channel: document.getElementById('bc-channel').value, message: document.getElementById('bc-msg').value });
+  out.textContent = JSON.stringify(r, null, 2);
+}
+async function runMascot() {
+  const out = document.getElementById('out-mascot');
+  out.textContent = 'กำลัง init pipeline...';
+  const r = await G2G.apiPost('studioMascotPipeline', { slug, fruit: document.getElementById('mascot-fruit').value });
+  out.textContent = JSON.stringify(r, null, 2);
+}
+async function runVideo() {
+  const out = document.getElementById('out-video');
+  out.textContent = 'กำลังคิว...';
+  const r = await G2G.apiPost('studioVideo', { slug, prompt: document.getElementById('vid-prompt').value });
+  out.textContent = JSON.stringify(r, null, 2);
+}
+
+loadTools();
+</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Push Invite · G2G</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .invite-card { background: linear-gradient(135deg,#F0FDF4,#FAFAF9); border: 2px solid #16A34A; border-radius: 14px; padding: 16px; margin-bottom: 10px; }
+  .invite-card .name { font-size: 16px; font-weight: 700; color: #0A1628; }
+  .invite-card .link { font-family: monospace; font-size: 12px; color: #16A34A; background: #fff; padding: 8px 12px; border-radius: 8px; margin-top: 8px; word-break: break-all; cursor: pointer; }
+  .invite-card .copy-btn { padding: 6px 14px; background: #0A1628; color: #fff; border: 0; border-radius: 8px; cursor: pointer; font-size: 12px; margin-top: 6px; }
+  textarea.bulk { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 8px; font-family: monospace; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero">
+        <div class="role-line">📩 Push Onboard · ส่งลิงก์ส่วนตัวให้ประชาชน</div>
+        <h1>📩 Invite</h1>
+        <p>กรอกชื่อ + ข้อมูล → ระบบสร้างลิงก์ส่วนตัว · คลิกแล้ว AI รู้จักทันที</p>
+      </div>
+
+      <div class="adm-grid adm-grid-2">
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>👤 สร้าง Invite ทีละคน</h3></div>
+          <div class="adm-card-b" style="display:grid;gap:8px">
+            <input id="i-name" placeholder="ชื่อ-นามสกุล *" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="i-province" placeholder="จังหวัด · เช่น แพร่" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="i-occupation" placeholder="อาชีพ · เช่น เกษตรกร, ค้าขาย, ครู" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="i-phone" placeholder="เบอร์โทร (optional)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="i-email" placeholder="อีเมล (optional)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="i-referrer" placeholder="ผู้แนะนำ slug (optional · เช่น toy)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <select id="i-tier" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+              <option value="Bronze">Bronze (เริ่มต้น)</option>
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold (VIP)</option>
+              <option value="Platinum">Platinum (ผู้นำชุมชน)</option>
+            </select>
+            <button class="btn btn-primary" onclick="createOne()">📩 สร้าง Invite</button>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>📋 สร้างหลายคน (Bulk)</h3></div>
+          <div class="adm-card-b">
+            <p style="font-size:12px;color:var(--ink-4);margin-bottom:8px">รูปแบบ 1 คน/บรรทัด: <code>ชื่อ,จังหวัด,อาชีพ,เบอร์</code></p>
+            <textarea id="bulk-input" class="bulk" rows="8" placeholder="สมชาย ใจดี, แพร่, เกษตรกร, 081-xxx-xxxx&#10;วิภา สุขสันต์, เชียงใหม่, ค้าขาย, 089-xxx-xxxx&#10;อนันต์ มั่งคั่ง, ลำปาง, ครู, 092-xxx-xxxx"></textarea>
+            <button class="btn btn-primary" onclick="createBulk()" style="margin-top:8px">📩 สร้าง Bulk Invites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>📨 ลิงก์ที่สร้างแล้ว (Session นี้)</h2></div>
+        <div id="results"></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>💡 วิธีใช้</h2></div>
+        <div class="adm-card flat">
+          <div class="adm-card-b" style="font-size:14px;line-height:1.9">
+            <ol style="padding-left:20px">
+              <li>ใส่ข้อมูลคนที่ท่านอยากให้ใช้ G2G (ชื่อ · จังหวัด · อาชีพ)</li>
+              <li>ระบบสร้าง <strong>ลิงก์ส่วนตัว</strong> ของแต่ละคน · ก๊อปไว้</li>
+              <li>ส่งลิงก์นั้นไปให้เขา ผ่าน LINE/SMS/Email/Facebook · พร้อมข้อความที่ระบบเตรียมให้</li>
+              <li>เขาคลิก → เห็นหน้า "สวัสดีคุณ[ชื่อ]" → กดเปิดในไลน์</li>
+              <li>ทันทีที่เปิด · AI จะ <strong>ส่งข้อความทักทาย</strong> + ปุ่มทำได้เลย</li>
+              <li>เขาคุยกับ AI ในไลน์ตามปกติ · ระบบรู้ว่าเขาเป็นใคร · ตอบเฉพาะเจาะจง</li>
+            </ol>
+            <hr style="margin:16px 0;border:0;border-top:1px solid var(--line)">
+            <strong>ประโยชน์ของ Push Onboard:</strong>
+            <ul style="padding-left:20px;margin-top:6px">
+              <li>ผู้ใช้ <strong>ไม่ต้องคิดว่าจะถามอะไร</strong> · มีปุ่มให้กด</li>
+              <li>AI <strong>เริ่มก่อน</strong> · "วันนี้ราคาทุเรียน 132 บาท · ดูราคาเต็มมั้ย?"</li>
+              <li>UX เหมือน "คุณรู้จักผมก่อน" · trust สูงทันที</li>
+              <li>Scale ได้ · 100 คน/ชม. ผ่าน bulk invite</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('invite', { title: 'Push Invite', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Invite' }] });
+
+async function createOne() {
+  const body = {
+    name: document.getElementById('i-name').value.trim(),
+    province: document.getElementById('i-province').value.trim(),
+    occupation: document.getElementById('i-occupation').value.trim(),
+    phone: document.getElementById('i-phone').value.trim(),
+    email: document.getElementById('i-email').value.trim(),
+    referrer: document.getElementById('i-referrer').value.trim(),
+    tier: document.getElementById('i-tier').value
+  };
+  if (!body.name) { alert('กรุณากรอกชื่อ'); return; }
+  const r = await G2G.apiPost('citizenPreRegister', body);
+  if (!r.ok) { alert(r.error || 'failed'); return; }
+  addResult(r);
+  ['i-name','i-province','i-occupation','i-phone','i-email','i-referrer'].forEach(id => document.getElementById(id).value = '');
+}
+
+async function createBulk() {
+  const lines = document.getElementById('bulk-input').value.split('\n').map(s => s.trim()).filter(Boolean);
+  if (!lines.length) { alert('กรุณากรอกข้อมูลอย่างน้อย 1 บรรทัด'); return; }
+  const contacts = lines.map(line => {
+    const [name, province, occupation, phone] = line.split(',').map(s => s.trim());
+    return { name, province: province||'', occupation: occupation||'', phone: phone||'' };
+  });
+  const masterKey = prompt('Master key:', '168147') || '';
+  const r = await G2G.apiPost('inviteBulkCreate', { masterKey, contacts });
+  if (!r.ok) { alert(r.error || 'failed'); return; }
+  r.results.forEach(addResult);
+  document.getElementById('bulk-input').value = '';
+}
+
+function addResult(r) {
+  const out = document.getElementById('results');
+  const div = document.createElement('div');
+  div.className = 'invite-card';
+  div.innerHTML = `
+    <div class="name">${G2G.escapeHtml(r.name || r.shortMessage || '-')}</div>
+    <div class="link" onclick="copyText(this.textContent)">${G2G.escapeHtml(r.inviteUrl || '-')}</div>
+    <textarea readonly style="width:100%;margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:6px;font-size:12px;height:60px">${G2G.escapeHtml(r.longMessage || r.shortMessage || '')}</textarea>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <button class="copy-btn" onclick="copyText('${G2G.escapeHtml(r.inviteUrl||'').replace(/'/g,'')}')">📋 Copy URL</button>
+      <button class="copy-btn" onclick="copyText(this.parentElement.previousElementSibling.value)">📋 Copy ข้อความ</button>
+      <button class="copy-btn" style="background:#06C755" onclick="window.open('https://line.me/R/share?text=' + encodeURIComponent(this.parentElement.previousElementSibling.value), '_blank')">💬 แชร์ใน LINE</button>
+    </div>`;
+  out.insertBefore(div, out.firstChild);
+}
+
+function copyText(t) {
+  navigator.clipboard.writeText(t).then(() => alert('คัดลอกแล้ว!'));
+}
+</script>
+</body>
+</html>

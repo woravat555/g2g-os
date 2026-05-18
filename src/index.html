@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://g2g-os.fly.dev/">
+<meta name="theme-color" content="#0A1628">
+<title>G2G · Gov2Global · Corporate OS</title>
+<meta name="description" content="G2G (Gov2Global) — บริษัทเอกชนไทย · ผลิตและจำหน่ายผลไม้พรีเมียม อัญมณี อาหารแปรรูป สุรา · พัฒนาแพลตฟอร์ม AI สำหรับลูกค้าและประชาชน">
+<meta property="og:title" content="G2G · Gov2Global · Corporate OS">
+<meta property="og:description" content="บริษัทเอกชนไทย · สินค้ากายภาพ + แพลตฟอร์ม AI · ระบบบริหารภายในครบวงจร">
+<meta property="og:url" content="https://g2g-os.fly.dev/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="G2G · Gov2Global">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  :root { --ink-2: #E2DBC8; --ink-3: #BFB89E; }
+  html, body { height: 100%; overflow-x: hidden; }
+  body { background: var(--navy-deep); color: var(--ink); line-height: 1.6; }
+  .stage { position: relative; min-height: 100vh;
+    background:
+      radial-gradient(900px 600px at 50% 25%, rgba(201,169,97,0.10), transparent 60%),
+      radial-gradient(700px 500px at 50% 100%, rgba(30,58,138,0.40), transparent 60%),
+      linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 50%, var(--navy-2) 100%);
+    overflow: hidden; }
+  .stage::before { content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(rgba(201,169,97,0.06) 1px, transparent 1px),
+      radial-gradient(rgba(201,169,97,0.06) 1px, transparent 1px);
+    background-size: 24px 24px, 48px 48px;
+    background-position: 0 0, 12px 12px;
+    opacity: 0.4; pointer-events: none; }
+  .top-strip { position: relative; z-index: 5; padding: 28px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,169,97,0.10); }
+  .corp-mark { display: inline-flex; align-items: center; gap: 14px; }
+  .corp-mark .badge-bar { width: 6px; height: 28px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+    border-radius: 2px; }
+  .corp-text { line-height: 1.2; }
+  .corp-text .e1 { font-size: 11px; letter-spacing: 0.24em; color: var(--gold);
+    font-weight: 600; text-transform: uppercase; }
+  .corp-text .e2 { font-size: 14px; color: var(--ink-2); margin-top: 4px;
+    letter-spacing: 0.04em; }
+  .top-cta { display: inline-flex; gap: 10px; }
+  .top-cta a { padding: 8px 16px; font-size: 13px; border-radius: 4px;
+    border: 1px solid rgba(201,169,97,0.24); color: var(--ink-2); letter-spacing: 0.04em; }
+  .top-cta a.primary { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); font-weight: 600; }
+  .top-cta a:hover { border-color: var(--gold); color: var(--ink); }
+  .top-cta a.primary:hover { background: var(--gold-light); color: var(--navy-deep); }
+  main.hero-main { position: relative; z-index: 5; padding: 64px 36px 40px; text-align: center; }
+  .above-title { font-size: 12px; letter-spacing: 0.42em; color: var(--gold); font-weight: 600;
+    text-transform: uppercase; margin-bottom: 36px; display: inline-flex; align-items: center; gap: 18px; }
+  .above-title::before, .above-title::after { content: ''; width: 56px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold)); }
+  .above-title::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .crest { width: 220px; height: 220px; margin: 0 auto 38px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(201,169,97,0.30), transparent 50%),
+      linear-gradient(135deg, var(--navy-deep) 0%, var(--brand) 100%);
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 8px rgba(201,169,97,0.06), 0 0 0 9px rgba(201,169,97,0.12),
+      0 20px 60px rgba(0,0,0,0.5), inset 0 4px 24px rgba(201,169,97,0.10);
+    display: flex; align-items: center; justify-content: center; }
+  .crest .crest-letters { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700;
+    font-size: 68px; line-height: 1; letter-spacing: -0.02em; color: var(--gold-light);
+    text-shadow: 0 3px 6px rgba(0,0,0,0.7), 0 0 24px rgba(201,169,97,0.45); }
+  .crest .crest-letters em { font-style: italic; opacity: 0.9; margin: 0 -4px; }
+  .title { font-family: 'Cormorant Garamond', 'Sarabun', Georgia, serif;
+    font-size: clamp(40px, 6.2vw, 80px); line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); font-weight: 500; margin-bottom: 22px; }
+  .title em { font-style: italic; background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .subtitle { font-size: clamp(16px, 1.3vw, 19px); line-height: 1.7; color: var(--ink-2);
+    max-width: 720px; margin: 0 auto 40px; font-weight: 400; }
+  .subtitle .gold { color: var(--gold-light); font-weight: 500; }
+  .cta-row { display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .cta-primary { display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px;
+    background: var(--gold); color: var(--navy-deep); font-size: 15px; font-weight: 600;
+    letter-spacing: 0.03em; border-radius: 4px;
+    box-shadow: 0 12px 36px rgba(201,169,97,0.30); transition: all .15s; }
+  .cta-primary:hover { transform: translateY(-2px); background: var(--gold-light); }
+  .cta-ghost { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px;
+    border: 1px solid rgba(201,169,97,0.30); color: var(--ink-2);
+    font-size: 15px; font-weight: 500; border-radius: 4px; transition: all .15s; }
+  .cta-ghost:hover { background: rgba(201,169,97,0.08); border-color: var(--gold); color: var(--ink); }
+
+  .section-label { position: relative; z-index: 5; text-align: center;
+    padding: 48px 24px 8px; }
+  .section-label .eb { font-size: 11px; color: var(--gold); letter-spacing: 0.24em;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+  .section-label h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px;
+    color: var(--ink); font-weight: 500; }
+  .section-label h3 em { color: var(--gold-light); font-style: italic; }
+
+  .portals { position: relative; z-index: 5; max-width: 1180px; margin: 0 auto;
+    padding: 28px 36px 24px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .portal { padding: 28px 24px; background: rgba(248,245,238,0.04);
+    border: 1px solid rgba(201,169,97,0.18); border-radius: 6px;
+    transition: all .15s; text-align: left;
+    display: flex; flex-direction: column; gap: 12px;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .portal:hover { background: rgba(201,169,97,0.06); border-color: var(--gold); transform: translateY(-2px); }
+  .portal .label { font-size: 11px; color: var(--gold);
+    letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; }
+  .portal .name { font-family: 'Cormorant Garamond', 'Sarabun', Georgia, serif;
+    font-size: 24px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+  .portal .desc { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+  .portal .open { display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; color: var(--gold-light); margin-top: auto;
+    letter-spacing: 0.08em; text-transform: uppercase; }
+  .portal .open svg { width: 12px; height: 12px; transition: transform .12s; }
+  .portal:hover .open svg { transform: translateX(3px); }
+
+  .foot-strip { position: relative; z-index: 5; padding: 32px 36px;
+    border-top: 1px solid rgba(201,169,97,0.12);
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--ink-3); font-size: 13px; flex-wrap: wrap; gap: 16px; }
+  .foot-strip .author { font-family: 'Cormorant Garamond', 'Sarabun', Georgia, serif;
+    font-style: italic; color: var(--ink-2); font-size: 16px; }
+  .foot-strip .author strong { color: var(--gold-light); font-style: normal; font-weight: 600; }
+  .foot-strip nav { display: flex; gap: 22px; }
+  .foot-strip nav a { color: var(--ink-3); transition: color .15s; letter-spacing: 0.04em; }
+  .foot-strip nav a:hover { color: var(--gold-light); }
+
+  @media (max-width: 720px) {
+    .top-strip { padding: 20px 24px; flex-direction: column; gap: 12px; }
+    main.hero-main { padding: 40px 24px; }
+    .crest { width: 160px; height: 160px; margin-bottom: 28px; }
+    .crest .crest-letters { font-size: 52px; }
+    .portals { padding: 24px 20px; grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <header class="top-strip">
+    <div class="corp-mark">
+      <span class="badge-bar"></span>
+      <div class="corp-text">
+        <div class="e1">G2G · Gov2Global</div>
+        <div class="e2">บริษัทเอกชนไทย · สินค้ากายภาพ + แพลตฟอร์ม AI</div>
+      </div>
+    </div>
+    <div class="top-cta">
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="admin/login.html" class="primary">เข้าระบบ →</a>
+    </div>
+  </header>
+
+  <main class="hero-main">
+    <div class="above-title">Gov2Global · Private Co., Ltd.</div>
+
+    <div class="crest" aria-label="G2G crest">
+      <div class="crest-letters">G<em>2</em>G</div>
+    </div>
+
+    <h1 class="title">เราสร้าง <em>ระบบ</em><br>ให้คนและองค์กร<br>เก่งขึ้นด้วย <em>AI</em></h1>
+
+    <p class="subtitle">
+      G2G สร้าง <span class="gold">ระบบบริหาร</span> ให้องค์กรอื่นๆ ·
+      เชื่อม <span class="gold">LINE OA + AI</span> เพิ่มขีดความสามารถ ·
+      สร้าง <span class="gold">ระบบการค้าใหม่</span> · มี <span class="gold">Token</span> ใช้ซื้อขายเวลาและสินค้า ·
+      พร้อมผลิต <span class="gold">สินค้าของตัวเอง</span>
+    </p>
+
+    <div class="cta-row">
+      <a href="about.html" class="cta-primary">
+        เกี่ยวกับ G2G ·
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="admin/login.html" class="cta-ghost">เข้าระบบบริหาร →</a>
+    </div>
+  </main>
+
+  <div class="section-label">
+    <div class="eb">5 Pillars · เสาหลักของ G2G</div>
+    <h3>โมเดล <em>"แพลตฟอร์มสร้างแพลตฟอร์ม"</em></h3>
+  </div>
+
+  <section class="portals" aria-label="5 pillars">
+
+    <a href="platform.html" class="portal">
+      <span class="label">1 · Platform-as-a-Service</span>
+      <span class="name">สร้างระบบ<br>ให้องค์กรอื่น</span>
+      <span class="desc">G2G สร้างระบบบริหาร ERP/Super-App ให้คลินิก สำนักงาน อบจ. SME กระทรวง · 30 วัน live</span>
+      <span class="open">รู้จัก Platform <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="verticals/agritech.html" class="portal">
+      <span class="label">2 · LINE OA + AI</span>
+      <span class="name">เพิ่ม<br>ขีดความสามารถ</span>
+      <span class="desc">เครือข่าย 5 LINE OAs · 9 AI Agents · Claude Opus + Perplexity + GPT + Gemini · ทำงาน 24/7</span>
+      <span class="open">ดู AgriTech network <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="verticals/phat-plat.html" class="portal">
+      <span class="label">3 · ระบบการค้าใหม่</span>
+      <span class="name">New Commerce<br>via AI</span>
+      <span class="desc">PHAT/PLAT Super-App · จับคู่ผู้ผลิตกับผู้ซื้อโดยตรง · ลดค่ากลาง · เพิ่มราคารับ-ลดราคาขาย</span>
+      <span class="open">ดู PHAT/PLAT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="token.html" class="portal" style="border-color: rgba(201,169,97,0.5); background: rgba(201,169,97,0.08)">
+      <span class="label" style="color: var(--gold)">4 · Token Economy</span>
+      <span class="name">Token ซื้อขาย<br>เวลา + สินค้า</span>
+      <span class="desc">Token ใช้แลกเวลา AI · เวลาที่ปรึกษา · ซื้อสินค้าในเครือ · closed-loop ไม่ใช่ e-Money</span>
+      <span class="open">รู้จัก Token <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="verticals/imperial-fruitia.html" class="portal">
+      <span class="label">5 · สินค้าของ G2G</span>
+      <span class="name">Imperial Fruitia<br>+ Le Phaya + Factory</span>
+      <span class="desc">ผลไม้พรีเมียม · อัญมณี · อาหารแปรรูป · สุรา · เหมืองพลอย · ฐานผลิตที่แพร่</span>
+      <span class="open">ดูสินค้า <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="about.html" class="portal">
+      <span class="label">เริ่มต้น · Get Started</span>
+      <span class="name">เกี่ยวกับ G2G<br>โมเดล + วิสัยทัศน์</span>
+      <span class="desc">ทำความรู้จักโมเดล 5 pillars ของ G2G · flywheel ระหว่าง pillar · วิธีคิดและทีมงาน</span>
+      <span class="open">เริ่มต้นที่นี่ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+  </section>
+
+  <div class="section-label">
+    <div class="eb">รายละเอียดของแต่ละ pillar</div>
+    <h3>เจาะลึก <em>สินค้าและบริการ</em></h3>
+  </div>
+
+  <section class="portals" aria-label="Detail products">
+
+    <a href="verticals/imperial-fruitia.html" class="portal">
+      <span class="label">สินค้า · ผลไม้</span>
+      <span class="name">Imperial Fruitia</span>
+      <span class="desc">+ Sapphire Valley · ผลไม้คัดเกรด แพร่</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+    <a href="verticals/le-phaya.html" class="portal">
+      <span class="label">สินค้า · อัญมณี</span>
+      <span class="name">Le Phaya</span>
+      <span class="desc">จิวเวลรี่พญาเพชร · LIFF + LINE OA</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+    <a href="verticals/physical-products.html" class="portal">
+      <span class="label">สินค้า · อาหาร + สุรา</span>
+      <span class="name">G2G Factory</span>
+      <span class="desc">โรงงานแปรรูป + โรงสุรา DD</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+    <a href="verticals/agritech.html" class="portal">
+      <span class="label">Platform · เกษตร</span>
+      <span class="name">AgriTech</span>
+      <span class="desc">นายหน้าจับคู่เกษตรกร × ล้ง · 9 Agents</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+    <a href="verticals/phat-plat.html" class="portal">
+      <span class="label">Platform · Super-App</span>
+      <span class="name">PHAT / PLAT</span>
+      <span class="desc">Citizen Super-App สำหรับลูกค้าทุกแบบ</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+    <a href="verticals/corporate-holding.html" class="portal">
+      <span class="label">ภาพรวม · Group</span>
+      <span class="name">Corporate Holding</span>
+      <span class="desc">โครงสร้างบริษัทแม่ + ลูก + พันธมิตร</span>
+      <span class="open">เปิดดู →</span>
+    </a>
+
+  </section>
+
+  <div class="section-label">
+    <div class="eb">สำหรับพนักงาน + ผู้บริหาร</div>
+    <h3>ระบบ <em>บริหารภายใน</em></h3>
+  </div>
+
+  <section class="portals" aria-label="Internal OS">
+
+    <a href="admin/login.html" class="portal">
+      <span class="label">ERP · ระบบบริหารบริษัท</span>
+      <span class="name">G2G Internal OS<br>ระบบบริหารบริษัท</span>
+      <span class="desc">บัญชี-การเงิน · การผลิต · การตลาด · ขาย · ภาษี · ประกันสังคม · CRM · พนักงาน · งาน</span>
+      <span class="open">เข้าระบบ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="team.html" class="portal">
+      <span class="label">ทีมงาน</span>
+      <span class="name">The Team<br>พนักงาน G2G</span>
+      <span class="desc">ทีมบริหารและพนักงาน G2G · ฝ่ายต่างๆ</span>
+      <span class="open">เปิดดู <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+    <a href="toc.html" class="portal">
+      <span class="label">นำทาง</span>
+      <span class="name">สารบัญ<br>Site Map</span>
+      <span class="desc">นำทางทุกหน้าในเว็บไซต์ G2G · public + internal</span>
+      <span class="open">เปิดสารบัญ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+    </a>
+
+  </section>
+
+  <footer class="foot-strip">
+    <div class="author">
+      <strong>G2G · Gov2Global</strong> · บริษัทเอกชนไทย
+    </div>
+    <nav>
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="team.html">ทีม</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="admin/login.html">เข้าระบบ</a>
+    </nav>
+  </footer>
+
+</div>
+</body>
+</html>

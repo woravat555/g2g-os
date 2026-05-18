@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>G2G · Gov2Global · เข้าสู่ระบบ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; min-height: 100vh; background: #0A1628;
+    color: #F8F5EE; font-family: 'Inter', system-ui, sans-serif;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .splash {
+    text-align: center; padding: 40px 24px;
+    background:
+      radial-gradient(900px 600px at 50% 30%, rgba(201,169,97,0.12), transparent 60%),
+      radial-gradient(700px 500px at 50% 100%, rgba(30,58,138,0.40), transparent 60%);
+    width: 100%; min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .crest { width: 200px; height: 200px; border-radius: 50%;
+    background: linear-gradient(135deg, #0A1628 0%, #1E3A8A 100%);
+    border: 3px solid #C9A961;
+    box-shadow: 0 0 0 8px rgba(201,169,97,0.08), 0 20px 60px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 80px; font-weight: 700;
+    color: #E2C879; margin-bottom: 38px; }
+  .crest em { font-style: italic; opacity: 0.92; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: clamp(40px, 6vw, 72px); letter-spacing: -0.02em;
+    margin: 0 0 14px; }
+  h1 em { font-style: italic;
+    background: linear-gradient(135deg, #E2C879 0%, #C9A961 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tagline { color: rgba(226,219,200,0.7); font-size: 16px;
+    letter-spacing: 0.06em; margin-bottom: 48px; }
+  .hint { font-size: 12px; letter-spacing: 0.24em; color: rgba(201,169,97,0.55);
+    text-transform: uppercase; animation: pulse 2.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.55} 50%{opacity:1} }
+</style>
+</head>
+<body onclick="location.href='index.html'">
+  <div class="splash">
+    <div class="crest">G<em>2</em>G</div>
+    <h1>G2G · <em>Gov2Global</em></h1>
+    <div class="tagline">บริษัทเอกชนไทย · สินค้ากายภาพ + แพลตฟอร์ม AI</div>
+    <div class="hint">คลิกที่ใดก็ได้เพื่อเข้า</div>
+  </div>
+</body>
+</html>

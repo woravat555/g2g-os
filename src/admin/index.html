@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body" id="body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">พนักงาน</div><div class="val" id="kStaff">—</div><div class="delta">StaffRegistry</div></div>
+        <div class="kpi"><div class="lbl">เกษตรกรในระบบ</div><div class="val" id="kFarmers">—</div><div class="delta">FarmerRegistry</div></div>
+        <div class="kpi"><div class="lbl">ผู้ซื้อ/ล้ง</div><div class="val" id="kBuyers">—</div><div class="delta">Buyers</div></div>
+        <div class="kpi"><div class="lbl">งาน Tasks</div><div class="val" id="kTasks">—</div><div class="delta">MasterTaskList</div></div>
+        <div class="kpi"><div class="lbl">AI Agents</div><div class="val" id="kAgents">—</div><div class="delta">ทำงาน 24/7</div></div>
+        <div class="kpi"><div class="lbl">LINE OA</div><div class="val" id="kLineOA">—</div><div class="delta">ออนไลน์</div></div>
+        <div class="kpi"><div class="lbl">Memory Facts</div><div class="val" id="kFacts">—</div><div class="delta">Tier 3 entities</div></div>
+        <div class="kpi"><div class="lbl">Memory Themes</div><div class="val" id="kThemes">—</div><div class="delta">Tier 2 digests</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>ระบบบริหารบริษัท</h2>
+          <span class="sub">11 โมดูล · ทุกฝ่ายเชื่อมเข้าระบบเดียว</span>
+        </div>
+        <div class="adm-grid adm-grid-3">
+
+          <a href="accounting.html" class="mod">
+            <div class="ic">฿</div>
+            <h4>บัญชี · การเงิน</h4>
+            <p>รายรับ-รายจ่าย งบประมาณ กระแสเงินสด สมุดบัญชี ChartOfAccounts</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="production.html" class="mod">
+            <div class="ic">P</div>
+            <h4>การผลิต</h4>
+            <p>สวน-โรงงาน-โรงสุรา สต็อก-วัตถุดิบ บันทึกผลิตของฝ่ายผลิต</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="marketing.html" class="mod">
+            <div class="ic">M</div>
+            <h4>การตลาด</h4>
+            <p>แคมเปญ LINE OA Network ผู้ติดตาม content วิเคราะห์การตลาด</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="sales.html" class="mod">
+            <div class="ic">S</div>
+            <h4>ขายสินค้า</h4>
+            <p>ออร์เดอร์ ออนไลน์ + ออฟไลน์ POS Marketplace AgriTech matching</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="tax.html" class="mod">
+            <div class="ic">T</div>
+            <h4>ภาษี</h4>
+            <p>ภงด.3, ภงด.53, ภพ.30 กำหนดการยื่นภาษี เอกสาร</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="social-security.html" class="mod">
+            <div class="ic">SS</div>
+            <h4>ประกันสังคม</h4>
+            <p>สปส.1-10, สปส.6-09 นำส่งเดือนละครั้ง พนักงานในระบบ</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="staff.html" class="mod">
+            <div class="ic">H</div>
+            <h4>พนักงาน · HR</h4>
+            <p>ทะเบียนพนักงาน เงินเดือน ลา-มา-สาย โอที</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="clients.html" class="mod">
+            <div class="ic">C</div>
+            <h4>ลูกค้า · CRM</h4>
+            <p>ลูกค้าและโปรเจ็ค AIM Clinic, NK Law, MOAC, DGA, สอน. ฯลฯ</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="tasks.html" class="mod">
+            <div class="ic">✓</div>
+            <h4>งาน · Tasks</h4>
+            <p>มอบหมายงาน ติดตามความคืบหน้า สั่งงาน AI Agents</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="general.html" class="mod">
+            <div class="ic">G</div>
+            <h4>เอกสาร · ทรัพย์สิน</h4>
+            <p>สัญญา เอกสารบริษัท ทรัพย์สินถาวร ที่ดิน-อาคาร</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+          <a href="settings.html" class="mod">
+            <div class="ic">⚙</div>
+            <h4>ตั้งค่า · Settings</h4>
+            <p>บริษัท Apps Script LINE OA Airtable ผู้ใช้และสิทธิ์</p>
+            <span class="open">เปิดโมดูล →</span>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>ภาพรวมแพลตฟอร์ม</h2>
+          <span class="sub">โครงสร้างพื้นฐาน G2G</span>
+        </div>
+        <div class="adm-grid adm-grid-2">
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>LINE OA Network</h3><span class="chip ok">5/5 online</span></div>
+            <div class="adm-card-b">
+              <table class="adm-tbl">
+                <tr><th>OA</th><th>บทบาท</th><th>ผู้ดูแล</th></tr>
+                <tr><td>@phrae555 (น้องผลไม้)</td><td>เกษตรกรแพร่</td><td>ทีมการตลาด</td></tr>
+                <tr><td>@aifruits (น้องเซลล์)</td><td>Market intel</td><td>การขาย</td></tr>
+                <tr><td>@aiphrae (น้องแพร่)</td><td>Phrae coordinator</td><td>ทีมแพร่</td></tr>
+                <tr><td>@jewelry (น้องไพลิน)</td><td>Le Phaya + tourism</td><td>ส้ม</td></tr>
+                <tr><td>@execcopilot (น้องเลขา)</td><td>CEO brain</td><td>เลขา</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>Fly.io Apps</h3><span class="chip brand">sin region</span></div>
+            <div class="adm-card-b">
+              <table class="adm-tbl">
+                <tr><th>App</th><th>เพื่อ</th><th>สถานะ</th></tr>
+                <tr><td>g2g-ai-os</td><td>AIM Clinic + Gateway</td><td><span class="chip ok">live</span></td></tr>
+                <tr><td>g2g-platform</td><td>PHAT + LIFF + Hero apps</td><td><span class="chip ok">live</span></td></tr>
+                <tr><td>g2g-os</td><td>Corporate Master Hub</td><td><span class="chip ok">live</span></td></tr>
+                <tr><td>phat-token-mesh</td><td>UTU 3-vendor mesh</td><td><span class="chip warn">staging</span></td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+  const user = G2G.boot('dashboard', { title: 'Dashboard', crumbs: [{ label: 'Dashboard' }] });
+  if (user) loadKpis();
+
+  async function loadKpis() {
+    const r = await G2G.loadDashboard();
+    const counts = r.counts || {};
+    const mem = r.memory || {};
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = (v == null ? '—' : String(v)); };
+    set('kStaff', counts.StaffRegistry);
+    set('kFarmers', counts.FarmerRegistry);
+    set('kBuyers', counts.Buyers);
+    set('kTasks', counts.MasterTaskList);
+    set('kAgents', counts.Agents);
+    set('kLineOA', counts.LINE_OA_Registry);
+    set('kFacts', mem.tier3_facts);
+    set('kThemes', mem.tier2_themes);
+  }
+</script>
+</body>
+</html>

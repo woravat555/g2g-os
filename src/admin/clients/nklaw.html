@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NK Law · Service Support · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div style="background:linear-gradient(135deg,#A0151E 0%,#5C0A14 100%);color:#fff;padding:24px 28px;border-radius:12px;margin-bottom:22px">
+        <div style="font-size:11px;letter-spacing:0.12em;color:#FCD34D;text-transform:uppercase">ลูกค้า · CLIENT</div>
+        <h1 style="font-family:'Cormorant Garamond',serif;font-size:30px;margin-top:4px"><em style="color:#FCD34D">NK</em> Law</h1>
+        <p style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:6px">Legal Practice Management · 40 pages · Sibling brand template</p>
+        <div style="margin-top:14px"><a href="https://nklaw-os.fly.dev" target="_blank" class="btn btn-gold btn-sm">เปิด NK Law Live →</a></div>
+      </div>
+
+      <div class="adm-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>ส่งคำขอบริการ</h3></div>
+          <div class="adm-card-b">
+            <p style="font-size:13px;color:var(--ink-3)">ลูกค้า NK Law ติดต่อขอบริการปรับแต่งระบบ · routed ไปทีม IT (เกมส์ + วรรณ)</p>
+            <input type="text" id="from-name" placeholder="ชื่อผู้ติดต่อ" style="width:100%;padding:10px;margin:10px 0;border:1px solid var(--line);border-radius:6px">
+            <textarea id="msg" rows="5" placeholder="พิมพ์ข้อความ..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+            <button class="btn btn-primary" onclick="sendMsg()" style="margin-top:10px">ส่งข้อความ</button>
+            <div id="send-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>ประวัติคำขอ</h3></div>
+          <div class="adm-card-b" id="history" style="max-height:400px;overflow-y:auto">
+            <div class="adm-loading">โหลด...</div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../_admin.js"></script>
+<script>
+G2G.boot('client-nklaw', { title: 'NK Law · Service', crumbs: [
+  { label: 'Dashboard', href: '../index.html' },
+  { label: 'ลูกค้า' },
+  { label: 'NK Law' }
+]});
+G2G.installTools('หน้านี้เป็นช่องทางลูกค้า NK Law ติดต่อกับ G2G เพื่อขอรับบริการปรับแต่งแอพหรือแก้ไขปัญหา ข้อความจะถูกส่งไปที่ทีม IT ของเราอัตโนมัติ', 'niwat');
+
+async function sendMsg() {
+  const from = document.getElementById('from-name').value.trim() || 'NK Law';
+  const message = document.getElementById('msg').value.trim();
+  if (!message) return;
+  const r = await G2G.wbCustomerSend('nklaw', from, message);
+  document.getElementById('send-result').innerHTML = r.ok
+    ? '<span style="color:var(--ok)">✓ ส่งแล้ว · เลขที่ ' + r.msgId + '</span>'
+    : '<span style="color:var(--err)">❌ ' + (r.error || 'failed') + '</span>';
+  if (r.ok) { document.getElementById('msg').value = ''; loadHistory(); }
+}
+async function loadHistory() {
+  const msgs = await G2G.wbCustomerList('nklaw');
+  const target = document.getElementById('history');
+  if (!msgs.length) {
+    target.innerHTML = '<div class="adm-empty" style="padding:18px"><p>ยังไม่มีประวัติ</p></div>';
+    return;
+  }
+  target.innerHTML = msgs.slice(0, 20).map(m => `
+    <div style="padding:12px;border-bottom:1px solid var(--line)">
+      <div style="font-size:11px;color:var(--ink-4)">${new Date(m.timestamp).toLocaleString('th-TH')} · ${G2G.escapeHtml(m.from)}</div>
+      <div style="font-size:13px">${G2G.escapeHtml(m.message)}</div>
+      <div style="margin-top:6px"><span class="chip ${m.status === 'new' ? 'warn' : 'ok'}">${m.status}</span></div>
+    </div>
+  `).join('');
+}
+loadHistory();
+</script>
+</body>
+</html>

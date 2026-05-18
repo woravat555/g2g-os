@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ลูกค้า · CRM · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">UnifiedProfiles</div><div class="val" id="kUP">—</div><div class="delta">โปรไฟล์ลูกค้าหลัก</div></div>
+        <div class="kpi"><div class="lbl">Profiles</div><div class="val" id="kProf">—</div><div class="delta">เพิ่มเติม</div></div>
+        <div class="kpi"><div class="lbl">BuyerContacts</div><div class="val" id="kContact">—</div><div class="delta">ติดต่อล้ง</div></div>
+        <div class="kpi"><div class="lbl">Groups</div><div class="val" id="kGroups">—</div><div class="delta">LINE Group ลูกค้า</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Unified Profiles · CRM หลัก</h2><span class="sub">ลูกค้าหลักของ G2G</span></div>
+        <div class="adm-card flat">
+          <div id="t-up"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Profiles</h2><span class="sub">โปรไฟล์เพิ่มเติม</span></div>
+        <div class="adm-card flat">
+          <div id="t-prof"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>BuyerContacts · ติดต่อล้ง</h2><span class="sub">ผู้ซื้อรายตัว</span></div>
+        <div class="adm-card flat">
+          <div id="t-contact"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Client Projects</h2><span class="sub">โปรเจ็ค Platform-as-a-Service</span></div>
+        <div class="adm-card flat">
+          <table class="adm-tbl">
+            <thead><tr><th>ลูกค้า</th><th>ประเภท</th><th>โปรเจ็ค</th><th>สถานะ</th><th>มูลค่า</th></tr></thead>
+            <tbody>
+              <tr><td>AIM Clinic</td><td><span class="chip brand">PRIVATE</span></td><td>132 modules · Doctor + Patient portals</td><td><span class="chip ok">LIVE</span></td><td>฿250k + ฿60k/mo</td></tr>
+              <tr><td>NK Law</td><td><span class="chip brand">PRIVATE</span></td><td>40-page legal practice OS · sibling brand</td><td><span class="chip ok">LIVE</span></td><td>internal</td></tr>
+              <tr><td>DGA · สำนักงานพัฒนารัฐบาลดิจิทัล</td><td><span class="chip gold">GOV</span></td><td>Citizen Record Hub + Integration Fabric</td><td><span class="chip warn">PITCH</span></td><td>฿485M FY2570</td></tr>
+              <tr><td>MOAC · กระทรวงเกษตรฯ</td><td><span class="chip gold">GOV</span></td><td>@moa-citizen platform · 500 farmers pilot</td><td><span class="chip warn">PILOT</span></td><td>฿8M pilot</td></tr>
+              <tr><td>MOE · สอน.2 ภาคเหนือ 2</td><td><span class="chip gold">GOV</span></td><td>EDU pilot · 35-43 colleges · 60K students</td><td><span class="chip warn">PROPOSAL</span></td><td>฿15M pilot</td></tr>
+              <tr><td>MHESI · อว. (NECTEC)</td><td><span class="chip gold">GOV</span></td><td>Pathumma LLM + Agri-Map integration</td><td><span class="chip neutral">EARLY</span></td><td>TBD</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('clients', { title: 'ลูกค้า · CRM', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'ลูกค้า' }] });
+  (async function() {
+    const [up, prof, contact, groups] = await Promise.all([
+      G2G.loadTab('UnifiedProfiles'),
+      G2G.loadTab('Profiles'),
+      G2G.loadTab('BuyerContacts'),
+      G2G.loadTab('Groups')
+    ]);
+    document.getElementById('kUP').textContent = up.total ?? '—';
+    document.getElementById('kProf').textContent = prof.total ?? '—';
+    document.getElementById('kContact').textContent = contact.total ?? '—';
+    document.getElementById('kGroups').textContent = groups.total ?? '—';
+    G2G.renderTable(document.getElementById('t-up'), up.columns||[], up.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-prof'), prof.columns||[], prof.rows||[], { maxRows: 20 });
+    G2G.renderTable(document.getElementById('t-contact'), contact.columns||[], contact.rows||[], { maxRows: 30 });
+  })();
+</script>
+</body>
+</html>

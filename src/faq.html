@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ · คำถามที่พบบ่อย · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  .faq-item { border-bottom: 1px solid var(--line); padding: 20px 0; }
+  .faq-q { font-weight: 600; color: var(--ink-1); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; }
+  .faq-q::before { content: '+'; color: var(--brand); width: 20px; font-weight: 700; transition: transform .15s; }
+  .faq-item.open .faq-q::before { content: '−'; }
+  .faq-a { color: var(--ink-3); font-size: 14px; line-height: 1.7; padding: 10px 0 0 28px; display: none; }
+  .faq-item.open .faq-a { display: block; }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="team.html">ทีม</a>
+      <a href="verticals/agritech.html">สินค้า/บริการ</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="admin/login.html" class="btn btn-primary btn-sm">เข้าระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">คำถามที่พบบ่อย · FAQ</div>
+    <h1 class="h-display">FAQ</h1>
+    <p class="lead">คำถามที่ลูกค้าและพันธมิตรถามเป็นประจำ · TODO: CEO ปรับเนื้อหาตามจริง</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:760px">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">G2G ทำธุรกิจอะไรบ้าง?</div>
+      <div class="faq-a">G2G แบ่งเป็น 2 กลุ่ม: (1) สินค้ากายภาพ — ผลไม้พรีเมียม อัญมณี อาหารแปรรูป สุรา · (2) แพลตฟอร์ม AI — AgriTech Marketplace, PHAT/PLAT Super-App และระบบบริหารภายในที่ขายให้ลูกค้า</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">AIM Clinic, NK Law เป็นบริษัทของ G2G ไหม?</div>
+      <div class="faq-a">ไม่ใช่ · ทั้งสองเป็น <strong>ลูกค้า</strong>ที่ใช้แพลตฟอร์มที่ G2G พัฒนาขึ้น</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">ติดต่อ G2G ทางไหนได้บ้าง?</div>
+      <div class="faq-a">LINE @g2g · Email contact@gov2global.com · Bangkok HQ · ดูเพิ่มที่หน้า <a href="contact.html">ติดต่อ</a></div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">G2G ขายผลไม้แบบไหน?</div>
+      <div class="faq-a">Imperial Fruitia เป็นแบรนด์ผลไม้คัดเกรด · เน้น <strong>quality-first</strong> · ส่งเข้า GMP/Tops/Villa/Foodland/ผู้ส่งออก · ไม่ขายราคาตลาดทั่วไป</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">PHAT/PLAT Super-App ใช้กับใครได้บ้าง?</div>
+      <div class="faq-a">คลินิก · สำนักงานกฎหมาย · อบจ./เทศบาล · SME · กระทรวง · ที่ต้องการ Super-App สำหรับลูกค้าหรือประชาชน ดูราคาที่หน้า <a href="pricing.html">Pricing</a></div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q">G2G เก็บข้อมูลส่วนบุคคลอย่างไร?</div>
+      <div class="faq-a">ตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA 2562) · ดูรายละเอียดที่หน้า <a href="privacy.html">นโยบายความเป็นส่วนตัว</a></div>
+    </div>
+  </div>
+</section>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li><li>LINE: @g2g</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.2</div></div>
+</footer>
+
+</body>
+</html>

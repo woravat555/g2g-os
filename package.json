@@ -1,0 +1,15 @@
+{
+  "name": "g2g-os",
+  "version": "1.0.0",
+  "description": "ศูนย์บัญชาการกลาง G2G (Gov2Global) · บริหาร 7 verticals · AI Teams · LINE OA Network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@google/clasp": "^3.3.0"
+  }
+}

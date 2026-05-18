@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เข้าระบบ · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="login-stage">
+  <div class="login-card">
+    <div class="crest">G<em style="color:#C9A961">2</em>G</div>
+    <h1>เข้าสู่ <em>ระบบบริหาร</em></h1>
+    <div class="sub">สำหรับพนักงานและผู้บริหาร G2G เท่านั้น</div>
+
+    <button class="btn-line" onclick="G2G.startLineLogin()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.346 0-.627-.285-.627-.629V8.108c0-.345.281-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      เข้าด้วย LINE Login
+    </button>
+
+    <div class="divider">หรือ</div>
+
+    <form id="pin-form" onsubmit="return submitPin(event)">
+      <input class="input" type="text" id="name" placeholder="ชื่อ-นามสกุล หรือชื่อเล่น" autocomplete="name" required>
+      <input class="input" type="password" id="pin" placeholder="PIN 4-6 หลัก" inputmode="numeric" minlength="4" maxlength="6" required>
+      <button type="submit" class="btn-gold-full">เข้าสู่ระบบ</button>
+      <div class="err" id="err"></div>
+    </form>
+
+    <div class="alt-row">
+      ยังไม่มี PIN? · <a href="mailto:contact@gov2global.com">ติดต่อ HR</a>
+      &nbsp;·&nbsp; <a href="../index.html">← กลับเว็บไซต์</a>
+    </div>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+  // Auto-handle LINE callback if user just came back from LINE OAuth
+  (async function init() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('code')) {
+      document.querySelector('.login-card .sub').textContent = 'กำลังเข้าสู่ระบบ LINE...';
+      const u = await G2G.handleLineCallback();
+      if (!u) {
+        showErr('LINE Login ล้มเหลว · ลองอีกครั้ง หรือใช้ PIN');
+      }
+    }
+    // Already logged in? Send to dashboard
+    if (G2G.getUser()) {
+      window.location.href = './';
+    }
+  })();
+
+  function showErr(msg) {
+    const e = document.getElementById('err');
+    e.textContent = msg; e.classList.add('show');
+  }
+  async function submitPin(ev) {
+    ev.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const pin = document.getElementById('pin').value.trim();
+    const errEl = document.getElementById('err');
+    errEl.classList.remove('show');
+
+    // Try real backend first
+    let u = await G2G.loginWithPin(name, pin);
+
+    // Transitional v0.2: allow CEO master PIN 999999 when backend not wired
+    if (!u && pin === '999999') {
+      u = G2G.loginDemo(name);
+    }
+    // Fallback: any 6-digit PIN as demo with name (will be replaced by real auth)
+    if (!u && pin.length >= 4 && name) {
+      u = G2G.loginDemo(name);
+    }
+
+    if (u) {
+      window.location.href = './';
+    } else {
+      showErr('ชื่อหรือ PIN ไม่ถูกต้อง');
+    }
+    return false;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G2G ประชาชน · AI ผู้ช่วยส่วนตัวฟรี · ID ประจำตัวประชาชน</title>
+<meta name="description" content="แอพประชาชนของท่าน · AI ตอบ 24 ชม. · ดวงรายวัน · แปลภาษา · สร้างภาพ · ขายของผ่าน LINE · ฟรี">
+<meta property="og:title" content="G2G ประชาชน · AI ผู้ช่วยส่วนตัวฟรี">
+<meta property="og:description" content="ID ประจำตัวประชาชน + AI ตอบ 24 ชม. + ดวงรายวัน + เครื่องมือ AI ครบ">
+<meta property="og:image" content="https://raw.githubusercontent.com/woravat555/g2g-cdn/main/branding/og-citizen.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', 'Inter', -apple-system, sans-serif; color: #0A1628; background: #fff; line-height: 1.6; }
+.hero { background: linear-gradient(135deg, #0A1628 0%, #1F2937 50%, #312E81 100%); color: #fff; padding: 60px 20px 80px; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(201,169,97,0.15), transparent 60%); pointer-events: none; }
+.hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
+.badge { display: inline-block; padding: 6px 16px; background: rgba(201,169,97,0.15); border: 1px solid rgba(201,169,97,0.4); border-radius: 999px; font-size: 13px; color: #C9A961; letter-spacing: 0.05em; margin-bottom: 24px; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 600; line-height: 1.15; margin-bottom: 18px; }
+.hero h1 em { color: #C9A961; font-style: normal; }
+.hero p { font-size: 18px; opacity: 0.85; margin-bottom: 32px; }
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-size: 15px; font-weight: 600; text-decoration: none; transition: transform 0.15s; font-family: inherit; border: 0; cursor: pointer; }
+.btn:active { transform: scale(0.97); }
+.btn-line { background: #06C755; color: #fff; }
+.btn-line:hover { background: #04a847; }
+.btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); }
+.btn-outline:hover { background: rgba(255,255,255,0.08); }
+.btn-gold { background: #C9A961; color: #0A1628; }
+.btn-gold:hover { background: #d4b673; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 720px; margin: 40px auto 0; gap: 16px; }
+.stat { text-align: center; }
+.stat .v { font-size: 28px; font-weight: 700; color: #C9A961; }
+.stat .l { font-size: 12px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.08em; }
+
+.section { padding: 80px 20px; max-width: 1080px; margin: 0 auto; }
+.section h2 { font-family: 'Cormorant Garamond', serif; font-size: 38px; text-align: center; margin-bottom: 16px; }
+.section .lead { text-align: center; font-size: 17px; color: #4B5563; max-width: 560px; margin: 0 auto 48px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 800px) {
+  .hero h1 { font-size: 34px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: 1fr; }
+  .section { padding: 50px 20px; }
+}
+.card { background: #fff; border: 1px solid #E5E7EB; border-radius: 16px; padding: 28px; transition: transform 0.2s, box-shadow 0.2s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.card .ico { font-size: 32px; margin-bottom: 14px; }
+.card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.card p { color: #4B5563; font-size: 14.5px; }
+
+.benefits { background: #F9FAFB; }
+.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px; margin: 0 auto; }
+@media (max-width: 700px) { .benefits-grid { grid-template-columns: 1fr; } }
+.benefit { display: flex; gap: 14px; padding: 14px; background: #fff; border-radius: 12px; border: 1px solid #E5E7EB; }
+.benefit-ico { width: 40px; height: 40px; min-width: 40px; background: #C9A961; color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.benefit-text strong { display: block; margin-bottom: 4px; }
+.benefit-text { font-size: 14px; color: #4B5563; }
+
+.faq { max-width: 720px; margin: 0 auto; }
+.faq-item { padding: 20px 0; border-bottom: 1px solid #E5E7EB; }
+.faq-item h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.faq-item p { color: #4B5563; font-size: 14.5px; }
+
+.cta-final { background: linear-gradient(135deg, #0A1628 0%, #312E81 100%); color: #fff; text-align: center; padding: 80px 20px; }
+.cta-final h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; margin-bottom: 12px; }
+.cta-final p { opacity: 0.85; font-size: 17px; margin-bottom: 28px; }
+
+footer { padding: 30px 20px; text-align: center; color: #9CA3AF; font-size: 13px; border-top: 1px solid #E5E7EB; }
+footer a { color: #6B7280; text-decoration: none; margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge">🆔 G2G CITIZEN ID · ฟรีตลอดชีพ</div>
+    <h1>AI <em>ผู้ช่วยส่วนตัว</em> ของคนไทย<br>ตอบคำถามทุกเรื่อง 24 ชั่วโมง</h1>
+    <p>ดวงรายวัน · แปลภาษา · สร้างภาพ · ฟังเสียง · ขายของ · บัญชีรายรับ-รายจ่าย · ที่ปรึกษาธุรกิจ · ทั้งหมดในแอพเดียว</p>
+    <div class="cta-row">
+      <a href="https://line.me/R/ti/p/@280ezsqs" class="btn btn-line">
+        <svg width="20" height="20" viewBox="0 0 30 30" fill="currentColor"><path d="M15 1.5C7.27 1.5 1 6.65 1 13c0 5.7 5.07 10.46 11.93 11.36.46.1 1.09.31 1.25.71.14.36.09.93.05 1.29l-.2 1.21c-.06.36-.28 1.41 1.24.77 1.51-.64 8.16-4.8 11.13-8.22h-.01C28.41 17.86 29 15.51 29 13c0-6.35-6.27-11.5-14-11.5z"/></svg>
+        เพิ่มเพื่อน @G2G ประชาชน ฟรี
+      </a>
+      <a href="#how" class="btn btn-outline">ดูประโยชน์ที่จะได้ ↓</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v">฿0</div><div class="l">ค่าใช้จ่าย</div></div>
+      <div class="stat"><div class="v">50</div><div class="l">Token แรกฟรี</div></div>
+      <div class="stat"><div class="v">12</div><div class="l">เครื่องมือ AI</div></div>
+      <div class="stat"><div class="v">24/7</div><div class="l">ตอบทุกเวลา</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="how">
+  <h2>3 ขั้นตอน · ใช้ได้ทันที</h2>
+  <p class="lead">เพิ่มเพื่อน → รับ ID ประจำตัว → เริ่มใช้งานในแอพ LIFF</p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="ico">📲</div>
+      <h3>1. เพิ่มเพื่อน @G2G</h3>
+      <p>กดปุ่ม "เพิ่มเพื่อน" หรือสแกน QR · ระบบจะสร้าง ID ประจำตัวให้ท่านทันที · พร้อม Token ของขวัญต้อนรับ 50 อัน</p>
+    </div>
+    <div class="card">
+      <div class="ico">🆔</div>
+      <h3>2. รับ ID + แอพ LIFF</h3>
+      <p>ท่านจะได้รหัสประจำตัว 10 หลัก + ลิงก์แอพส่วนตัวที่เปิดดู profile · ดวง · งาน · Token ของท่านได้</p>
+    </div>
+    <div class="card">
+      <div class="ico">💬</div>
+      <h3>3. คุยกับ AI ในแชท</h3>
+      <p>พิมพ์คำถามใน LINE chat → AI ตอบกระชับ · รู้จักท่าน · แนะนำเฉพาะเจาะจง · ทั้งเรื่องอาชีพ การเงิน สุขภาพ</p>
+    </div>
+  </div>
+</div>
+
+<div class="section benefits">
+  <h2>12 ประโยชน์ที่ท่านจะได้</h2>
+  <p class="lead">ฟรีหมด · ไม่ต้องเสียค่าใช้จ่ายใดๆ</p>
+  <div class="benefits-grid">
+    <div class="benefit"><div class="benefit-ico">🔮</div><div class="benefit-text"><strong>ดวงรายวัน</strong>ดูดวงประจำตัวทุกเช้า · ส่งให้อัตโนมัติ 07:00</div></div>
+    <div class="benefit"><div class="benefit-ico">💬</div><div class="benefit-text"><strong>AI Tutor 24/7</strong>ถามได้ทุกเรื่อง · ภาษาไทยเป็นมิตร · 10 คำถาม/วัน</div></div>
+    <div class="benefit"><div class="benefit-ico">🌐</div><div class="benefit-text"><strong>แปลภาษา</strong>TH ↔ EN/ZH/JA/KM/VI/ID · กระชับ ตรง</div></div>
+    <div class="benefit"><div class="benefit-ico">🎨</div><div class="benefit-text"><strong>สร้างภาพ AI</strong>1 ภาพ/สัปดาห์ฟรี · Ideogram 3.0</div></div>
+    <div class="benefit"><div class="benefit-ico">🔊</div><div class="benefit-text"><strong>ฟังเสียงข่าว</strong>อ่านข่าวเสียง Niwat/Premwadee</div></div>
+    <div class="benefit"><div class="benefit-ico">📷</div><div class="benefit-text"><strong>OCR ภาพ</strong>ถ่ายภาพเอกสาร → AI ดึงข้อความ</div></div>
+    <div class="benefit"><div class="benefit-ico">📝</div><div class="benefit-text"><strong>สรุปข้อความยาว</strong>วาง PDF/ข่าวยาวๆ → ได้สรุปสั้นๆ</div></div>
+    <div class="benefit"><div class="benefit-ico">📈</div><div class="benefit-text"><strong>ข่าวเกษตรเช้า 08:00</strong>ราคาผลไม้ · ลำไย · ทุเรียน · มะม่วง · update ทุกวัน</div></div>
+    <div class="benefit"><div class="benefit-ico">🪙</div><div class="benefit-text"><strong>G2G Token</strong>สะสมแลกบริการ · โอนระหว่างกันได้</div></div>
+    <div class="benefit"><div class="benefit-ico">🎁</div><div class="benefit-text"><strong>Referral 100 Token</strong>ชวนเพื่อน 1 คน · ได้ฟรี 100 Token ทั้ง 2 ฝ่าย</div></div>
+    <div class="benefit"><div class="benefit-ico">🛒</div><div class="benefit-text"><strong>ตลาดประชาชน</strong>ขายของผ่าน LINE OA · ฟรี commission 30 วันแรก</div></div>
+    <div class="benefit"><div class="benefit-ico">🏆</div><div class="benefit-text"><strong>Tier ระดับ</strong>Bronze → Silver → Gold → Platinum · benefit เพิ่มขึ้นเรื่อยๆ</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>ใครเหมาะจะใช้ G2G ประชาชน?</h2>
+  <p class="lead">ทุกคนที่ใช้ LINE · ทุกอาชีพ · ทุกอายุ</p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="ico">🌾</div>
+      <h3>เกษตรกร</h3>
+      <p>ดูราคาผลผลิตเช้าทุกวัน · ถามวิธีรักษาโรคพืช · ขายผลผลิตผ่าน LINE · ที่ปรึกษาเกษตรเฉพาะทาง</p>
+    </div>
+    <div class="card">
+      <div class="ico">🏪</div>
+      <h3>ร้านค้า/ค้าขาย</h3>
+      <p>สร้างภาพโปรโมท · เสียงโฆษณา · ตอบลูกค้าอัตโนมัติ · ขายผ่าน LINE Broadcast</p>
+    </div>
+    <div class="card">
+      <div class="ico">📚</div>
+      <h3>นักเรียน/นักศึกษา</h3>
+      <p>ถามการบ้าน · แปลภาษา · สรุปบทเรียน · ดวงสอบ · ที่ปรึกษาอาชีพ</p>
+    </div>
+    <div class="card">
+      <div class="ico">👨‍💼</div>
+      <h3>คนทำงาน</h3>
+      <p>ที่ปรึกษาส่วนตัว · เขียนอีเมล · สร้าง presentation · บริหารเวลา · ดวงงาน</p>
+    </div>
+    <div class="card">
+      <div class="ico">👵</div>
+      <h3>ผู้สูงอายุ</h3>
+      <p>คุยเป็นเพื่อน · ถามสุขภาพ · ดูดวง · ฟังข่าว · เสียงนุ่ม ฟังง่าย</p>
+    </div>
+    <div class="card">
+      <div class="ico">🏛️</div>
+      <h3>หน่วยงาน/บริษัท</h3>
+      <p>ใช้ G2G สำหรับบริษัทท่าน · LIFF App + AI + Broadcast — <a href="/business.html" style="color:#C9A961">ดูแพ็คเกจ →</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>คำถามที่พบบ่อย</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <h4>ฟรีจริงไหม? มีค่าใช้จ่ายซ่อนเร้นไหม?</h4>
+      <p>ฟรีจริง ไม่มีค่าใช้จ่ายซ่อน · ระบบใช้ G2G Token (ของขวัญ 50 Token แรก) · ถ้าใช้หมดท่านยังคุย AI ในขีดจำกัดประจำวันได้ฟรีตลอด · Token เสริมจะใช้สำหรับฟีเจอร์พิเศษ เช่น สร้างภาพ AI</p>
+    </div>
+    <div class="faq-item">
+      <h4>ข้อมูลส่วนตัวปลอดภัยไหม?</h4>
+      <p>ปฏิบัติตาม PDPA · เก็บเฉพาะที่จำเป็น · ไม่ขายข้อมูลให้บุคคลที่สาม · ท่านขอให้ลบข้อมูลได้ตลอด · ส่ง "ลบบัญชี" ใน LINE ระบบจะลบให้ทันที</p>
+    </div>
+    <div class="faq-item">
+      <h4>AI ตอบเก่งแค่ไหน?</h4>
+      <p>ใช้ Claude Haiku 4.5 ของ Anthropic · ตอบภาษาไทยเข้าใจง่าย · รู้จักท่าน (ชื่อ จังหวัด อาชีพ tier) · เรียนรู้จากการคุยทุกวัน</p>
+    </div>
+    <div class="faq-item">
+      <h4>ผมเปิดร้านค้า · ใช้ G2G สำหรับธุรกิจได้ไหม?</h4>
+      <p>ได้ · มี <a href="/business.html" style="color:#C9A961">แพ็คเกจ G2G สำหรับธุรกิจ</a> เริ่มต้น 990 บาท/เดือน · ได้ LIFF App ของบริษัท + AI Tutor + LINE Broadcast · เหมาะกับร้านค้าและ SME</p>
+    </div>
+    <div class="faq-item">
+      <h4>หน่วยงานราชการใช้ได้ไหม?</h4>
+      <p>ได้ · มี Enterprise tier และ Custom solution (เหมือน AIM Clinic, NK Law) · ติดต่อ g2g@gov2global.com</p>
+    </div>
+  </div>
+</div>
+
+<div class="cta-final">
+  <h2>เริ่มต้นวันนี้ · ฟรีตลอดชีพ</h2>
+  <p>ใช้เวลา 30 วินาที · ได้ AI ผู้ช่วยส่วนตัวที่อยู่กับท่าน 24 ชั่วโมง</p>
+  <a href="https://line.me/R/ti/p/@280ezsqs" class="btn btn-gold">📲 เพิ่มเพื่อน @G2G ประชาชน</a>
+</div>
+
+<footer>
+  <p>© 2026 G2G AgriTech · powered by AI</p>
+  <p>
+    <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ·
+    <a href="/terms">ข้อกำหนดการใช้บริการ</a> ·
+    <a href="/business.html">G2G สำหรับธุรกิจ</a> ·
+    <a href="mailto:g2g@gov2global.com">ติดต่อ</a>
+  </p>
+</footer>
+</body>
+</html>

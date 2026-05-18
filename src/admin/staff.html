@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>พนักงาน · HR · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">StaffRegistry</div><div class="val" id="kStaff">—</div><div class="delta">ทะเบียนหลัก</div></div>
+        <div class="kpi"><div class="lbl">Staff (current)</div><div class="val" id="kStaff2">—</div><div class="delta">พนักงานปัจจุบัน</div></div>
+        <div class="kpi"><div class="lbl">StaffIdentity</div><div class="val" id="kStaff3">—</div><div class="delta">ระบบยืนยันตัวตน</div></div>
+        <div class="kpi"><div class="lbl">AliasLookup</div><div class="val" id="kAlias">—</div><div class="delta">ชื่อเล่น/นามแฝง</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>ทะเบียนพนักงาน · StaffRegistry</h2>
+          <span class="sub">data live จาก Google Sheet · auto-refresh</span>
+        </div>
+
+        <div class="adm-card flat">
+          <div class="adm-card-h">
+            <h3>รายชื่อพนักงาน G2G</h3>
+            <button class="btn btn-gold btn-sm" onclick="alert('เพิ่มพนักงาน — POST /erpAppend tab=StaffRegistry')">+ เพิ่มพนักงาน</button>
+          </div>
+          <div id="staff-table"><div class="adm-loading">กำลังโหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>Staff (ทีมปัจจุบัน)</h2>
+          <span class="sub">tab Staff · 6 rows ในระบบ</span>
+        </div>
+        <div class="adm-card flat">
+          <div id="staff-current"><div class="adm-loading">กำลังโหลด...</div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('staff', { title: 'พนักงาน · HR', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'พนักงาน' }] });
+  (async function() {
+    const stats = await G2G.loadDashboard();
+    const c = stats.counts || {};
+    document.getElementById('kStaff').textContent = c.StaffRegistry ?? '—';
+    document.getElementById('kStaff2').textContent = c.Staff ?? '—';
+
+    // Load StaffRegistry
+    const reg = await G2G.loadTab('StaffRegistry');
+    G2G.renderTable(document.getElementById('staff-table'), reg.columns || [], reg.rows || [], { maxRows: 30 });
+
+    // Load Staff
+    const staff = await G2G.loadTab('Staff');
+    G2G.renderTable(document.getElementById('staff-current'), staff.columns || [], staff.rows || [], { maxRows: 20 });
+
+    // Try StaffIdentity and AliasLookup
+    const ident = await G2G.loadTab('StaffIdentity');
+    document.getElementById('kStaff3').textContent = ident.total ?? '—';
+    const alias = await G2G.loadTab('AliasLookup');
+    document.getElementById('kAlias').textContent = alias.total ?? '—';
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>G2G LIFF · Personal App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --brand: #0A1628; --gold: #C9A961; --bg: #F8F5EE; --ink: #2D3748; --line: #E5DDC4; }
+  html, body { margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { max-width: 480px; margin: 0 auto; min-height: 100vh; }
+  .hero { background: linear-gradient(135deg, var(--staff-color, #0A1628) 0%, var(--brand) 100%); color: #fff; padding: 32px 22px 60px; border-radius: 0 0 24px 24px; position: relative; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; margin: 0; }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero p { color: rgba(255,255,255,0.85); margin: 6px 0 0; font-size: 14px; }
+  .avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--brand); margin-bottom: 14px; }
+  .body { padding: 0 20px; margin-top: -36px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .card h3 { font-size: 16px; margin: 0 0 8px; font-weight: 600; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { background: var(--bg); padding: 14px; border-radius: 12px; text-align: center; }
+  .stat .v { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--staff-color, #0A1628); line-height: 1; }
+  .stat .l { font-size: 11px; color: #6B7280; margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .btn { width: 100%; padding: 12px; border: 0; border-radius: 12px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-gold { background: var(--gold); color: var(--brand); }
+  .btn-outline { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+  .horoscope-text { font-size: 14px; line-height: 1.85; white-space: pre-wrap; color: var(--ink); }
+  .chat { max-height: 320px; overflow-y: auto; padding: 12px; background: var(--bg); border-radius: 12px; margin-bottom: 10px; }
+  .msg { padding: 10px 14px; margin: 6px 0; border-radius: 14px; max-width: 85%; font-size: 14px; }
+  .msg.me { background: var(--staff-color, var(--gold)); color: #fff; margin-left: auto; }
+  .msg.ai { background: #fff; border: 1px solid var(--line); }
+  .input-row { display: flex; gap: 6px; }
+  .input-row input { flex: 1; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; font-size: 14px; }
+  .nav-tabs { display: flex; gap: 4px; background: var(--bg); padding: 4px; border-radius: 14px; margin-bottom: 14px; }
+  .nav-tabs button { flex: 1; padding: 10px; background: transparent; border: 0; border-radius: 10px; font-size: 13px; font-weight: 500; cursor: pointer; }
+  .nav-tabs button.active { background: #fff; color: var(--brand); font-weight: 600; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="avatar" id="avatar">G2G</div>
+  <h1>G2G · <em>Personal</em></h1>
+  <p id="staff-line">กำลังโหลด...</p>
+</div>
+
+<div class="body">
+
+  <div class="nav-tabs">
+    <button class="active" onclick="showTab('home')">หน้าหลัก</button>
+    <button onclick="showTab('tasks')">งานของฉัน</button>
+    <button onclick="showTab('studio')">🎨 Studio</button>
+    <button onclick="showTab('chat')">คุย AI</button>
+    <button onclick="showTab('profile')">โปรไฟล์</button>
+  </div>
+
+  <div id="tab-home" class="tab-content active">
+    <div class="card">
+      <h3>💰 G2G Token + 🔮 ดวงวันนี้</h3>
+      <div class="stat-grid" style="margin-bottom:12px">
+        <div class="stat"><div class="v" id="token-bal">—</div><div class="l">Tokens</div></div>
+        <div class="stat"><div class="v" id="task-count">—</div><div class="l">งานที่เปิด</div></div>
+      </div>
+      <button class="btn btn-gold" onclick="getHoroscope()">ขอดวงวันนี้ · 5 tokens</button>
+      <div id="horoscope-text" class="horoscope-text" style="margin-top:14px"></div>
+    </div>
+
+    <div class="card">
+      <h3>📱 Mobile Command</h3>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:10px">พิมพ์คำสั่ง เช่น "งาน [Marketing] ทำ banner", "ดวง", "balance"</p>
+      <div class="input-row">
+        <input id="cmd" placeholder="พิมพ์คำสั่ง..." onkeydown="if(event.key==='Enter')runCmd()">
+        <button class="btn btn-primary" style="width:auto;padding:0 18px" onclick="runCmd()">→</button>
+      </div>
+      <div id="cmd-result" style="margin-top:10px;font-size:12px;background:var(--bg);padding:10px;border-radius:8px;display:none;white-space:pre-wrap"></div>
+    </div>
+  </div>
+
+  <div id="tab-tasks" class="tab-content">
+    <div class="card">
+      <h3>📋 งานของฉัน</h3>
+      <div id="my-tasks">กำลังโหลด...</div>
+    </div>
+    <div class="card">
+      <h3>🌾 งานในหมวดของฉัน (Pool)</h3>
+      <div id="pool-tasks">กำลังโหลด...</div>
+    </div>
+  </div>
+
+  <div id="tab-studio" class="tab-content">
+    <div class="card">
+      <h3>🎨 Studio Hub</h3>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:10px">เครื่องมือ AI ครบทุกประเภท · ใช้ token จากส่วนกลาง (ไม่หักของตัวเอง)</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+        <button class="btn btn-outline" onclick="studioOpen('image')">🎨 สร้างภาพ</button>
+        <button class="btn btn-outline" onclick="studioOpen('voice')">🔊 ลงเสียง</button>
+        <button class="btn btn-outline" onclick="studioOpen('translate')">🌐 แปล</button>
+        <button class="btn btn-outline" onclick="studioOpen('ocr')">📄 OCR</button>
+        <button class="btn btn-outline" onclick="studioOpen('pdf')">📑 PDF</button>
+        <button class="btn btn-outline" onclick="studioOpen('summarize')">📝 สรุป</button>
+        <button class="btn btn-outline" onclick="studioOpen('broadcast')">📣 LINE</button>
+        <button class="btn btn-outline" onclick="studioOpen('video')">🎬 วิดีโอ</button>
+      </div>
+
+      <div id="studio-panel" style="display:none">
+        <h4 id="studio-title" style="margin:8px 0">—</h4>
+        <textarea id="studio-input" rows="3" placeholder="ป้อนข้อความ..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px"></textarea>
+        <div id="studio-extra" style="margin:8px 0"></div>
+        <button class="btn btn-primary" onclick="studioRun()">เรียกใช้</button>
+        <div id="studio-output" style="margin-top:12px;background:var(--bg);padding:10px;border-radius:8px;font-size:13px;display:none;white-space:pre-wrap;max-height:240px;overflow-y:auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-chat" class="tab-content">
+    <div class="card">
+      <h3>💬 AI Tutor</h3>
+      <div class="chat" id="chat-box"></div>
+      <div class="input-row">
+        <input id="chat-input" placeholder="ถามอะไรก็ได้..." onkeydown="if(event.key==='Enter')askAI()">
+        <button class="btn btn-primary" style="width:auto;padding:0 18px" onclick="askAI()">→</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-profile" class="tab-content">
+    <div class="card">
+      <h3>👤 โปรไฟล์</h3>
+      <div style="font-size:14px;line-height:1.85">
+        <div><strong>ชื่อ:</strong> <span id="p-name">—</span></div>
+        <div><strong>ฝ่าย:</strong> <span id="p-dept">—</span></div>
+        <div><strong>บทบาท:</strong> <span id="p-role">—</span></div>
+      </div>
+      <hr style="margin:14px 0;border:0;border-top:1px solid var(--line)">
+      <button class="btn btn-outline" onclick="changePin()">เปลี่ยน PIN</button>
+    </div>
+
+    <div class="card">
+      <h3>📊 Token Ledger (10 รายการล่าสุด)</h3>
+      <div id="ledger">กำลังโหลด...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec';
+
+const params = new URLSearchParams(location.search);
+const slug = params.get('slug') || prompt('slug ของคุณ (เช่น game, baipare, toy):');
+let session = null;
+
+async function api(action, p) {
+  const url = new URL(APPS_SCRIPT);
+  url.searchParams.set('action', action);
+  if (p) for (const k of Object.keys(p)) url.searchParams.set(k, p[k]);
+  try { return await (await fetch(url)).json(); } catch (e) { return { ok: false, error: String(e) }; }
+}
+async function apiPost(action, body) {
+  const url = new URL(APPS_SCRIPT);
+  url.searchParams.set('action', action);
+  try {
+    return await (await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(body) })).json();
+  } catch (e) { return { ok: false, error: String(e) }; }
+}
+
+(async function init() {
+  const stored = localStorage.getItem('liff_' + slug);
+  let pin = stored;
+  if (!pin) pin = prompt('PIN ของคุณ:');
+  if (!pin) return;
+  const r = await apiPost('wbAuth', { slug, pin });
+  if (!r.ok) { alert('PIN ไม่ถูก: ' + r.error); localStorage.removeItem('liff_' + slug); return; }
+  session = { ...r, pin };
+  localStorage.setItem('liff_' + slug, pin);
+
+  // Set staff color
+  document.documentElement.style.setProperty('--staff-color', session.color);
+  document.getElementById('avatar').textContent = (session.nickname || session.name).substr(0, 2);
+  document.getElementById('staff-line').textContent = session.role + ' · ' + (session.dept || '');
+  document.getElementById('p-name').textContent = session.nickname + ' (' + session.name + ')';
+  document.getElementById('p-dept').textContent = session.dept;
+  document.getElementById('p-role').textContent = session.role;
+
+  loadHome();
+  loadTasks();
+  loadLedger();
+
+  // Auto-start AI welcome
+  setTimeout(() => {
+    const checkin = getCheckin(slug);
+    appendMsg('ai', '👋 ' + checkin);
+  }, 500);
+})();
+
+async function loadHome() {
+  const b = await api('tokenBalance', { slug });
+  document.getElementById('token-bal').textContent = b.balance ?? '—';
+  const mine = await api('wbListMine', { slug });
+  document.getElementById('task-count').textContent = (mine.mine || []).length + (mine.pool || []).length;
+}
+
+async function getHoroscope() {
+  document.getElementById('horoscope-text').textContent = '🔮 กำลังขอดวง...';
+  const r = await api('horoscopeDaily', { slug });
+  if (r.ok) {
+    document.getElementById('horoscope-text').textContent = r.horoscope;
+    loadHome();
+  } else {
+    document.getElementById('horoscope-text').textContent = '❌ ' + r.error;
+  }
+}
+
+async function loadTasks() {
+  const r = await api('wbListMine', { slug });
+  const renderList = (arr, action) => {
+    if (!arr.length) return '<p style="color:#6B7280;font-size:13px">ไม่มี</p>';
+    return arr.slice(0, 10).map(t => `
+      <div style="padding:10px;background:var(--bg);border-radius:10px;margin-bottom:6px">
+        <div style="font-size:11px;color:var(--staff-color)">${t.category}</div>
+        <div style="font-weight:600;font-size:13.5px">${t.title}</div>
+        <div style="font-size:11px;color:#6B7280;margin-top:4px">${t.status}</div>
+        ${action === 'claim' ? `<button class="btn btn-gold" style="margin-top:6px;padding:6px;font-size:12px" onclick="claimT('${t.taskId}')">เรียก</button>` : ''}
+      </div>
+    `).join('');
+  };
+  document.getElementById('my-tasks').innerHTML = renderList(r.mine || []);
+  document.getElementById('pool-tasks').innerHTML = renderList(r.pool || [], 'claim');
+}
+
+async function claimT(id) {
+  const r = await apiPost('wbClaimTask', { taskId: id, slug, pin: session.pin });
+  if (r.ok) loadTasks();
+  else alert(r.error);
+}
+
+async function runCmd() {
+  const cmd = document.getElementById('cmd').value.trim();
+  if (!cmd) return;
+  document.getElementById('cmd').value = '';
+  const r = await apiPost('mobileCommand', { command: cmd, slug, pin: session.pin, from: session.name, channel: 'liff' });
+  const box = document.getElementById('cmd-result');
+  box.style.display = 'block';
+  box.textContent = r.response || JSON.stringify(r);
+  loadHome();
+}
+
+async function askAI() {
+  const q = document.getElementById('chat-input').value.trim();
+  if (!q) return;
+  document.getElementById('chat-input').value = '';
+  appendMsg('me', q);
+  appendMsg('ai', '...');
+  const r = await apiPost('wbTutorAsk', { slug, question: q });
+  document.querySelector('.typing')?.remove();
+  appendMsg('ai', r.answer || r.error || 'no response');
+}
+function appendMsg(who, text) {
+  const c = document.getElementById('chat-box');
+  const d = document.createElement('div');
+  d.className = 'msg ' + who + (text === '...' ? ' typing' : '');
+  d.textContent = text;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function getCheckin(slug) {
+  const m = {
+    'game': 'งาน IT/Graphics สัปดาห์นี้ขั้นไหนแล้ว? มี deploy bug ค้างไหม?',
+    'baipare': 'แคมเปญการตลาดเดือนนี้คืออะไร? Imperial Fruitia/Le Phaya มี promotion อะไรบ้าง?',
+    'som': 'สต็อกอัญมณีเดือนนี้เป็นยังไง? Le Phaya order ใหม่?',
+    'aui': 'ภาษีเดือนหน้าครบกำหนดอะไรบ้าง?',
+    'wan': 'มี service request จาก AIM/NK ค้างไหม?',
+    'toy': 'อาจารย์อยากเริ่มที่เรื่องอะไรครับ? มีปัญหาเกษตรกรถามเข้ามาบ่อยอะไรไหม?',
+    'bank': 'production output โรงงานสัปดาห์นี้?',
+    'sombat': 'distillery batch ล่าสุด?',
+    'ainam': 'มีข่าวสารที่ต้องเผยแพร่สัปดาห์นี้ไหม?',
+    'cat': 'งานสื่อสารกับ stakeholder?',
+    'phim': '9 AI Agents ทำงานครบไหม?',
+    'yui': 'มี client/ministry meeting สำคัญสัปดาห์นี้ไหม?'
+  };
+  return m[slug] || 'งานวันนี้เป็นยังไงครับ?';
+}
+
+async function loadLedger() {
+  const r = await api('tokenLedger', { slug });
+  const txns = r.txns || [];
+  if (!txns.length) { document.getElementById('ledger').innerHTML = '<p style="color:#6B7280;font-size:13px">ไม่มี</p>'; return; }
+  document.getElementById('ledger').innerHTML = txns.slice(0, 10).map(t => `
+    <div style="padding:8px;border-bottom:1px solid var(--line);font-size:12px">
+      <div style="display:flex;justify-content:space-between">
+        <span>${new Date(t.timestamp).toLocaleDateString('th-TH')}</span>
+        <span style="color:${t.amount > 0 ? 'var(--gold)' : '#B91C1C'}">${t.amount > 0 ? '+' : ''}${t.amount}</span>
+      </div>
+      <div style="color:#6B7280;font-size:11px">${t.reason}</div>
+    </div>
+  `).join('');
+}
+
+async function changePin() {
+  const oldP = prompt('PIN เดิม:');
+  const newP = prompt('PIN ใหม่:');
+  if (!newP) return;
+  const r = await apiPost('wbChangePin', { slug, oldPin: oldP, newPin: newP });
+  if (r.ok) { alert('เปลี่ยน PIN แล้ว'); localStorage.setItem('liff_' + slug, newP); session.pin = newP; }
+  else alert(r.error);
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('.nav-tabs button').forEach((b, i) => b.classList.toggle('active', ['home','tasks','studio','chat','profile'][i] === name));
+}
+
+// === Studio Hub ===
+let studioMode = null;
+const STUDIO_LABEL = {
+  image: '🎨 สร้างภาพ AI', voice: '🔊 ลงเสียง TTS', translate: '🌐 แปลภาษา',
+  ocr: '📄 OCR · อ่านภาพเป็นข้อความ', pdf: '📑 PDF · จัดการเอกสาร',
+  summarize: '📝 สรุปข้อความ', broadcast: '📣 LINE Broadcast', video: '🎬 สร้างวิดีโอ'
+};
+const STUDIO_HINT = {
+  image: 'อธิบายภาพที่ต้องการ · ภาษาไทยหรืออังกฤษก็ได้',
+  voice: 'ข้อความที่ต้องการลงเสียง',
+  translate: 'ข้อความที่ต้องการแปล',
+  ocr: 'URL ของภาพที่ต้องการอ่าน',
+  pdf: 'URL ของ PDF',
+  summarize: 'ข้อความที่ต้องการสรุป',
+  broadcast: 'ข้อความที่จะ broadcast ผ่าน LINE',
+  video: 'อธิบายวิดีโอที่ต้องการสร้าง'
+};
+function studioOpen(mode) {
+  studioMode = mode;
+  document.getElementById('studio-panel').style.display = 'block';
+  document.getElementById('studio-title').textContent = STUDIO_LABEL[mode] || mode;
+  document.getElementById('studio-input').placeholder = STUDIO_HINT[mode];
+  document.getElementById('studio-input').value = '';
+  document.getElementById('studio-output').style.display = 'none';
+  let extra = '';
+  if (mode === 'image') extra = '<select id="s-aspect" style="padding:8px;border:1px solid var(--line);border-radius:6px;margin-right:6px"><option value="1:1">สี่เหลี่ยม 1:1</option><option value="9:16">แนวตั้ง 9:16</option><option value="16:9">แนวนอน 16:9</option></select>';
+  else if (mode === 'voice') extra = '<select id="s-narrator" style="padding:8px;border:1px solid var(--line);border-radius:6px;margin-right:6px"><option value="niwat">นิวัตน์ (ชาย)</option><option value="premwadee">เปรมวดี (หญิง)</option></select>';
+  else if (mode === 'translate') extra = '<select id="s-target" style="padding:8px;border:1px solid var(--line);border-radius:6px"><option value="en">→ English</option><option value="zh">→ จีน</option><option value="th">→ ไทย</option></select>';
+  document.getElementById('studio-extra').innerHTML = extra;
+}
+async function studioRun() {
+  const txt = document.getElementById('studio-input').value.trim();
+  if (!txt) { alert('กรุณาป้อนข้อความ'); return; }
+  const out = document.getElementById('studio-output');
+  out.style.display = 'block';
+  out.textContent = 'กำลังประมวลผล...';
+  const ep = {
+    image: 'studioImage', voice: 'studioVoice', translate: 'studioTranslate',
+    ocr: 'studioOCR', pdf: 'studioPDF', summarize: 'studioSummarize',
+    broadcast: 'studioLineBroadcast', video: 'studioVideo'
+  }[studioMode];
+  const body = { slug };
+  if (studioMode === 'image') { body.prompt = txt; body.aspect = document.getElementById('s-aspect').value; }
+  else if (studioMode === 'voice') { body.text = txt; body.narrator = document.getElementById('s-narrator').value; body.rate = 0.78; }
+  else if (studioMode === 'translate') { body.text = txt; body.target = document.getElementById('s-target').value; }
+  else if (studioMode === 'ocr') body.imageUrl = txt;
+  else if (studioMode === 'pdf') body.pdfUrl = txt;
+  else if (studioMode === 'summarize') body.text = txt;
+  else if (studioMode === 'broadcast') body.message = txt;
+  else if (studioMode === 'video') body.prompt = txt;
+  const r = await G2G.apiPost(ep, body);
+  if (r.ok) {
+    if (r.imageUrl) out.innerHTML = '<img src="' + r.imageUrl + '" style="max-width:100%;border-radius:8px"><br><a href="' + r.imageUrl + '" target="_blank">เปิด</a>';
+    else if (r.audioUrl) out.innerHTML = '<audio controls src="' + r.audioUrl + '" style="width:100%"></audio>';
+    else if (r.videoUrl) out.innerHTML = '<video controls src="' + r.videoUrl + '" style="width:100%;border-radius:8px"></video>';
+    else out.textContent = JSON.stringify(r, null, 2);
+  } else {
+    out.textContent = 'Error: ' + (r.error || 'unknown');
+  }
+}
+</script>
+</body>
+</html>

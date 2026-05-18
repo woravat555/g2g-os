@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R-DISCOVERY Test · G2G</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .disc-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 18px; }
+  @media (max-width: 900px) { .disc-grid { grid-template-columns: 1fr; } }
+  .tier-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+  .tier-card h4 { font-size: 14px; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+  .tier-card .badge { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 700; }
+  .b-hit { background: #D1FAE5; color: #047857; }
+  .b-miss { background: #FEE2E2; color: #DC2626; }
+  .b-skip { background: #F3F4F6; color: #6B7280; }
+  .tier-card pre { font-family: monospace; font-size: 12px; color: #374151; background: #F9FAFB; padding: 8px; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; }
+  .score-banner { background: linear-gradient(135deg,#0A1628,#312E81); color: #fff; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 16px; }
+  .score-banner .v { font-size: 48px; font-weight: 700; color: #C9A961; line-height: 1; }
+  .score-banner .l { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+  .conf-HIGH { background: linear-gradient(135deg,#064E3B,#10B981) !important; }
+  .conf-MEDIUM { background: linear-gradient(135deg,#7C2D12,#F59E0B) !important; }
+  .conf-LOW { background: linear-gradient(135deg,#831843,#EC4899) !important; }
+  .conf-UNKNOWN { background: linear-gradient(135deg,#1F2937,#6B7280) !important; }
+  .greeting-preview { background: #FEF3C7; border: 2px solid #C9A961; border-radius: 12px; padding: 16px; margin-top: 12px; font-size: 15px; line-height: 1.7; }
+  .greeting-preview .from { font-size: 12px; color: #92400E; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .qr-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .qr-chip { padding: 6px 12px; background: #fff; border: 1.5px solid #C9A961; color: #92400E; border-radius: 999px; font-size: 13px; cursor: pointer; }
+  input.disc-name { padding: 14px; font-size: 16px; border: 2px solid #0A1628; border-radius: 10px; width: 100%; font-family: inherit; }
+  .preset-btn { padding: 6px 12px; background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 12px; cursor: pointer; margin: 2px; font-family: inherit; }
+  .loading { padding: 30px; text-align: center; color: #6B7280; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero">
+        <div class="role-line">🔍 R-DISCOVERY Framework · 6-Tier Test Console</div>
+        <h1>🔍 Discovery</h1>
+        <p>ทดลองค้นข้อมูล user จากชื่อเดียว · ดู Tier 1-6 breakdown · confidence score · greeting preview</p>
+      </div>
+
+      <div class="adm-section">
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <input id="d-name" class="disc-name" placeholder="ใส่ชื่อ user (ภาษาไทย/อังกฤษ) · เช่น ธิติพร แก้วลังกา">
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+              <button class="preset-btn" onclick="preset('ธิติพร แก้วลังกา')">ธิติพร แก้วลังกา</button>
+              <button class="preset-btn" onclick="preset('สมชาย ใจดี')">สมชาย ใจดี</button>
+              <button class="preset-btn" onclick="preset('John Smith')">John Smith</button>
+              <button class="preset-btn" onclick="preset('ปรีชา ดวงดี')">ปรีชา ดวงดี</button>
+              <button class="preset-btn" onclick="preset('Wanida Sukjai')">Wanida Sukjai</button>
+            </div>
+            <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+              <input id="d-slug" placeholder="slug (optional)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+              <input id="d-userid" placeholder="LINE userId (optional)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+              <input id="d-latlng" placeholder="lat,lng (optional · เช่น 18.14,100.14)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn btn-primary" onclick="runDiscovery()">🔍 Run Full Discovery (6-tier)</button>
+              <button class="btn" style="background:#F59E0B;color:#fff;padding:14px 20px;border:0;border-radius:10px;cursor:pointer" onclick="runMultiAI()">🤖 Multi-AI Search Only</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="result"></div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('discovery', { title: 'R-DISCOVERY', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Discovery' }] });
+
+function preset(name) { document.getElementById('d-name').value = name; }
+
+function escapeHtml(s) { return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+async function runDiscovery() {
+  const name = document.getElementById('d-name').value.trim();
+  const slug = document.getElementById('d-slug').value.trim();
+  const userId = document.getElementById('d-userid').value.trim();
+  const latlng = document.getElementById('d-latlng').value.trim();
+  if (!name) { alert('กรุณาใส่ชื่อ'); return; }
+  let lat = '', lng = '';
+  if (latlng.includes(',')) { const [a, b] = latlng.split(',').map(s => s.trim()); lat = a; lng = b; }
+
+  const out = document.getElementById('result');
+  out.innerHTML = '<div class="loading">⏳ กำลังค้นข้อมูล 6-tier...</div>';
+
+  const body = { name };
+  if (slug) body.slug = slug;
+  if (userId) body.userId = userId;
+  if (lat && lng) { body.lat = lat; body.lng = lng; }
+
+  try {
+    const r = await G2G.apiPost('fullPersonResearch', body);
+    if (!r.ok) { out.innerHTML = '<div style="background:#FEF2F2;color:#DC2626;padding:14px;border-radius:8px">❌ ' + escapeHtml(r.error || 'failed') + '</div>'; return; }
+    renderResult(r, name);
+  } catch (e) {
+    out.innerHTML = '<div style="background:#FEF2F2;color:#DC2626;padding:14px;border-radius:8px">❌ ' + escapeHtml(String(e)) + '</div>';
+  }
+}
+
+async function runMultiAI() {
+  const name = document.getElementById('d-name').value.trim();
+  if (!name) { alert('กรุณาใส่ชื่อ'); return; }
+  const out = document.getElementById('result');
+  out.innerHTML = '<div class="loading">🤖 กำลังถาม Tavily + Perplexity + GPT + Claude...</div>';
+  try {
+    const r = await G2G.apiPost('multiAISearch', { query: name });
+    if (!r.ok) { out.innerHTML = '<div style="background:#FEF2F2;color:#DC2626;padding:14px;border-radius:8px">❌ ' + escapeHtml(r.error || 'failed') + '</div>'; return; }
+    out.innerHTML = `
+      <div class="adm-section">
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>🤖 Multi-AI Consensus</h3></div>
+          <div class="adm-card-b">
+            <div style="background:#F9FAFB;padding:14px;border-radius:8px;line-height:1.7">${escapeHtml(r.synthesis || '-').replace(/\\n/g, '<br>')}</div>
+            <details style="margin-top:14px">
+              <summary style="cursor:pointer;font-weight:700;font-size:13px">🔬 รายละเอียดแยกตาม AI</summary>
+              <pre style="font-size:11px;background:#F3F4F6;padding:10px;border-radius:6px;margin-top:8px">${escapeHtml(JSON.stringify(r.sources || {}, null, 2))}</pre>
+            </details>
+          </div>
+        </div>
+      </div>`;
+  } catch (e) {
+    out.innerHTML = '<div style="background:#FEF2F2;color:#DC2626;padding:14px;border-radius:8px">❌ ' + escapeHtml(String(e)) + '</div>';
+  }
+}
+
+function renderResult(r, name) {
+  const score = r.score || 0;
+  const conf = score >= 80 ? 'HIGH' : score >= 50 ? 'MEDIUM' : score >= 30 ? 'LOW' : 'UNKNOWN';
+  const tiers = r.sources || {};
+  const out = document.getElementById('result');
+
+  const tierCard = (n, label, data, weight) => {
+    const hit = data && (data.ok !== false) && (data.hit !== false) && Object.keys(data).length > 0;
+    const skip = !data || data.skipped;
+    const badge = hit ? 'b-hit' : skip ? 'b-skip' : 'b-miss';
+    const badgeText = hit ? '✓ HIT' : skip ? '○ SKIP' : '× MISS';
+    return `<div class="tier-card">
+      <h4>Tier ${n} · ${label} <span class="badge ${badge}">${badgeText}</span> <span style="font-size:11px;color:#9CA3AF;margin-left:auto">${weight}%</span></h4>
+      <pre>${escapeHtml(JSON.stringify(data || {}, null, 2)).substring(0, 800)}</pre>
+    </div>`;
+  };
+
+  out.innerHTML = `
+    <div class="score-banner conf-${conf}">
+      <div class="v">${score}%</div>
+      <div class="l">${conf} CONFIDENCE · ${escapeHtml(name)}</div>
+    </div>
+
+    <div class="disc-grid">
+      <div>
+        <h3 style="margin-bottom:10px;font-size:15px">📊 6-Tier Breakdown</h3>
+        ${tierCard(1, 'Internal Systems', tiers.internal, 40)}
+        ${tierCard(2, 'LINE Profile', tiers.line, 15)}
+        ${tierCard(3, 'Geolocation', tiers.geo, 15)}
+        ${tierCard(4, 'Name Inference', tiers.name, 10)}
+        ${tierCard(5, 'Public Web (multi-AI)', tiers.web, 10)}
+        ${tierCard(6, 'Behavioral', tiers.behavior, 5)}
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;font-size:15px">💬 Greeting Preview</h3>
+        <div class="greeting-preview">
+          <div class="from">หนูเอไอ · ${conf}</div>
+          ${escapeHtml(r.greeting?.text || '').replace(/\\n/g, '<br>')}
+          ${(r.greeting?.quickReplies || []).length ? `<div class="qr-row">${r.greeting.quickReplies.map(q => `<div class="qr-chip">${escapeHtml(q.label || q)}</div>`).join('')}</div>` : ''}
+        </div>
+
+        ${r.weather ? `
+          <div class="adm-card" style="margin-top:14px">
+            <div class="adm-card-h"><h3>🌤️ Weather (Tier 3 enrichment)</h3></div>
+            <div class="adm-card-b"><pre style="font-size:11px">${escapeHtml(JSON.stringify(r.weather, null, 2))}</pre></div>
+          </div>` : ''}
+
+        ${r.news ? `
+          <div class="adm-card" style="margin-top:14px">
+            <div class="adm-card-h"><h3>📰 Local News (Tier 3 enrichment)</h3></div>
+            <div class="adm-card-b"><pre style="font-size:11px">${escapeHtml(JSON.stringify(r.news, null, 2)).substring(0, 600)}</pre></div>
+          </div>` : ''}
+
+        <details style="margin-top:14px">
+          <summary style="cursor:pointer;font-weight:700;font-size:13px">🔬 Raw Response</summary>
+          <pre style="font-size:11px;background:#F3F4F6;padding:10px;border-radius:6px;margin-top:8px">${escapeHtml(JSON.stringify(r, null, 2))}</pre>
+        </details>
+      </div>
+    </div>`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIM Clinic · Service Support · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div style="background:linear-gradient(135deg,#0F4C81 0%,#0A2540 100%);color:#fff;padding:24px 28px;border-radius:12px;margin-bottom:22px">
+        <div style="font-size:11px;letter-spacing:0.12em;color:#7DD3FC;text-transform:uppercase">ลูกค้า · CLIENT</div>
+        <h1 style="font-family:'Cormorant Garamond',serif;font-size:30px;margin-top:4px"><em style="color:#7DD3FC">AIM</em> Clinic</h1>
+        <p style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:6px">Regenerative Medicine Platform · 132 modules · นพ.บัญชา แดงเนียม</p>
+        <div style="margin-top:14px"><a href="https://g2g-ai-os.fly.dev" target="_blank" class="btn btn-gold btn-sm">เปิด AIM Live →</a></div>
+      </div>
+
+      <div class="adm-grid adm-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>ส่งคำขอบริการ</h3></div>
+          <div class="adm-card-b">
+            <p style="font-size:13px;color:var(--ink-3)">ลูกค้า AIM Clinic สามารถพิมพ์ปัญหาหรือคำขอที่ต้องการให้ G2G ช่วยปรับแต่งแอพ · จะถูก route ไปที่หน้าของเกมส์และวรรณอัตโนมัติ</p>
+            <input type="text" id="from-name" placeholder="ชื่อผู้ติดต่อ (เช่น Dr.Bancha)" style="width:100%;padding:10px;margin:10px 0;border:1px solid var(--line);border-radius:6px">
+            <textarea id="msg" rows="5" placeholder="พิมพ์ข้อความ..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px"></textarea>
+            <button class="btn btn-primary" onclick="sendMsg()" style="margin-top:10px">ส่งข้อความ</button>
+            <div id="send-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>ประวัติคำขอ</h3></div>
+          <div class="adm-card-b" id="history" style="max-height:400px;overflow-y:auto">
+            <div class="adm-loading">โหลด...</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>ขอบเขตบริการ · Service Catalog</h2></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <table class="adm-tbl">
+              <tr><th>ประเภท</th><th>SLA</th><th>ผู้รับผิดชอบ</th></tr>
+              <tr><td>Bug fix (critical)</td><td>4 ชม.</td><td>เกมส์ + วรรณ</td></tr>
+              <tr><td>Feature request</td><td>3 วัน · estimate</td><td>เกมส์ + พิมลรัตน์</td></tr>
+              <tr><td>UI customization</td><td>1 วัน</td><td>เกมส์</td></tr>
+              <tr><td>Training session</td><td>นัดล่วงหน้า 1 สัปดาห์</td><td>วรรณ + แคท</td></tr>
+              <tr><td>Performance issue</td><td>1 วัน</td><td>เกมส์ + พิมลรัตน์</td></tr>
+            </table>
+            <p style="font-size:12px;color:var(--ink-4);margin-top:14px"><strong>Contract:</strong> ฿250k setup + ฿60k/mo · OR 3% revenue share · OR 2-5% equity</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="../_admin.js"></script>
+<script>
+G2G.boot('client-aim', { title: 'AIM Clinic · Service', crumbs: [
+  { label: 'Dashboard', href: '../index.html' },
+  { label: 'ลูกค้า' },
+  { label: 'AIM Clinic' }
+]});
+G2G.installTools('หน้านี้เป็นช่องทางลูกค้า AIM Clinic ติดต่อกับ G2G เพื่อขอรับบริการปรับแต่งแอพหรือแก้ไขปัญหา ข้อความจะถูกส่งไปที่ทีม IT ของเราอัตโนมัติ ทั้งเกมส์และวรรณ', 'premwadee');
+
+async function sendMsg() {
+  const from = document.getElementById('from-name').value.trim() || 'AIM Clinic';
+  const message = document.getElementById('msg').value.trim();
+  if (!message) return;
+  const r = await G2G.wbCustomerSend('aim', from, message);
+  document.getElementById('send-result').innerHTML = r.ok
+    ? '<span style="color:var(--ok)">✓ ส่งข้อความแล้ว · เลขที่ ' + r.msgId + ' · ทีมจะตอบกลับใน 4 ชม.</span>'
+    : '<span style="color:var(--err)">❌ ' + (r.error || 'failed') + '</span>';
+  if (r.ok) {
+    document.getElementById('msg').value = '';
+    loadHistory();
+  }
+}
+
+async function loadHistory() {
+  const msgs = await G2G.wbCustomerList('aim');
+  const target = document.getElementById('history');
+  if (!msgs.length) {
+    target.innerHTML = '<div class="adm-empty" style="padding:18px"><p>ยังไม่มีประวัติ</p></div>';
+    return;
+  }
+  target.innerHTML = msgs.slice(0, 20).map(m => `
+    <div style="padding:12px;border-bottom:1px solid var(--line)">
+      <div style="font-size:11px;color:var(--ink-4);margin-bottom:4px">${new Date(m.timestamp).toLocaleString('th-TH')} · ${G2G.escapeHtml(m.from)}</div>
+      <div style="font-size:13px">${G2G.escapeHtml(m.message)}</div>
+      <div style="margin-top:6px"><span class="chip ${m.status === 'new' ? 'warn' : 'ok'}">${m.status}</span></div>
+    </div>
+  `).join('');
+}
+loadHistory();
+</script>
+</body>
+</html>

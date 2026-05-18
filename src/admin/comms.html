@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comms · Email + Calendar · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .ev { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+  .ev-title { font-weight: 600; font-size: 14px; color: var(--ink-1); }
+  .ev-meta { font-size: 12px; color: var(--ink-4); margin-top: 4px; }
+  textarea, input[type="text"], input[type="email"], input[type="datetime-local"] { width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box; }
+  label { display: block; font-size: 12px; color: var(--ink-4); margin-bottom: 4px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero">
+        <div class="role-line">📨 Communications · Email + Calendar</div>
+        <h1>📨 Comms</h1>
+        <p>ส่งอีเมล · จัดการปฏิทิน · ทำงานผ่าน G2G Apps Script integration</p>
+      </div>
+
+      <div class="adm-grid adm-grid-2">
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>📧 ส่ง Email</h3></div>
+          <div class="adm-card-b">
+            <label>To (อีเมลผู้รับ)</label>
+            <input id="e-to" type="email" placeholder="someone@example.com">
+            <label>CC (optional)</label>
+            <input id="e-cc" type="email" placeholder="cc@example.com">
+            <label>หัวข้อ</label>
+            <input id="e-subject" type="text" placeholder="หัวข้อ email">
+            <label>ข้อความ (HTML รองรับ)</label>
+            <textarea id="e-body" rows="6" placeholder="เนื้อหา..."></textarea>
+            <button class="btn btn-primary" onclick="sendEmail()" style="margin-top:10px">ส่ง Email</button>
+            <div id="e-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>📅 สร้าง Event</h3></div>
+          <div class="adm-card-b">
+            <label>ชื่องาน</label>
+            <input id="c-title" type="text" placeholder="ประชุมทีม Q3">
+            <label>เริ่ม (datetime)</label>
+            <input id="c-start" type="datetime-local">
+            <label>สิ้นสุด (optional · default +1 hr)</label>
+            <input id="c-end" type="datetime-local">
+            <label>สถานที่</label>
+            <input id="c-location" type="text" placeholder="สำนักงาน G2G · แพร่">
+            <label>คำอธิบาย</label>
+            <textarea id="c-desc" rows="3"></textarea>
+            <label>แขก (อีเมล · คั่นด้วย comma)</label>
+            <input id="c-guests" type="email" placeholder="a@x.com, b@y.com">
+            <button class="btn btn-primary" onclick="createEvent()" style="margin-top:10px">สร้าง Event</button>
+            <div id="c-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>📅 Events ใน 7 วันข้างหน้า</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadEvents()">↻ Refresh</button>
+        </div>
+        <div class="adm-card flat">
+          <div id="events-list" style="padding:14px">กำลังโหลด...</div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>🎬 Mascot Pipeline (chain image + voice)</h2></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <label>ผลไม้ (เช่น ทุเรียน, มะม่วง, ลำไย)</label>
+            <input id="m-fruit" type="text" placeholder="ทุเรียน">
+            <label>Script (ข้อความที่ Premwadee จะพูด)</label>
+            <textarea id="m-script" rows="3" placeholder="(เว้นว่างเพื่อใช้ default)"></textarea>
+            <label><input type="checkbox" id="m-publish"> Auto broadcast LINE @phrae555 หลังสร้างเสร็จ</label>
+            <button class="btn btn-primary" onclick="runMascot()" style="margin-top:10px">🚀 Execute Pipeline</button>
+            <div id="m-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('comms', { title: 'Comms · Email + Calendar', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Comms' }] });
+
+async function sendEmail() {
+  const to = document.getElementById('e-to').value.trim();
+  const subject = document.getElementById('e-subject').value.trim();
+  if (!to || !subject) { alert('กรุณากรอก To + Subject'); return; }
+  const out = document.getElementById('e-result');
+  out.textContent = 'กำลังส่ง...';
+  const r = await G2G.apiPost('emailSend', {
+    to, cc: document.getElementById('e-cc').value.trim(),
+    subject, body: document.getElementById('e-body').value, slug: 'toy'
+  });
+  out.innerHTML = r.ok ? `<span style="color:#16A34A">✅ ส่งแล้ว → ${G2G.escapeHtml(r.sent)}</span>` : `<span style="color:#EF4444">❌ ${G2G.escapeHtml(r.error||'failed')}</span>`;
+}
+
+async function createEvent() {
+  const title = document.getElementById('c-title').value.trim();
+  const start = document.getElementById('c-start').value;
+  if (!title || !start) { alert('กรุณากรอกชื่องาน + วันเวลา'); return; }
+  const out = document.getElementById('c-result');
+  out.textContent = 'กำลังสร้าง...';
+  const r = await G2G.apiPost('calendarCreate', {
+    title, start, end: document.getElementById('c-end').value,
+    location: document.getElementById('c-location').value,
+    description: document.getElementById('c-desc').value,
+    guests: document.getElementById('c-guests').value
+  });
+  out.innerHTML = r.ok ? `<span style="color:#16A34A">✅ สร้างแล้ว · ${G2G.escapeHtml(r.title)}</span>` : `<span style="color:#EF4444">❌ ${G2G.escapeHtml(r.error||'failed')}</span>`;
+  if (r.ok) loadEvents();
+}
+
+async function loadEvents() {
+  const out = document.getElementById('events-list');
+  out.textContent = 'กำลังโหลด...';
+  const r = await G2G.apiGet('calendarList', { days: 7 });
+  if (!r.ok) { out.innerHTML = '<p style="color:#EF4444">' + G2G.escapeHtml(r.error||'failed') + '</p>'; return; }
+  if (!r.events.length) { out.innerHTML = '<p style="color:#9CA3AF">ไม่มี event ใน 7 วันข้างหน้า</p>'; return; }
+  out.innerHTML = r.events.map(e => `
+    <div class="ev">
+      <div class="ev-title">${G2G.escapeHtml(e.title)}</div>
+      <div class="ev-meta">📅 ${new Date(e.start).toLocaleString('th-TH')} · ${G2G.escapeHtml(e.location || '—')}</div>
+      ${e.description ? `<div style="font-size:12px;color:#6B7280;margin-top:6px">${G2G.escapeHtml(e.description)}</div>` : ''}
+    </div>`).join('');
+}
+
+async function runMascot() {
+  const fruit = document.getElementById('m-fruit').value.trim();
+  if (!fruit) { alert('กรุณากรอกผลไม้'); return; }
+  const out = document.getElementById('m-result');
+  out.textContent = 'กำลังสร้าง mascot pipeline (อาจใช้เวลา 30 วินาที)...';
+  const r = await G2G.apiPost('mascotExecute', {
+    slug: 'toy', fruit,
+    script: document.getElementById('m-script').value,
+    publish: document.getElementById('m-publish').checked,
+    channel: 'PHRAE555', narrator: 'premwadee'
+  });
+  if (!r.ok) { out.innerHTML = '<span style="color:#EF4444">' + G2G.escapeHtml(r.error||'failed') + '</span>'; return; }
+  let html = '<div style="border:1px solid #16A34A;padding:12px;border-radius:8px;background:#F0FDF4">';
+  html += `<strong>🌟 ${G2G.escapeHtml(r.fruit)}</strong><br>`;
+  html += '<table style="width:100%;margin-top:8px;font-size:12px"><tbody>';
+  Object.entries(r.stages).forEach(([k,v]) => {
+    html += `<tr><td style="padding:4px;width:100px">${k}</td><td>${v.ok ? '✅' : '❌'} ${G2G.escapeHtml(v.note||v.error||'ok')}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  if (r.stages.image && r.stages.image.url) html += `<div style="margin-top:10px"><img src="${r.stages.image.url}" style="max-width:200px;border-radius:8px"></div>`;
+  if (r.stages.voice && r.stages.voice.audioUrl) html += `<div style="margin-top:10px"><audio controls src="${r.stages.voice.audioUrl}" style="width:100%"></audio></div>`;
+  html += '</div>';
+  out.innerHTML = html;
+}
+
+loadEvents();
+</script>
+</body>
+</html>

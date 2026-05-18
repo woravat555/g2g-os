@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สถานะระบบ · Status · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  .svc { display: grid; grid-template-columns: 1fr auto auto; gap: 14px;
+    padding: 16px 18px; background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: var(--r-3); margin-bottom: 10px; align-items: center; }
+  .svc-name { font-weight: 600; }
+  .svc-url { font-size: 12px; color: var(--ink-4); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.ok { background: #34D399; box-shadow: 0 0 0 4px rgba(52,211,153,0.18); }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="team.html">ทีม</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="admin/login.html" class="btn btn-primary btn-sm">เข้าระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">สถานะระบบ · System Status</div>
+    <h1 class="h-display">สถานะ <em>ระบบ</em><br>ทั้งหมด</h1>
+    <p class="lead">สถานะ Fly.io apps · LINE OAs · backend ของ G2G · monitoring โดย Better Stack</p>
+    <div style="margin-top:18px">
+      <a class="btn btn-outline btn-sm" href="https://g2g-status.betteruptime.com" target="_blank">เปิด Better Stack Status Page →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h3>Fly.io Apps</h3>
+    <div style="margin-top:14px">
+      <div class="svc">
+        <div><div class="svc-name">g2g-os</div><div class="svc-url">https://g2g-os.fly.dev</div></div>
+        <span class="chip ok">Operational</span>
+        <span class="dot ok"></span>
+      </div>
+      <div class="svc">
+        <div><div class="svc-name">g2g-ai-os</div><div class="svc-url">https://g2g-ai-os.fly.dev</div></div>
+        <span class="chip ok">Operational</span>
+        <span class="dot ok"></span>
+      </div>
+      <div class="svc">
+        <div><div class="svc-name">g2g-platform</div><div class="svc-url">https://g2g-platform.fly.dev</div></div>
+        <span class="chip ok">Operational</span>
+        <span class="dot ok"></span>
+      </div>
+      <div class="svc">
+        <div><div class="svc-name">phat-token-mesh-staging</div><div class="svc-url">staging environment</div></div>
+        <span class="chip warn">Staging</span>
+        <span class="dot ok"></span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:32px">LINE OA Network</h3>
+    <div style="margin-top:14px">
+      <div class="svc"><div><div class="svc-name">@phrae555 (น้องผลไม้)</div><div class="svc-url">Opus 4.7 · เกษตรกร 780 followers</div></div><span class="chip ok">Live</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">@aifruits (น้องเซลล์)</div><div class="svc-url">Perplexity · Market intel</div></div><span class="chip ok">Live</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">@802ftrzy (น้องแพร่)</div><div class="svc-url">GPT-4o · Phrae coordinator</div></div><span class="chip ok">Live</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">@983onwvu (น้องไพลิน)</div><div class="svc-url">Claude Sonnet · Le Phaya Jewelry</div></div><span class="chip ok">Live</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">@889jgmsd (น้องเลขา)</div><div class="svc-url">Claude Opus 4.7 · CEO Brain</div></div><span class="chip ok">Live</span><span class="dot ok"></span></div>
+    </div>
+
+    <h3 style="margin-top:32px">Backend Services</h3>
+    <div style="margin-top:14px">
+      <div class="svc"><div><div class="svc-name">Apps Script Endpoint</div><div class="svc-url">Memory + Auth + CRUD</div></div><span class="chip ok">Operational</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">Airtable G2G AgriTech2</div><div class="svc-url">appsLSvIx9NajF9Hb</div></div><span class="chip ok">Operational</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">Google Sheets · AI Memory</div><div class="svc-url">60+ tabs</div></div><span class="chip ok">Operational</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">Cloudflare Tunnel · brain.g2g-ai.com</div><div class="svc-url">Permanent named tunnel</div></div><span class="chip ok">Operational</span><span class="dot ok"></span></div>
+      <div class="svc"><div><div class="svc-name">n8n Cloud</div><div class="svc-url">woravat.app.n8n.cloud · Pro plan</div></div><span class="chip ok">Operational</span><span class="dot ok"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.2</div></div>
+</footer>
+
+</body>
+</html>

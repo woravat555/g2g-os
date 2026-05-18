@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Citizen Registry · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .tier-Bronze { background: #FBBF24; color: #78350F; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .tier-Silver { background: #D1D5DB; color: #374151; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .tier-Gold { background: #FCD34D; color: #78350F; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .tier-Platinum { background: #818CF8; color: #1E1B4B; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero">
+        <div class="role-line">🆔 Citizen Registry · ID ประจำตัวประชาชน</div>
+        <h1>🆔 Citizen Registry</h1>
+        <p>ระบบลงทะเบียนประชาชน · 1 LINE OA หลัก + LIFF Personal App ต่อคน · scale ได้ 100,000+</p>
+      </div>
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">ประชาชนทั้งหมด</div><div class="val" id="k-total">—</div></div>
+        <div class="kpi"><div class="lbl">Active</div><div class="val" id="k-active">—</div></div>
+        <div class="kpi"><div class="lbl">Gold+</div><div class="val" id="k-gold">—</div></div>
+        <div class="kpi"><div class="lbl">จังหวัด</div><div class="val" id="k-provinces">—</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>📊 By Tier</h2></div>
+        <div class="adm-card flat"><div id="by-tier" style="padding:16px"></div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>🌏 By Province</h2></div>
+        <div class="adm-card flat"><div id="by-province" style="padding:16px"></div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>➕ Provision ประชาชนใหม่ (Manual)</h2>
+          <span class="sub">ปกติประชาชนสมัครเองผ่าน LIFF · admin manual provision ใช้กรณีพิเศษ</span>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-b" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input id="p-name" placeholder="ชื่อ-สกุล" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="p-userId" placeholder="LINE userId (U... · ใส่ถ้ามี)" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="p-province" placeholder="จังหวัด · เช่น แพร่" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <input id="p-occupation" placeholder="อาชีพ" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+            <select id="p-tier" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+              <option value="Bronze">Bronze (default)</option>
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold</option>
+              <option value="Platinum">Platinum</option>
+            </select>
+            <select id="p-lang" style="padding:10px;border:1px solid var(--line);border-radius:8px">
+              <option value="th">ไทย</option>
+              <option value="en">English</option>
+              <option value="km">Khmer</option>
+              <option value="my">Burmese</option>
+            </select>
+            <button class="btn btn-primary" onclick="provisionCitizen()" style="grid-column:span 2">➕ Provision Citizen</button>
+          </div>
+          <div id="p-result" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>📈 Engagement Analytics</h2></div>
+        <div class="adm-card flat">
+          <div id="analytics" style="padding:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
+        </div>
+      </div>
+
+      <div class="adm-grid adm-grid-2">
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>📢 Broadcast ไปยังประชาชน</h3></div>
+          <div class="adm-card-b">
+            <label style="font-size:12px;color:var(--ink-4)">ส่งให้ Tier (เว้นว่าง = ทุก tier)</label>
+            <select id="b-tier" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;margin-bottom:8px">
+              <option value="">ทุก Tier</option><option>Bronze</option><option>Silver</option><option>Gold</option><option>Platinum</option>
+            </select>
+            <label style="font-size:12px;color:var(--ink-4)">จังหวัด (เว้นว่าง = ทุกจังหวัด)</label>
+            <input id="b-province" placeholder="เช่น แพร่" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;margin-bottom:8px;box-sizing:border-box">
+            <label style="font-size:12px;color:var(--ink-4)">ข้อความ (ไม่เกิน 4900 ตัวอักษร)</label>
+            <textarea id="b-message" rows="4" placeholder="ข้อความที่จะ broadcast..." style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px;box-sizing:border-box;font-family:inherit"></textarea>
+            <button class="btn btn-primary" onclick="broadcast()" style="margin-top:10px">📢 Broadcast</button>
+            <div id="b-result" style="margin-top:10px;font-size:13px"></div>
+          </div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>🔍 ค้นหาประชาชน</h3></div>
+          <div class="adm-card-b">
+            <div style="display:flex;gap:8px;margin-bottom:10px">
+              <input id="s-q" placeholder="ชื่อ · slug · code · จังหวัด · อาชีพ" style="flex:1;padding:8px;border:1px solid var(--line);border-radius:6px" onkeydown="if(event.key==='Enter')doSearch()">
+              <button class="btn btn-primary" onclick="doSearch()">ค้น</button>
+            </div>
+            <div id="s-result"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>📋 Recent Citizens</h2>
+          <button class="btn btn-outline btn-sm" onclick="loadList()">↻ Refresh</button>
+        </div>
+        <div class="adm-card flat"><div id="citizen-list" style="padding:8px">กำลังโหลด...</div></div>
+      </div>
+
+      <!-- QR Modal -->
+      <div id="qr-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center" onclick="if(event.target===this)closeQR()">
+        <div style="background:#fff;padding:24px;border-radius:14px;max-width:340px;text-align:center">
+          <h3 style="margin:0 0 14px" id="qr-title">QR Code</h3>
+          <img id="qr-img" style="width:280px;height:280px" />
+          <p style="font-size:11px;color:#666;margin:10px 0;word-break:break-all" id="qr-url"></p>
+          <button class="btn btn-outline btn-sm" onclick="closeQR()">ปิด</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('citizen', { title: 'Citizen Registry', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Citizen' }] });
+
+async function loadStats() {
+  const r = await G2G.apiGet('citizenStats', {});
+  if (!r.ok) return;
+  document.getElementById('k-total').textContent = (r.total || 0).toLocaleString();
+  document.getElementById('k-active').textContent = (r.active || 0).toLocaleString();
+  const gold = (r.byTier?.Gold || 0) + (r.byTier?.Platinum || 0);
+  document.getElementById('k-gold').textContent = gold.toLocaleString();
+  document.getElementById('k-provinces').textContent = Object.keys(r.byProvince || {}).length;
+
+  // By Tier bars
+  const byTier = Object.entries(r.byTier || {}).sort((a,b) => b[1]-a[1]);
+  const maxT = Math.max(1, ...byTier.map(x => x[1]));
+  document.getElementById('by-tier').innerHTML = byTier.length
+    ? byTier.map(([t, n]) => `
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between"><span class="tier-${t}">${t}</span><span style="font-family:monospace">${n.toLocaleString()}</span></div>
+          <div style="height:14px;background:var(--bg);border-radius:6px;margin-top:4px"><div style="height:100%;background:linear-gradient(90deg,#4F46E5,#9333EA);width:${(n/maxT*100).toFixed(1)}%;border-radius:6px"></div></div>
+        </div>`).join('')
+    : '<p style="color:#9CA3AF">ยังไม่มีประชาชน</p>';
+
+  // By province
+  const byProv = Object.entries(r.byProvince || {}).sort((a,b) => b[1]-a[1]).slice(0, 20);
+  document.getElementById('by-province').innerHTML = byProv.length
+    ? '<table class="adm-tbl"><thead><tr><th>จังหวัด</th><th>จำนวน</th></tr></thead><tbody>' +
+      byProv.map(([pv, n]) => `<tr><td>${G2G.escapeHtml(pv)}</td><td style="font-family:monospace">${n.toLocaleString()}</td></tr>`).join('') + '</tbody></table>'
+    : '<p style="color:#9CA3AF">—</p>';
+}
+
+async function provisionCitizen() {
+  const body = {
+    name: document.getElementById('p-name').value.trim(),
+    userId: document.getElementById('p-userId').value.trim(),
+    province: document.getElementById('p-province').value.trim(),
+    occupation: document.getElementById('p-occupation').value.trim(),
+    tier: document.getElementById('p-tier').value,
+    lang: document.getElementById('p-lang').value,
+    consentPdpa: false
+  };
+  if (!body.name) { alert('กรุณากรอกชื่อ'); return; }
+  const out = document.getElementById('p-result');
+  out.textContent = 'กำลังสร้าง...';
+  const r = await G2G.apiPost('citizenProvision', body);
+  if (!r.ok) { out.innerHTML = '<span style="color:#EF4444">' + G2G.escapeHtml(r.error||'failed') + '</span>'; return; }
+  out.innerHTML = `<div style="padding:14px;background:#F0FDF4;border:1px solid #16A34A;border-radius:8px">
+    <strong>✅ Provisioned</strong><br>
+    Slug: <code>${r.slug}</code> · Citizen Code: <code>${r.citizenCode}</code> · Tier: <span class="tier-${r.tier}">${r.tier}</span> · Tokens: ${r.tokens}<br>
+    <a href="${r.personalUrl}" target="_blank">${r.personalUrl}</a>
+  </div>`;
+  loadList(); loadStats();
+}
+
+async function loadList() {
+  const out = document.getElementById('citizen-list');
+  out.textContent = 'กำลังโหลด...';
+  const masterKey = prompt('Master key (admin only):', '168147') || '';
+  const r = await G2G.apiPost('citizenList', { masterKey, limit: 50 });
+  if (!r.ok) { out.innerHTML = '<p style="color:#EF4444">' + G2G.escapeHtml(r.error||'failed') + '</p>'; return; }
+  if (!r.rows.length) { out.innerHTML = '<p style="color:#9CA3AF;padding:14px">ยังไม่มีประชาชน · เริ่มเชิญผ่าน LINE QR ของ @g2g-citizen</p>'; return; }
+  out.innerHTML = '<table class="adm-tbl"><thead><tr><th>Slug</th><th>Code</th><th>ชื่อ</th><th>จังหวัด</th><th>อาชีพ</th><th>Tier</th><th>Tokens</th><th>Action</th></tr></thead><tbody>' +
+    r.rows.map(c => `<tr>
+      <td><code>${c.slug}</code></td>
+      <td><code style="font-size:11px">${c.citizenCode}</code></td>
+      <td>${G2G.escapeHtml(c.name||'-')}</td>
+      <td>${G2G.escapeHtml(c.province||'-')}</td>
+      <td>${G2G.escapeHtml(c.occupation||'-')}</td>
+      <td><span class="tier-${c.tier}">${c.tier}</span></td>
+      <td style="font-family:monospace">${c.tokens||0}</td>
+      <td><a href="/c/${c.slug}" target="_blank">View</a></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+async function loadAnalytics() {
+  const r = await G2G.apiGet('citizenAnalytics', {});
+  if (!r.ok) return;
+  document.getElementById('analytics').innerHTML = [
+    ['Total', r.total], ['Active', r.active], ['DAU', r.dau], ['WAU', r.wau],
+    ['MAU', r.mau], ['New 7d', r.new7d], ['New 30d', r.new30d], ['Retention', r.retention || '-']
+  ].map(([l,v]) => `<div style="padding:14px;background:var(--bg);border-radius:10px;text-align:center"><div style="font-size:22px;font-weight:700">${v}</div><div style="font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:0.05em">${l}</div></div>`).join('');
+}
+
+async function broadcast() {
+  const message = document.getElementById('b-message').value.trim();
+  if (!message) { alert('กรุณากรอกข้อความ'); return; }
+  const body = {
+    masterKey: prompt('Master key:', '168147') || '',
+    tier: document.getElementById('b-tier').value,
+    province: document.getElementById('b-province').value.trim(),
+    message
+  };
+  const out = document.getElementById('b-result');
+  out.textContent = 'กำลังส่ง...';
+  const r = await G2G.apiPost('citizenBroadcast', body);
+  out.innerHTML = r.ok
+    ? `<span style="color:#16A34A">✅ ส่งสำเร็จ ${r.sent}/${r.totalTargets} · failures: ${r.failures}</span>`
+    : `<span style="color:#EF4444">❌ ${G2G.escapeHtml(r.error||'failed')}</span>`;
+}
+
+async function doSearch() {
+  const q = document.getElementById('s-q').value.trim();
+  if (!q) return;
+  const out = document.getElementById('s-result');
+  out.textContent = 'กำลังค้น...';
+  const r = await G2G.apiPost('citizenSearch', { q });
+  if (!r.ok) { out.innerHTML = '<span style="color:#EF4444">' + G2G.escapeHtml(r.error||'failed') + '</span>'; return; }
+  if (!r.results.length) { out.innerHTML = '<p style="color:#9CA3AF">ไม่พบ</p>'; return; }
+  out.innerHTML = '<table class="adm-tbl"><tbody>' + r.results.map(c => `
+    <tr>
+      <td><code>${c.slug}</code></td>
+      <td>${G2G.escapeHtml(c.name||'-')}</td>
+      <td>${G2G.escapeHtml(c.province||'-')}</td>
+      <td><span class="tier-${c.tier}">${c.tier}</span></td>
+      <td><button class="btn btn-outline btn-sm" onclick="showQR('${c.slug}','${G2G.escapeHtml(c.name||'').replace(/'/g,'')}')">QR</button></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+async function showQR(slug, name) {
+  const r = await G2G.apiGet('citizenQR', { slug });
+  if (!r.ok) { alert(r.error||'failed'); return; }
+  document.getElementById('qr-title').textContent = '🆔 ' + (name || slug);
+  document.getElementById('qr-img').src = r.qrUrl;
+  document.getElementById('qr-url').textContent = r.url;
+  document.getElementById('qr-modal').style.display = 'flex';
+}
+function closeQR() { document.getElementById('qr-modal').style.display = 'none'; }
+
+loadStats(); loadAnalytics(); loadList();
+</script>
+</body>
+</html>

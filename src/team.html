@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ทีมงาน G2G · CEO + Executive + AI Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  .ceo-card { display: grid; grid-template-columns: 200px 1fr; gap: 32px; padding: 32px; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-5); margin-top: 32px; align-items: center; }
+  .ceo-photo { width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(135deg, var(--brand) 0%, var(--navy-2) 100%); display: flex; align-items: center; justify-content: center; color: var(--gold); font-family: var(--font-serif); font-size: 84px; font-weight: 700; border: 4px solid var(--gold); }
+  .ceo-body h2 { font-size: 36px; margin-bottom: 4px; }
+  .ceo-body .role { color: var(--brand); font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .ceo-body .credentials { color: var(--ink-3); line-height: 1.7; font-size: 15px; }
+  .ceo-body .credentials strong { color: var(--ink-1); }
+  .exec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 28px; }
+  .exec { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-4); padding: 22px; text-align: center; }
+  .exec .avatar { width: 80px; height: 80px; margin: 0 auto 14px; border-radius: 50%; background: var(--cream-soft); border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 22px; color: var(--brand); font-weight: 700; letter-spacing: 0.04em; }
+  .exec .role { font-size: 11px; color: var(--brand); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+  .exec h5 { margin-bottom: 6px; }
+  .exec p { font-size: 12px; color: var(--ink-4); }
+  @media (max-width: 720px) { .ceo-card { grid-template-columns: 1fr; text-align: center; } .ceo-photo { margin: 0 auto; } }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="verticals/agritech.html">Verticals</a>
+      <a href="internal-os.html">Internal OS</a>
+      <a href="team.html" class="active">ทีม</a>
+      <a href="news.html">ข่าวสาร</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html" class="btn btn-primary btn-sm">ติดต่อเรา</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">ทีมงาน · The Team</div>
+    <h1 class="h-display">มนุษย์ + <em>AI</em><br>ทำงานร่วมกัน</h1>
+    <p class="lead">G2G เชื่อว่ามนุษย์ตัดสินใจ · AI execute · CEO อนุมัติ — ทีมแบบ Human-in-the-loop เป็นมาตรฐาน</p>
+
+    <div class="ceo-card">
+      <div class="ceo-photo">G2G</div>
+      <div class="ceo-body">
+        <div class="role">CEO · ผู้ก่อตั้ง</div>
+        <h2><em style="font-style: italic; color: var(--brand);">Chief Executive Officer</em></h2>
+        <p class="credentials">
+          ผู้ก่อตั้งและขับเคลื่อน G2G · ผลักดันแพลตฟอร์ม AI
+          ที่เชื่อม <strong>รัฐ-เอกชน-ประชาชน</strong> ·
+          เปลี่ยนวิธีบริหารประเทศผ่านเทคโนโลยีและเครือข่าย AI
+          ที่เข้าถึงทุกคนผ่าน LINE OA และแอพมือถือ
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="eyebrow">ทีมงาน · The Team</div>
+    <h2>ทีมบริหาร <em style="color: var(--brand); font-style: italic;">G2G</em></h2>
+    <div class="exec-grid">
+
+      <div class="exec"><div class="avatar">GAM</div><div class="role">IT &amp; Graphics</div><h5>ปฐวี กิ่งแก้ว</h5><p>เกมส์ · G2G ไอทีและกราฟฟิก</p></div>
+      <div class="exec"><div class="avatar">BP</div><div class="role">Marketing</div><h5>แพรวา วรแสน</h5><p>ใบแพร · ฝ่ายการตลาด</p></div>
+      <div class="exec"><div class="avatar">SOM</div><div class="role">Gem &amp; Processing</div><h5>เพ็ญนภา พรายสวาท</h5><p>ส้ม · ฝ่ายอัญมณีและผลิตสินค้าแปรรูป</p></div>
+      <div class="exec"><div class="avatar">WAN</div><div class="role">IT</div><h5>ธฤษวรรณ เหล่าวีรสกุล</h5><p>วัน / วรรณ · ฝ่ายไอที</p></div>
+      <div class="exec"><div class="avatar">AUI</div><div class="role">Finance &amp; Accounting</div><h5>อาภากร ฉัตรอมรเดช</h5><p>อุ้ย · ฝ่ายบัญชีและเงิน</p></div>
+      <div class="exec"><div class="avatar">BK</div><div class="role">Factory Manager</div><h5>เกรียงไกร คำจันทา</h5><p>แบ้งค์ · ผู้จัดการโรงงาน</p></div>
+      <div class="exec"><div class="avatar">SB</div><div class="role">Distillery</div><h5>สมบัติ ทาทอง</h5><p>ฝ่ายผลิตสุรา</p></div>
+
+      <div class="exec" style="border: 2px solid var(--gold); background: linear-gradient(135deg, var(--cream) 0%, var(--gold-soft) 100%);"><div class="avatar">AN</div><div class="role">News &amp; Press</div><h5>ศุภกาญจน์ เรืองเดช</h5><p>ไอน้ำ · ฝ่ายข่าวและสื่อสารมวลชน</p></div>
+      <div class="exec" style="border: 2px solid var(--gold); background: linear-gradient(135deg, var(--cream) 0%, var(--gold-soft) 100%);"><div class="avatar">CAT</div><div class="role">Communications</div><h5>ชาดา สมบูรณ์ผล</h5><p>แคท · ฝ่ายสื่อสารและการประชาสัมพันธ์</p></div>
+      <div class="exec" style="border: 2px solid var(--gold); background: linear-gradient(135deg, var(--cream) 0%, var(--gold-soft) 100%);"><div class="avatar">NN</div><div class="role">AI Solution</div><h5>พิมลรัตน์ หนูนา</h5><p>ฝ่าย AI Solution</p></div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--cream-soft);">
+  <div class="container">
+    <div class="eyebrow">AI Team · 9 Agents</div>
+    <h2>ทีม <em style="color: var(--brand); font-style: italic;">AI</em> · ทำงาน 24/7</h2>
+    <p class="lead">9 AI Agents ทำงานบน Claude Sonnet · GPT-4o-mini · Gemini · Perplexity · ผ่าน Make.com (deprecated) → Apps Script</p>
+    <div style="margin-top: 28px;">
+      <a class="btn btn-primary btn-lg" href="verticals/agritech.html#agents">ดูรายละเอียด 9 AI Agents →</a>
+    </div>
+  </div>
+</section>
+
+<nav class="page-nav-row" aria-label="Page navigation">
+  <div class="page-nav-grid">
+    <a href="internal-os.html" class="page-nav-cell prev">
+      <span class="dir">← หน้าก่อน</span>
+      <span class="title">Internal OS</span>
+    </a>
+    <a href="toc.html" class="page-nav-cell toc-link">
+      <span class="dir">⋯</span>
+      <span class="title">สารบัญทั้งหมด</span>
+    </a>
+    <a href="news.html" class="page-nav-cell next">
+      <span class="dir">หน้าต่อไป →</span>
+      <span class="title">ข่าวสาร</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div><p style="color: var(--ink-cream-3); font-size: 14px;">ศูนย์บัญชาการกลาง 7 verticals</p></div>
+    <div><h6>Verticals</h6><ul><li><a href="verticals/agritech.html">AgriTech</a></li><li><a href="verticals/phat-plat.html">PHAT/PLAT</a></li><li><a href="verticals/imperial-fruitia.html">Imperial Fruitia</a></li><li><a href="verticals/aim-clinic.html">AIM Clinic</a></li><li><a href="verticals/le-phaya.html">Le Phaya</a></li></ul></div>
+    <div><h6>บริษัท</h6><ul><li><a href="about.html">เกี่ยวกับ</a></li><li><a href="team.html">ทีม</a></li><li><a href="news.html">ข่าวสาร</a></li><li><a href="careers.html">ร่วมงาน</a></li></ul></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li><li>LINE: @g2g</li><li>Bangkok · Thailand</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.1 · Singapore Region</div></div>
+</footer>
+
+</body>
+</html>

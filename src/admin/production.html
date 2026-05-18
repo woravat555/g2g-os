@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>การผลิต · Production · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">BusinessUnits</div><div class="val" id="kBU">—</div><div class="delta">หน่วยผลิต</div></div>
+        <div class="kpi"><div class="lbl">เกษตรกร</div><div class="val" id="kFarmers">—</div><div class="delta">FarmerRegistry</div></div>
+        <div class="kpi"><div class="lbl">CropActivities</div><div class="val" id="kCrop">—</div><div class="delta">กิจกรรมการเพาะปลูก</div></div>
+        <div class="kpi"><div class="lbl">HarvestCalendar</div><div class="val" id="kHarvest">—</div><div class="delta">52-week × 4 fruits</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>หน่วยธุรกิจ · Business Units</h2><span class="sub">โรงงาน · สวน · โรงสุรา · เหมือง</span></div>
+        <div class="adm-card flat">
+          <div id="t-bu"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>กิจกรรมเพาะปลูก · CropActivities</h2><span class="sub">บันทึกการเพาะปลูก · 417 entries</span></div>
+        <div class="adm-card flat">
+          <div id="t-crop"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>เกษตรกรในระบบ · FarmerRegistry</h2><span class="sub">2,650 รายจาก 6 จังหวัด</span></div>
+        <div class="adm-card flat">
+          <div id="t-farmers"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('production', { title: 'การผลิต', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'การผลิต' }] });
+  (async function() {
+    const s = await G2G.loadDashboard();
+    const c = s.counts || {};
+    document.getElementById('kBU').textContent = c.BusinessUnits ?? '—';
+    document.getElementById('kFarmers').textContent = c.FarmerRegistry ?? '—';
+
+    const [bu, crop, farmers, harvest] = await Promise.all([
+      G2G.loadTab('BusinessUnits'),
+      G2G.loadTab('CropActivities', 30),
+      G2G.loadTab('FarmerRegistry', 30),
+      G2G.loadTab('HarvestCalendar', 20)
+    ]);
+    G2G.renderTable(document.getElementById('t-bu'), bu.columns||[], bu.rows||[], { maxRows: 20 });
+    G2G.renderTable(document.getElementById('t-crop'), crop.columns||[], crop.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-farmers'), farmers.columns||[], farmers.rows||[], { maxRows: 30 });
+    document.getElementById('kCrop').textContent = crop.total ?? '—';
+    document.getElementById('kHarvest').textContent = harvest.total ?? '—';
+  })();
+</script>
+</body>
+</html>

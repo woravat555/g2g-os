@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board Report · Confidential · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+
+<div class="pin-gate" id="pin-gate">
+  <div class="card">
+    <h3>🔒 Board Report</h3>
+    <p>Confidential · ผู้ถือหุ้น/Board Member เท่านั้น</p>
+    <input id="g-pin" type="password" placeholder="PIN หรือ Master Key" maxlength="32" autofocus>
+    <button onclick="doAuth()">เข้าระบบ</button>
+    <div class="err" id="g-err"></div>
+  </div>
+</div>
+
+<div class="adm-shell" id="shell" style="display:none">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero" style="--staff-color:#C9A961;background:linear-gradient(135deg,#1F2937 0%,#0A1628 100%)">
+        <div class="role-line" style="color:#C9A961">Board Confidential · Daily Executive Brief</div>
+        <h1>เรียน · <em>ท่านประธาน</em></h1>
+        <p id="ts">กำลังโหลด...</p>
+      </div>
+
+      <div class="qstats" id="kpis">
+        <div class="kpi"><div class="lbl">พนักงาน</div><div class="val" id="k-staff">—</div></div>
+        <div class="kpi"><div class="lbl">งานทั้งหมด</div><div class="val" id="k-total">—</div></div>
+        <div class="kpi"><div class="lbl">เปิด/รอ</div><div class="val" id="k-open">—</div></div>
+        <div class="kpi"><div class="lbl">กำลังทำ</div><div class="val" id="k-prog">—</div></div>
+        <div class="kpi"><div class="lbl">เสร็จ</div><div class="val" id="k-done">—</div></div>
+        <div class="kpi"><div class="lbl">Memory Facts</div><div class="val" id="k-facts">—</div></div>
+        <div class="kpi"><div class="lbl">Themes</div><div class="val" id="k-themes">—</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>📊 By Department</h2></div>
+        <div class="adm-card flat">
+          <div id="dept-list"></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>🏆 Top Workers (สัปดาห์นี้)</h2></div>
+        <div class="adm-card flat">
+          <div id="top-list"></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>✅ Recent Completions</h2></div>
+        <div class="adm-card flat">
+          <div id="recent-list"></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>💬 ปรึกษา AI · Strategy & Governance</h2></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <div id="chat-box" style="max-height:400px;overflow-y:auto;padding:12px;background:var(--bg);border-radius:8px;margin-bottom:10px"></div>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="chat-input" placeholder="ถามด้านยุทธศาสตร์ governance risk financial..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:8px" onkeydown="if(event.key==='Enter')askAI()">
+              <button class="btn btn-primary" onclick="askAI()">ส่ง</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+const slug = 'principal';
+let session = null;
+
+async function doAuth() {
+  const pin = document.getElementById('g-pin').value.trim();
+  if (!pin) return;
+  const r = await G2G.wbAuth(slug, pin);
+  if (!r.ok) {
+    document.getElementById('g-err').textContent = r.error || 'PIN ไม่ถูก';
+    return;
+  }
+  session = { ...r, pin };
+  initPage();
+}
+
+async function initPage() {
+  document.getElementById('pin-gate').style.display = 'none';
+  document.getElementById('shell').style.display = 'grid';
+  G2G.boot('board-report', { title: 'Board Report · Confidential', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Board Report' }], skipAuth: true });
+  G2G.installTools('Board Report สำหรับผู้ถือหุ้นใหญ่ · ดูภาพรวมทั้งบริษัท · ข้อมูล confidential ไม่เปิดเผยต่อพนักงานทั่วไป · ใช้ token บริษัทไม่จำกัด', 'premwadee');
+
+  await loadReport();
+  setInterval(loadReport, 60000);  // refresh every minute
+
+  // Welcome
+  appendChat('ai', '🔒 เรียนท่านประธาน · รายงานนี้ confidential · ผมจะอัพเดท KPI ทุก 1 นาที\n\nหากท่านต้องการให้สรุปประเด็นเฉพาะด้าน · บอกได้เลย เช่น "สถานะ Le Phaya", "AIM Clinic pipeline", "risk register", "5 ministry pitch update"');
+}
+
+async function loadReport() {
+  const r = await G2G.apiPost('wbBoardReport', { slug, pin: session.pin });
+  if (!r.ok) { console.warn(r); return; }
+  document.getElementById('ts').textContent = 'ข้อมูล ณ ' + new Date(r.timestamp).toLocaleString('th-TH');
+  const s = r.summary;
+  document.getElementById('k-staff').textContent = s.total_staff;
+  document.getElementById('k-total').textContent = s.total_tasks;
+  document.getElementById('k-open').textContent = s.open_tasks;
+  document.getElementById('k-prog').textContent = s.in_progress;
+  document.getElementById('k-done').textContent = s.done_tasks;
+  document.getElementById('k-facts').textContent = s.memory_facts;
+  document.getElementById('k-themes').textContent = s.memory_themes;
+
+  // By dept
+  const depts = Object.entries(r.by_department || {}).sort((a,b) => b[1].staff - a[1].staff);
+  document.getElementById('dept-list').innerHTML = '<table class="adm-tbl"><thead><tr><th>ฝ่าย</th><th>คน</th><th>งานที่รับ</th></tr></thead><tbody>' +
+    depts.map(([d,v]) => `<tr><td>${G2G.escapeHtml(d)}</td><td>${v.staff}</td><td>${v.tasks}</td></tr>`).join('') + '</tbody></table>';
+
+  // Top workers
+  document.getElementById('top-list').innerHTML = (r.top_workers||[]).length
+    ? '<table class="adm-tbl"><thead><tr><th>Slug</th><th>งานที่รับ</th></tr></thead><tbody>' +
+      r.top_workers.map(w => `<tr><td>${w.slug}</td><td>${w.tasks}</td></tr>`).join('') + '</tbody></table>'
+    : '<div class="adm-empty" style="padding:18px"><p>ยังไม่มีงานที่รับ</p></div>';
+
+  // Recent completions
+  document.getElementById('recent-list').innerHTML = (r.recent_completions||[]).length
+    ? '<table class="adm-tbl"><thead><tr><th>วันที่</th><th>หมวด</th><th>งาน</th><th>โดย</th></tr></thead><tbody>' +
+      r.recent_completions.map(c => `<tr><td>${c.completedAt ? new Date(c.completedAt).toLocaleDateString('th-TH') : ''}</td><td>${G2G.escapeHtml(c.category||'')}</td><td>${G2G.escapeHtml(c.title)}</td><td>${G2G.escapeHtml(c.by||'')}</td></tr>`).join('') + '</tbody></table>'
+    : '<div class="adm-empty" style="padding:18px"><p>ยังไม่มีผลงานเสร็จ</p></div>';
+}
+
+async function askAI() {
+  const q = document.getElementById('chat-input').value.trim();
+  if (!q) return;
+  document.getElementById('chat-input').value = '';
+  appendChat('me', q);
+  appendChat('ai', '...');
+  const r = await G2G.wbTutorAsk(slug, q);
+  document.querySelector('#chat-box .typing')?.remove();
+  appendChat('ai', r.answer || r.error || 'no response');
+}
+function appendChat(who, text) {
+  const c = document.getElementById('chat-box');
+  const d = document.createElement('div');
+  d.className = (who === 'ai' && text === '...') ? 'typing' : '';
+  d.style.cssText = `padding:10px 14px;margin:6px 0;border-radius:8px;background:${who==='me'?'rgba(201,169,97,0.12)':'#fff'};border:1px solid var(--line);${who==='me'?'margin-left:auto':''};max-width:85%`;
+  d.innerHTML = `<div style="font-size:11px;color:${who==='me'?'#C9A961':'#1F2937'};font-weight:600;margin-bottom:4px">${who==='me'?'ท่านประธาน':'AI Advisor'}</div>${G2G.escapeHtml(text).replace(/\n/g,'<br>')}`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+</script>
+</body>
+</html>

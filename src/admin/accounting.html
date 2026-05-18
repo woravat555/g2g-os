@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บัญชี · การเงิน · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">Accounting rows</div><div class="val" id="kAcc">—</div><div class="delta">บัญชีหลัก</div></div>
+        <div class="kpi"><div class="lbl">Finance rows</div><div class="val" id="kFin">—</div><div class="delta">การเงิน</div></div>
+        <div class="kpi"><div class="lbl">Inventory</div><div class="val" id="kInv">—</div><div class="delta">สต็อก</div></div>
+        <div class="kpi"><div class="lbl">CredentialTracker</div><div class="val" id="kCred">—</div><div class="delta">credentials บริษัท</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Accounting</h2><span class="sub">บัญชีรายรับ-รายจ่าย · ฝ่ายอุ้ย</span></div>
+        <div class="adm-card flat">
+          <div id="t-acc"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Finance</h2><span class="sub">การเงิน · กระแสเงินสด</span></div>
+        <div class="adm-card flat">
+          <div id="t-fin"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Inventory</h2><span class="sub">สต็อกสินค้า</span></div>
+        <div class="adm-card flat">
+          <div id="t-inv"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>ผังบัญชี · COA (template)</h2></div>
+        <div class="adm-card flat">
+          <table class="adm-tbl">
+            <tr><th>หมวด</th><th>ตัวอย่าง</th></tr>
+            <tr><td>1xxx · ทรัพย์สิน</td><td>เงินสด ลูกหนี้ สินค้าคงเหลือ</td></tr>
+            <tr><td>2xxx · หนี้สิน</td><td>เจ้าหนี้ เงินกู้ ภาษีค้างจ่าย</td></tr>
+            <tr><td>3xxx · ทุน</td><td>ทุนจดทะเบียน กำไรสะสม</td></tr>
+            <tr><td>4xxx · รายรับ</td><td>ขายผลไม้ ขายอัญมณี Service fee</td></tr>
+            <tr><td>5xxx · ต้นทุนขาย</td><td>วัตถุดิบ ค่าจ้าง</td></tr>
+            <tr><td>6xxx · ค่าใช้จ่าย</td><td>เงินเดือน ค่าน้ำไฟ การตลาด</td></tr>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('accounting', { title: 'บัญชี · การเงิน', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'บัญชี' }] });
+  (async function() {
+    const [acc, fin, inv, cred] = await Promise.all([
+      G2G.loadTab('Accounting'),
+      G2G.loadTab('Finance'),
+      G2G.loadTab('Inventory'),
+      G2G.loadTab('CredentialTracker')
+    ]);
+    document.getElementById('kAcc').textContent = acc.total ?? '—';
+    document.getElementById('kFin').textContent = fin.total ?? '—';
+    document.getElementById('kInv').textContent = inv.total ?? '—';
+    document.getElementById('kCred').textContent = cred.total ?? '—';
+    G2G.renderTable(document.getElementById('t-acc'), acc.columns||[], acc.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-fin'), fin.columns||[], fin.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-inv'), inv.columns||[], inv.rows||[], { maxRows: 30 });
+  })();
+</script>
+</body>
+</html>

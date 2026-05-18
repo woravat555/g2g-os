@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ประกันสังคม · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">ผู้ประกันตน</div><div class="val">12</div><div class="delta">พนักงาน G2G</div></div>
+        <div class="kpi"><div class="lbl">นำส่งเดือนนี้</div><div class="val">฿—</div><div class="delta">รออัพเดต</div></div>
+        <div class="kpi"><div class="lbl">นายจ้าง 5%</div><div class="val">฿—</div><div class="delta">ส่วนนายจ้าง</div></div>
+        <div class="kpi"><div class="lbl">ลูกจ้าง 5%</div><div class="val">฿—</div><div class="delta">หัก ณ ที่จ่าย</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>การนำส่งประกันสังคม</h2>
+          <span class="sub">รายเดือน · สปส.1-10 + สปส.6-09 (กรณีเปลี่ยนแปลง)</span>
+        </div>
+        <div class="adm-card flat">
+          <div class="adm-card-h">
+            <h3>ปฏิทินการนำส่ง</h3>
+            <button class="btn btn-outline btn-sm">+ บันทึกการนำส่ง</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="adm-tbl">
+              <thead>
+                <tr><th>แบบ</th><th>เพื่อ</th><th>กำหนดส่ง</th><th>จำนวนคน</th><th>มูลค่ารวม</th><th>สถานะ</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>สปส.1-10</td><td>นำส่งเงินสมทบรายเดือน</td><td>ภายในวันที่ 15 ของเดือนถัดไป</td><td>12</td><td>฿—</td><td><span class="chip warn">รอจัดทำ</span></td></tr>
+                <tr><td>สปส.6-09</td><td>แจ้งการเข้า/ออก/เปลี่ยน</td><td>ภายใน 30 วัน</td><td>0</td><td>—</td><td><span class="chip neutral">ปกติ</span></td></tr>
+                <tr><td>สปส.1-03</td><td>ขึ้นทะเบียนนายจ้าง (one-time)</td><td>30 วันแรก</td><td>—</td><td>—</td><td><span class="chip ok">ครบ</span></td></tr>
+                <tr><td>สปส.1-03/1</td><td>แจ้งเปลี่ยนแปลงนายจ้าง</td><td>เมื่อมีการเปลี่ยนแปลง</td><td>—</td><td>—</td><td><span class="chip ok">ครบ</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-grid adm-grid-2">
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>อัตราเงินสมทบ</h3></div>
+          <div class="adm-card-b">
+            <table class="adm-tbl">
+              <tr><th>ส่วน</th><th>อัตรา</th><th>ฐานสูงสุด</th></tr>
+              <tr><td>ลูกจ้าง</td><td>5%</td><td>฿15,000 (ฐาน)</td></tr>
+              <tr><td>นายจ้าง</td><td>5%</td><td>฿15,000 (ฐาน)</td></tr>
+              <tr><td>รัฐบาล</td><td>2.75%</td><td>—</td></tr>
+              <tr><td>เพดานต่อคน/เดือน</td><td colspan="2">฿750 (ลูกจ้าง) + ฿750 (นายจ้าง)</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-h"><h3>เชื่อมระบบ e-Service</h3></div>
+          <div class="adm-card-b" style="font-size:13px; color:var(--ink-3); line-height:1.85">
+            <p>นำส่งผ่านระบบ e-Service ของ สปส. · sso.go.th</p>
+            <p>สมาชิก เปลี่ยนแปลง ตรวจสอบ ผ่าน e-Service Single Sign-On</p>
+            <a class="btn btn-outline btn-sm" href="https://www.sso.go.th" target="_blank">เปิด สปส. e-Service →</a>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('social-security', { title: 'ประกันสังคม', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'ประกันสังคม' }] });
+</script>
+</body>
+</html>

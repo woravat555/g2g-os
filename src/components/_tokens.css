@@ -1,0 +1,130 @@
+/* ────────────────────────────────────────────────────────────────
+   G2G OS · Design Tokens · v1.0
+   Brand: Gov2Global · royal navy + champagne gold
+   Single source of truth for colors, type, spacing, motion.
+   Inspired by NK Law tokens · adapted for G2G corporate parent.
+   ──────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ─── BRAND PALETTE · royal navy + champagne gold ─── */
+  --navy-deep:     #0A1628;   /* primary background */
+  --navy:          #102341;
+  --navy-2:        #1B3158;
+  --navy-3:        #2A4775;
+  --brand:         #1E3A8A;   /* signature royal blue */
+  --brand-light:   #3358B5;
+  --brand-hover:   #2A4FA2;
+  --brand-ink:     #142B6F;
+  --brand-soft:    rgba(30, 58, 138, 0.08);
+  --brand-tint:    rgba(30, 58, 138, 0.04);
+
+  --gold:          #C9A961;   /* champagne gold accents */
+  --gold-light:    #E2C988;
+  --gold-deep:     #8E7434;
+  --gold-soft:     rgba(201, 169, 97, 0.12);
+
+  /* ─── CREAM/IVORY SURFACE PALETTE (light pages, portals) ─── */
+  --cream:         #F8F5EE;
+  --cream-soft:    #F1ECDF;
+  --bg-app:        #F8F5EE;
+  --bg-sidebar:    #F1ECDF;
+  --bg-card:       #FFFFFF;
+  --bg-elev:       #F8F5EE;
+  --bg-input:      #FFFFFF;
+  --bg-hover:      #ECE5D2;
+
+  /* ─── INK · text on cream ─── */
+  --ink-1:         #0A1628;   /* primary text · navy on cream */
+  --ink-2:         #1F2A44;
+  --ink-3:         #3E4A66;
+  --ink-4:         #6B7388;
+  --ink-5:         #9CA3B8;
+
+  /* ─── INK · text on navy (dark surface) ─── */
+  --ink:           #F8F5EE;
+  --ink-cream-2:   #E2DBC8;
+  --ink-cream-3:   #BFB89E;
+
+  /* ─── LINES · navy-tinted hairlines ─── */
+  --line:          rgba(30, 58, 138, 0.10);
+  --line-strong:   rgba(30, 58, 138, 0.18);
+  --line-focus:    rgba(30, 58, 138, 0.45);
+  --line-gold:     rgba(201, 169, 97, 0.18);
+
+  /* ─── SEMANTIC · status colors ─── */
+  --ok:            #047857;
+  --ok-soft:       #ECFDF5;
+  --ok-bright:     #4ADE80;
+  --warn:          #B45309;
+  --warn-soft:     #FEF3C7;
+  --warn-bright:   #FACC15;
+  --err:           #B91C1C;
+  --err-soft:      #FEF2F2;
+  --err-bright:    #EF4444;
+  --muted:         #9CA3AF;
+  --info:          #2563EB;
+  --info-soft:     #EFF6FF;
+
+  /* ─── TYPOGRAPHY · families ─── */
+  --font-serif:    'Cormorant Garamond', 'Sarabun', Georgia, serif;
+  --font-sans:     'Inter', 'Sarabun', 'IBM Plex Sans Thai',
+                   -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-thai:     'Sarabun', 'IBM Plex Sans Thai', sans-serif;
+
+  /* ─── TYPOGRAPHY · scale ─── */
+  --fs-11: 14px;  --fs-12: 15px;  --fs-13: 16px;  --fs-14: 18px;
+  --fs-15: 19px;  --fs-16: 20px;  --fs-18: 22px;  --fs-20: 24px;
+  --fs-22: 26px;  --fs-24: 30px;  --fs-28: 34px;  --fs-32: 40px;
+  --fs-40: 48px;  --fs-56: 56px;  --fs-72: 72px;
+
+  /* ─── SPACING SCALE (4px base) ─── */
+  --sp-1:  4px;   --sp-2:  8px;   --sp-3:  12px;  --sp-4:  16px;
+  --sp-5:  20px;  --sp-6:  24px;  --sp-7:  28px;  --sp-8:  32px;
+  --sp-10: 40px;  --sp-12: 48px;  --sp-16: 64px;  --sp-20: 80px;
+
+  /* ─── RADIUS (max 12px) ─── */
+  --r-1: 4px;  --r-2: 6px;  --r-3: 8px;  --r-4: 10px;  --r-5: 12px;
+  --r-pill: 999px;
+
+  /* ─── ELEVATION ─── */
+  --shadow-1:  0 1px 2px rgba(10, 22, 40, 0.05);
+  --shadow-2:  0 4px 12px rgba(10, 22, 40, 0.08);
+  --shadow-3:  0 20px 50px rgba(10, 22, 40, 0.18);
+  --shadow-glow-gold: 0 12px 36px rgba(201, 169, 97, 0.30);
+  --shadow-glow-brand: 0 12px 36px rgba(30, 58, 138, 0.22);
+
+  /* ─── MOTION ─── */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast:        120ms;
+  --t-base:        160ms;
+  --t-slow:        250ms;
+
+  /* ─── LAYOUT WIDTHS ─── */
+  --w-content:     1080px;
+  --w-prose:       720px;
+  --w-form:        560px;
+  --w-sidebar:     260px;
+  --w-sidebar-sm:  240px;
+
+  /* ─── Z-INDEX SCALE ─── */
+  --z-base:        1;
+  --z-dropdown:    100;
+  --z-sticky:      200;
+  --z-overlay:     1000;
+  --z-modal:       2000;
+  --z-toast:       3000;
+}
+
+/* Dark-surface override · navy background regions */
+.surface-dark {
+  --bg-app: var(--navy-deep);
+  --bg-card: var(--navy);
+  --bg-input: rgba(248, 245, 238, 0.04);
+  --ink-1: var(--ink);
+  --ink-2: var(--ink-cream-2);
+  --ink-3: var(--ink-cream-3);
+  --line: rgba(201, 169, 97, 0.10);
+  --line-strong: rgba(201, 169, 97, 0.18);
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เอกสาร · ระบบทั่วไป · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">FILE_REGISTRY</div><div class="val" id="kFile">—</div><div class="delta">เอกสารบริษัท</div></div>
+        <div class="kpi"><div class="lbl">ProblemTracker</div><div class="val" id="kProb">—</div><div class="delta">ปัญหาที่บันทึก</div></div>
+        <div class="kpi"><div class="lbl">SystemHealth</div><div class="val" id="kHealth">—</div><div class="delta">สุขภาพระบบ</div></div>
+        <div class="kpi"><div class="lbl">AuditLog</div><div class="val" id="kAudit">—</div><div class="delta">บันทึกการตรวจสอบ</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>FILE_REGISTRY · คลังเอกสาร</h2></div>
+        <div class="adm-card flat">
+          <div id="t-file"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>ProblemTracker</h2><span class="sub">ปัญหาที่เคยพบ + วิธีแก้</span></div>
+        <div class="adm-card flat">
+          <div id="t-prob"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>SystemHealth</h2><span class="sub">monitor ระบบทั้งหมด</span></div>
+        <div class="adm-card flat">
+          <div id="t-health"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>AILessons · บทเรียน AI</h2><span class="sub">ข้อผิดพลาดที่ห้ามทำซ้ำ</span></div>
+        <div class="adm-card flat">
+          <div id="t-lessons"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('general', { title: 'เอกสาร · ระบบทั่วไป', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'ทั่วไป' }] });
+  (async function() {
+    const [file, prob, health, audit, lessons] = await Promise.all([
+      G2G.loadTab('FILE_REGISTRY'),
+      G2G.loadTab('ProblemTracker'),
+      G2G.loadTab('SystemHealth'),
+      G2G.loadTab('AuditLog', 20),
+      G2G.loadTab('AILessons')
+    ]);
+    document.getElementById('kFile').textContent = file.total ?? '—';
+    document.getElementById('kProb').textContent = prob.total ?? '—';
+    document.getElementById('kHealth').textContent = health.total ?? '—';
+    document.getElementById('kAudit').textContent = audit.total ?? '—';
+    G2G.renderTable(document.getElementById('t-file'), file.columns||[], file.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-prob'), prob.columns||[], prob.rows||[], { maxRows: 20 });
+    G2G.renderTable(document.getElementById('t-health'), health.columns||[], health.rows||[], { maxRows: 20 });
+    G2G.renderTable(document.getElementById('t-lessons'), lessons.columns||[], lessons.rows||[], { maxRows: 30 });
+  })();
+</script>
+</body>
+</html>

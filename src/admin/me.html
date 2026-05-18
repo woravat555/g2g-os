@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>หน้าของฉัน · G2G Workboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+
+<div class="pin-gate" id="pin-gate">
+  <div class="card">
+    <h3 id="g-name">เข้าสู่หน้าของฉัน</h3>
+    <p id="g-role">ใส่ PIN เพื่อปลดล็อค</p>
+    <input id="g-pin" type="password" placeholder="PIN" maxlength="20" autofocus>
+    <button onclick="doAuth()">เข้าระบบ</button>
+    <div class="err" id="g-err"></div>
+    <p style="font-size:11px;color:#999;margin-top:14px">PIN เริ่มต้น = slug + 1234 (เช่น game1234) · เปลี่ยน PIN ในหน้าตั้งค่าหลังเข้า</p>
+  </div>
+</div>
+
+<div class="adm-shell" id="shell" style="display:none">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero" id="hero" style="--staff-color:#0A1628">
+        <div class="role-line" id="h-role">ROLE</div>
+        <h1 id="h-name">ชื่อ</h1>
+        <p id="h-dept">ฝ่าย</p>
+        <div class="tools-line">
+          <input type="color" class="color-swatch" id="color-picker" title="เลือกสีประจำตัว" onchange="changeColor(this.value)">
+          <button class="btn btn-outline btn-sm" onclick="openChangePin()">เปลี่ยน PIN</button>
+          <button class="btn btn-outline btn-sm" onclick="G2G.playExplainer()">🔊 ฟังคำอธิบาย</button>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>งานของฉัน</h2><span class="sub" id="mine-count">—</span></div>
+        <div class="task-grid" id="mine-grid"><div class="adm-loading">โหลด...</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>งานที่เรียกได้ (Pool)</h2><span class="sub">หมวดที่หน้าของฉันแสดง: <span id="my-cats"></span></span></div>
+        <div class="task-grid" id="pool-grid"><div class="adm-loading">โหลด...</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="adm-grid" style="display:grid;grid-template-columns:1fr 2fr;gap:14px">
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>💰 G2G Token</h3></div>
+            <div class="adm-card-b">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-deep);font-weight:600" id="token-bal">—</div>
+              <div style="font-size:12px;color:var(--ink-4);margin-top:4px">tokens</div>
+              <div style="margin-top:14px;font-size:12px;color:var(--ink-3)">
+                <strong>ใช้สำหรับ:</strong> ดูดวง · AI Tutor hours · ที่ปรึกษา · ซื้อสินค้าในเครือ
+              </div>
+              <button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="showLedger()">ดู ledger</button>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>🔮 ดวงวันนี้</h3><button class="btn btn-gold btn-sm" onclick="getHoroscope()">ขอดวง · 5 tokens</button></div>
+            <div class="adm-card-b" id="horoscope-box">
+              <div style="color:var(--ink-4);font-size:13px">กดปุ่ม "ขอดวง" เพื่อสร้างดวงวันนี้สำหรับคุณ · จะหัก 5 tokens · cache ต่อวัน</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>📱 Mobile Command</h2><span class="sub">สั่งงานจากมือถือผ่าน LINE @execcopilot หรือพิมพ์ที่นี่</span></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <p style="font-size:13px;color:var(--ink-3);margin-bottom:10px">
+              <strong>คำสั่งที่ใช้ได้:</strong><br>
+              • <code>งาน [Marketing] ทำ campaign Le Phaya</code> · สร้างงานใหม่<br>
+              • <code>claim T1234567</code> · เรียกงานไปทำ<br>
+              • <code>ดวง</code> · ดูดวงวันนี้<br>
+              • <code>balance</code> · ยอด token<br>
+              • <code>list</code> · งานของฉัน
+            </p>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="mob-cmd" placeholder="พิมพ์คำสั่ง..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:6px" onkeydown="if(event.key==='Enter')runCmd()">
+              <button class="btn btn-primary" onclick="runCmd()">รัน</button>
+            </div>
+            <pre id="mob-result" style="margin-top:10px;padding:12px;background:var(--bg);border-radius:6px;font-size:12.5px;white-space:pre-wrap;display:none"></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section" id="customer-section" style="display:none">
+        <div class="h"><h2>ลูกค้า · Service Requests</h2><span class="sub">AIM Clinic + NK Law · auto-routed</span></div>
+        <div id="cust-list"><div class="adm-loading">โหลด...</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>AI Tutor · ถามอะไรก็ได้</h2><span class="sub">สอนงานเฉพาะสายของคุณ · powered by Claude Haiku</span></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <div id="tutor-chat" style="max-height:400px;overflow-y:auto;padding:12px;background:var(--bg);border-radius:8px;margin-bottom:12px;font-size:13.5px"></div>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="tutor-input" placeholder="พิมพ์คำถาม..." style="flex:1;padding:10px 14px;border:1px solid var(--line);border-radius:8px" onkeydown="if(event.key==='Enter')askTutor()">
+              <button class="btn btn-primary" onclick="askTutor()">ถาม</button>
+            </div>
+            <p style="font-size:11px;color:var(--ink-5);margin-top:6px">ผม proactive · จะเริ่ม checkin ก่อน · คุณตอบ + ถามต่อได้</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const slug = params.get('slug') || 'game';
+let session = null;
+
+async function doAuth() {
+  const pin = document.getElementById('g-pin').value.trim();
+  if (!pin) return;
+  const r = await G2G.wbAuth(slug, pin);
+  if (!r.ok) {
+    document.getElementById('g-err').textContent = r.error || 'PIN ไม่ถูกต้อง';
+    return;
+  }
+  session = { ...r, pin };
+  localStorage.setItem('wb_session_' + slug, JSON.stringify({ pin, ts: Date.now() }));
+  initPage();
+}
+
+function loadStored() {
+  try {
+    const s = JSON.parse(localStorage.getItem('wb_session_' + slug) || 'null');
+    if (s && (Date.now() - s.ts) < 3600000 * 8) {
+      document.getElementById('g-pin').value = s.pin;
+      doAuth();
+    }
+  } catch (e) {}
+}
+
+async function initPage() {
+  document.getElementById('pin-gate').style.display = 'none';
+  document.getElementById('shell').style.display = 'grid';
+
+  // Hero
+  document.getElementById('hero').style.setProperty('--staff-color', session.color || '#0A1628');
+  document.getElementById('h-role').textContent = session.role || '';
+  document.getElementById('h-name').textContent = (session.nickname || session.name) + (session.isMaster ? ' · [MASTER]' : '');
+  document.getElementById('h-dept').textContent = session.dept || '';
+  document.getElementById('color-picker').value = session.color || '#0A1628';
+
+  // Sidebar + top
+  G2G.boot('me', { title: 'หน้าของฉัน · ' + (session.nickname || session.name), crumbs: [
+    { label: 'Dashboard', href: 'index.html' },
+    { label: 'Workboard', href: 'board.html' },
+    { label: session.nickname || session.name }
+  ], skipAuth: true });
+
+  // Install font/voice tools with sector-specific explainer
+  const explainer = getExplainer(slug);
+  G2G.installTools(explainer, 'niwat');
+
+  // Load tasks
+  await refreshTasks();
+
+  // If routing has Service-AIM/NK → show customer section
+  if (slug === 'game' || slug === 'wan' || session.isMaster) {
+    document.getElementById('customer-section').style.display = 'block';
+    loadCustomer();
+  }
+
+  // Start tutor with proactive checkin
+  startProactiveCheckin();
+}
+
+async function refreshTasks() {
+  const r = await G2G.wbListMine(slug);
+  document.getElementById('mine-count').textContent = (r.mine || []).length + ' งาน';
+  document.getElementById('my-cats').textContent = (r.routedCategories || []).join(', ') + (slug ? ', Marketing' : '');
+  renderTasks(document.getElementById('mine-grid'), r.mine || [], true);
+  renderTasks(document.getElementById('pool-grid'), r.pool || [], false);
+}
+
+function renderTasks(target, tasks, isMine) {
+  if (!tasks.length) {
+    target.innerHTML = '<div class="adm-empty"><h4>ยังไม่มีงาน</h4><p>' + (isMine ? 'ยังไม่ได้รับงาน · เรียกจาก Pool ด้านล่าง' : 'ยังไม่มีงานเปิดในหมวดของคุณ') + '</p></div>';
+    return;
+  }
+  target.innerHTML = tasks.map(t => `
+    <div class="task-card status-${t.status}" style="--staff-color:${session.color || '#0A1628'}">
+      <span class="cat">${G2G.escapeHtml(t.category)}</span>
+      <h4>${G2G.escapeHtml(t.title)}</h4>
+      <div class="desc">${G2G.escapeHtml((t.description || '').substring(0, 200))}</div>
+      <div class="meta">
+        <span>${t.priority || 'normal'} · ${t.due || ''}</span>
+        ${t.assignee ? `<span class="worker">${G2G.escapeHtml(t.assignee)}</span>` : ''}
+      </div>
+      <div class="actions">
+        ${isMine ? `
+          <button class="btn-update" onclick="updateTask('${t.taskId}','in_progress','เริ่มทำ')">เริ่มทำ</button>
+          <button class="btn-complete" onclick="completeTask('${t.taskId}')">เสร็จแล้ว</button>
+          <button class="btn-release" onclick="releaseTask('${t.taskId}')">คืน Pool</button>
+        ` : `
+          <button class="btn-claim" onclick="claimTask('${t.taskId}')">เรียกงานไปทำ →</button>
+        `}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function claimTask(taskId) {
+  const r = await G2G.wbClaim(taskId, slug, session.pin);
+  if (r.ok) refreshTasks();
+  else alert(r.error || 'failed');
+}
+async function releaseTask(taskId) {
+  if (!confirm('คืนงานนี้กลับ Pool ใช่ไหม?')) return;
+  const r = await G2G.wbRelease(taskId, slug, session.pin);
+  if (r.ok) refreshTasks();
+}
+async function updateTask(taskId, status, msg) {
+  const r = await G2G.wbUpdate(taskId, slug, session.pin, msg, status);
+  if (r.ok) refreshTasks();
+}
+async function completeTask(taskId) {
+  const msg = prompt('สรุปงานที่ทำเสร็จ (จะแสดงใน Showcase):');
+  if (!msg) return;
+  const r = await G2G.wbComplete(taskId, slug, session.pin, msg);
+  if (r.ok) refreshTasks();
+}
+
+async function loadCustomer() {
+  const msgs = await G2G.wbCustomerList();
+  const target = document.getElementById('cust-list');
+  if (!msgs.length) {
+    target.innerHTML = '<div class="adm-empty"><h4>ยังไม่มีคำขอบริการ</h4></div>';
+    return;
+  }
+  target.innerHTML = '<table class="adm-tbl"><thead><tr><th>เวลา</th><th>ลูกค้า</th><th>ข้อความ</th><th>สถานะ</th></tr></thead><tbody>' +
+    msgs.slice(0, 30).map(m => `<tr>
+      <td>${new Date(m.timestamp).toLocaleString('th-TH')}</td>
+      <td><strong>${m.clientId}</strong></td>
+      <td>${G2G.escapeHtml((m.message || '').substring(0, 100))}</td>
+      <td><span class="chip ${m.status === 'new' ? 'warn' : 'ok'}">${m.status}</span></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+function changeColor(c) {
+  G2G.wbSetColor(slug, session.pin, c).then(() => {
+    session.color = c;
+    document.getElementById('hero').style.setProperty('--staff-color', c);
+  });
+}
+
+async function openChangePin() {
+  const oldP = prompt('PIN เดิม (หรือกด Cancel ถ้าใช้ Master Key):');
+  if (oldP === null) return;
+  const newP = prompt('PIN ใหม่ (อย่างน้อย 4 ตัว):');
+  if (!newP || newP.length < 4) return;
+  const masterKey = oldP === '' ? prompt('Master Key:') : null;
+  const r = await G2G.wbChangePin(slug, oldP, newP, masterKey);
+  if (r.ok) {
+    alert('เปลี่ยน PIN สำเร็จ — กรุณา login ใหม่');
+    localStorage.removeItem('wb_session_' + slug);
+    location.reload();
+  } else alert(r.error || 'failed');
+}
+
+// === AI Tutor ===
+let tutorHistory = [];
+async function askTutor() {
+  const input = document.getElementById('tutor-input');
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+  appendChat('me', q, session.color);
+  appendChat('ai', '...', '#888');
+  const r = await G2G.wbTutorAsk(slug, q);
+  // Remove typing indicator and add real response
+  document.querySelector('#tutor-chat .typing')?.remove();
+  appendChat('ai', r.answer || r.error || 'no response', '#0A1628');
+}
+function appendChat(who, text, color) {
+  const c = document.getElementById('tutor-chat');
+  const div = document.createElement('div');
+  div.className = who === 'ai' && text === '...' ? 'typing' : '';
+  div.style.cssText = `margin:8px 0;padding:10px 14px;border-radius:10px;background:${who==='me'?'rgba(201,169,97,0.12)':'#fff'};border:1px solid var(--line);max-width:85%;${who==='me'?'margin-left:auto':''}`;
+  div.innerHTML = `<div style="font-size:11px;color:${color};font-weight:600;margin-bottom:4px">${who==='me'?(session.nickname||session.name):'AI Tutor'}</div><div>${G2G.escapeHtml(text).replace(/\n/g,'<br>')}</div>`;
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+}
+function startProactiveCheckin() {
+  const checkin = G2G.getProactiveCheckin(slug);
+  appendChat('ai', '👋 ' + checkin, '#0A1628');
+}
+
+function getExplainer(slug) {
+  const m = {
+    'game': 'หน้านี้คือ workboard ของเกมส์ ฝ่ายไอทีและกราฟฟิก งานที่เห็นในส่วน Pool รวมถึงงาน Service ของลูกค้า AIM และ NK Law ที่ถูก route มาที่นี่ คุณสามารถเรียกงาน เปลี่ยนสถานะ และพูดคุยกับ AI Tutor ได้',
+    'aui': 'หน้านี้คือ workboard ของอุ้ย ฝ่ายบัญชีและการเงิน ครอบคลุมการยื่นภาษี ภงด ภพ ประกันสังคม ผังบัญชี กระแสเงินสด ถ้าไม่แน่ใจอะไร พิมพ์ถาม AI Tutor ได้ตลอด ผมจะสอนงานอย่างละเอียด',
+    'baipare': 'หน้านี้คือ workboard ของใบแพร ฝ่ายการตลาด ใช้สำหรับจัดการแคมเปญ LINE OA Network Content และ Modern Trade pitch',
+    'som': 'หน้านี้คือ workboard ของส้ม ฝ่ายอัญมณีและสินค้าแปรรูป ครอบคลุม Le Phaya Jewelry stock เหมือง Sapphire Valley และงานโรงงาน',
+    'wan': 'หน้านี้คือ workboard ของวันหรือวรรณ ทีม IT รับ service request จากลูกค้า AIM และ NK Law',
+    'bank': 'หน้านี้คือ workboard ของแบ้งค์ ผู้จัดการโรงงาน',
+    'sombat': 'หน้านี้คือ workboard ของสมบัติ ฝ่ายผลิตสุรา Diamond Drop',
+    'ainam': 'หน้านี้คือ workboard ของไอน้ำ ฝ่ายข่าวและสื่อสารมวลชน',
+    'cat': 'หน้านี้คือ workboard ของแคท ฝ่ายสื่อสารและประชาสัมพันธ์',
+    'phim': 'หน้านี้คือ workboard ของพิมลรัตน์ ฝ่าย AI Solution',
+    'yui': 'หน้านี้คือ workboard ของยุ้ย Deputy CEO'
+  };
+  return m[slug] || 'หน้านี้คือ workboard ของพนักงาน G2G';
+}
+
+// === Token + Horoscope + Mobile command ===
+async function refreshBalance() {
+  const b = await G2G.tokenBalance(slug);
+  document.getElementById('token-bal').textContent = b;
+}
+async function getHoroscope() {
+  document.getElementById('horoscope-box').innerHTML = '<div class="adm-loading">กำลังขอดวง · หัก 5 tokens...</div>';
+  const r = await G2G.horoscopeDaily(slug);
+  if (r.ok) {
+    document.getElementById('horoscope-box').innerHTML = `
+      <div style="white-space:pre-wrap;line-height:1.85;color:var(--ink-2);font-size:14px">${G2G.escapeHtml(r.horoscope)}</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--ink-5)">${r.cached ? 'cached วันนี้' : 'fresh · หัก ' + r.cost + ' tokens'}</div>
+    `;
+    refreshBalance();
+  } else {
+    document.getElementById('horoscope-box').innerHTML = '<div style="color:var(--err)">❌ ' + (r.error || 'failed') + '</div>';
+  }
+}
+async function showLedger() {
+  const txns = await G2G.tokenLedger(slug);
+  if (!txns.length) { alert('ยังไม่มี ledger'); return; }
+  alert('Ledger (5 รายการล่าสุด):\n' + txns.slice(0,5).map(t => `${new Date(t.timestamp).toLocaleDateString('th-TH')} | ${t.type} | ${t.amount} | balance:${t.balanceAfter} | ${t.reason}`).join('\n'));
+}
+async function runCmd() {
+  const cmd = document.getElementById('mob-cmd').value.trim();
+  if (!cmd) return;
+  const r = await G2G.mobileCommand({ command: cmd, from: session.name, channel: 'web', slug, pin: session.pin });
+  document.getElementById('mob-result').style.display = 'block';
+  document.getElementById('mob-result').textContent = r.response || JSON.stringify(r);
+  document.getElementById('mob-cmd').value = '';
+  refreshTasks();
+  refreshBalance();
+}
+
+// Initialize after auth
+const _origInit = initPage;
+initPage = async function() {
+  await _origInit();
+  refreshBalance();
+};
+
+document.addEventListener('DOMContentLoaded', loadStored);
+</script>
+</body>
+</html>

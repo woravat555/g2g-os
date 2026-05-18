@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ราคา · Pricing · G2G PHAT/PLAT Platform</title>
+<meta name="description" content="แพ็คเกจราคาแพลตฟอร์ม PHAT/PLAT ของ G2G สำหรับลูกค้าและพันธมิตร">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 32px; }
+  .plan { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-4); padding: 28px; }
+  .plan.featured { border: 2px solid var(--gold); background: linear-gradient(180deg, var(--cream) 0%, var(--bg-2) 100%); }
+  .plan .tag { display: inline-block; padding: 3px 10px; background: var(--brand-soft); color: var(--brand); font-size: 11px; letter-spacing: 0.08em; border-radius: var(--r-pill); font-weight: 700; margin-bottom: 12px; }
+  .plan .price { font-family: var(--font-serif); font-size: 36px; color: var(--ink-1); font-weight: 600; margin: 8px 0; }
+  .plan .price small { font-size: 14px; color: var(--ink-4); }
+  .plan ul { padding-left: 18px; margin-top: 14px; }
+  .plan ul li { font-size: 13px; color: var(--ink-3); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="team.html">ทีม</a>
+      <a href="verticals/agritech.html">สินค้า/บริการ</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="admin/login.html" class="btn btn-primary btn-sm">เข้าระบบ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">ราคา · Pricing</div>
+    <h1 class="h-display">แพ็คเกจ <em>PHAT/PLAT</em><br>สำหรับลูกค้า</h1>
+    <p class="lead">แพลตฟอร์ม Super-App ของ G2G · ขายเป็น white-label ให้คลินิก กฎหมาย เทศบาล SME</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="plan-grid">
+      <div class="plan">
+        <span class="tag">FREE</span>
+        <h4>Free</h4>
+        <div class="price">฿0<small>/เดือน</small></div>
+        <p style="font-size:13px;color:var(--ink-3)">สำหรับทดลองใช้</p>
+        <ul>
+          <li>1 LINE OA</li>
+          <li>50 messages/เดือน</li>
+          <li>1 admin</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <span class="tag">LITE</span>
+        <h4>Lite</h4>
+        <div class="price">฿299<small>/เดือน</small></div>
+        <ul>
+          <li>2 LINE OAs</li>
+          <li>5,000 messages/เดือน</li>
+          <li>3 admins</li>
+          <li>Basic CRM</li>
+        </ul>
+      </div>
+      <div class="plan featured">
+        <span class="tag" style="background:var(--gold-soft);color:var(--gold-deep)">PLUS</span>
+        <h4>Plus</h4>
+        <div class="price">฿899<small>/เดือน</small></div>
+        <ul>
+          <li>5 LINE OAs</li>
+          <li>50,000 messages/เดือน</li>
+          <li>10 admins</li>
+          <li>Full CRM + Sales</li>
+          <li>LIFF customization</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <span class="tag">PRO</span>
+        <h4>Pro</h4>
+        <div class="price">฿2,499<small>/เดือน</small></div>
+        <ul>
+          <li>10 LINE OAs</li>
+          <li>Unlimited messages</li>
+          <li>Unlimited admins</li>
+          <li>White-label branding</li>
+          <li>AI Agent team</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <span class="tag">ENTERPRISE</span>
+        <h4>Enterprise</h4>
+        <div class="price">ติดต่อ<small></small></div>
+        <ul>
+          <li>Multi-tenant</li>
+          <li>Custom integrations</li>
+          <li>Dedicated team</li>
+          <li>SLA 99.9%</li>
+          <li>Onsite training</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:32px;font-size:13px;color:var(--ink-4)">
+      ราคาข้างต้นเป็น <strong>reference pricing</strong> · ราคาจริงขึ้นกับขอบเขตงาน · ต่อรองรายลูกค้า
+    </p>
+    <div style="text-align:center;margin-top:18px">
+      <a class="btn btn-primary btn-lg" href="contact.html">ขอใบเสนอราคา →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li><li>LINE: @g2g</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.2</div></div>
+</footer>
+
+</body>
+</html>

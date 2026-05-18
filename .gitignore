@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+*.log
+.vscode/
+.idea/
+*.swp
+.clasprc.json
+
+.clasp/

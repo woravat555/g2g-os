@@ -1,0 +1,14 @@
+.git
+.github
+.gitignore
+.dockerignore
+README.md
+DEPLOY.md
+*.md
+node_modules
+.DS_Store
+.env*
+fly.toml
+.clasprc.json
+package*.json
+.clasp

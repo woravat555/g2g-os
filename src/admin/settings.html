@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ตั้งค่า · Settings · G2G Internal OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">Settings</div><div class="val" id="kSet">—</div><div class="delta">การตั้งค่าระบบ</div></div>
+        <div class="kpi"><div class="lbl">ConnectionRegistry</div><div class="val" id="kConn">—</div><div class="delta">connections</div></div>
+        <div class="kpi"><div class="lbl">TechRegistry</div><div class="val" id="kTech">—</div><div class="delta">เทคโนโลยีในระบบ</div></div>
+        <div class="kpi"><div class="lbl">Directives</div><div class="val" id="kDir">—</div><div class="delta">คำสั่ง CEO</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>System Settings</h2></div>
+        <div class="adm-card flat">
+          <div id="t-set"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>ConnectionRegistry</h2><span class="sub">connections ที่ระบบใช้</span></div>
+        <div class="adm-card flat">
+          <div id="t-conn"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>TechRegistry · เทคโนโลยี</h2><span class="sub">ทุก service ที่ G2G ใช้</span></div>
+        <div class="adm-card flat">
+          <div id="t-tech"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Directives · คำสั่ง CEO</h2></div>
+        <div class="adm-card flat">
+          <div id="t-dir"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>Memory v3 Endpoint</h2></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <p style="font-size:13px;color:var(--ink-3)"><strong>URL:</strong> <code style="font-size:11px;background:var(--bg);padding:4px 6px;border-radius:4px">AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k</code></p>
+            <p style="font-size:13px;color:var(--ink-3);margin-top:8px">Memory v3 · Dreaming Worker · nightly 03:00 BKK · 24 sessions consolidated → 23 themes + 145 facts</p>
+            <p style="font-size:13px;color:var(--ink-3);margin-top:8px"><strong>Available endpoints:</strong></p>
+            <ul style="font-size:12px;color:var(--ink-4);padding-left:20px;line-height:1.8">
+              <li><code>load_chat_v3</code> · default memory load (3K tokens)</li>
+              <li><code>erpDashboard</code> · KPI counts</li>
+              <li><code>erpListStaff/Products/Orders/...</code> · per-tab readers</li>
+              <li><code>erpTab?tab=X</code> · generic tab reader</li>
+              <li><code>erpAppend</code> · POST row to any tab</li>
+              <li><code>runDream</code> · manual dream trigger</li>
+              <li><code>listFacts/listThemes</code> · memory query</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+  G2G.boot('settings', { title: 'ตั้งค่า', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Settings' }] });
+  (async function() {
+    const [set, conn, tech, dir] = await Promise.all([
+      G2G.loadTab('Settings'),
+      G2G.loadTab('ConnectionRegistry'),
+      G2G.loadTab('TechRegistry'),
+      G2G.loadTab('Directives')
+    ]);
+    document.getElementById('kSet').textContent = set.total ?? '—';
+    document.getElementById('kConn').textContent = conn.total ?? '—';
+    document.getElementById('kTech').textContent = tech.total ?? '—';
+    document.getElementById('kDir').textContent = dir.total ?? '—';
+    G2G.renderTable(document.getElementById('t-set'), set.columns||[], set.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-conn'), conn.columns||[], conn.rows||[], { maxRows: 20 });
+    G2G.renderTable(document.getElementById('t-tech'), tech.columns||[], tech.rows||[], { maxRows: 30 });
+    G2G.renderTable(document.getElementById('t-dir'), dir.columns||[], dir.rows||[], { maxRows: 20 });
+  })();
+</script>
+</body>
+</html>

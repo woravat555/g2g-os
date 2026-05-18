@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ผู้ช่วยส่วนตัวของคุณ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', sans-serif; background: linear-gradient(180deg, #FAFAF9 0%, #F0E9DC 100%); min-height: 100vh; color: #0A1628; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+.container { max-width: 420px; width: 100%; }
+.card-main { background: #fff; border-radius: 24px; padding: 36px 28px; box-shadow: 0 30px 60px rgba(10,22,40,0.08); text-align: center; }
+.envelope { width: 64px; height: 64px; margin: 0 auto 20px; background: #FEF3C7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.brand { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: #C9A961; letter-spacing: 0.3em; margin-bottom: 18px; text-transform: uppercase; }
+.greeting { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1.2; margin-bottom: 6px; color: #0A1628; }
+.greeting em { color: #C9A961; font-style: normal; }
+.from-line { font-size: 13px; color: #6B7280; margin-bottom: 22px; }
+.intro { font-size: 15px; line-height: 1.8; color: #374151; margin-bottom: 24px; }
+.feature-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+.feature-pill { padding: 6px 14px; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 999px; font-size: 12.5px; color: #4B5563; }
+.btn { display: block; width: 100%; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer; border: 0; font-family: inherit; margin-bottom: 10px; text-align: center; transition: transform 0.15s; }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: #0A1628; color: #fff; }
+.btn-secondary { background: #fff; color: #0A1628; border: 1.5px solid #E5E7EB; }
+.loading { padding: 60px 20px; text-align: center; color: #9CA3AF; }
+.error { background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C; padding: 14px; border-radius: 12px; }
+.footnote { margin-top: 22px; font-size: 11px; color: #9CA3AF; line-height: 1.6; }
+.footnote a { color: #6B7280; text-decoration: none; }
+.success-icon { width: 80px; height: 80px; margin: 0 auto 18px; background: #D1FAE5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #047857; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="content" class="card-main loading">⏳ กำลังเปิดให้คุณ...</div>
+</div>
+
+<script>
+const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec';
+const LIFF_ID = '2010125245-jHBOzS52';
+const OA_URL = 'https://line.me/R/ti/p/@280ezsqs';
+
+function getToken() {
+  const path = location.pathname.split('/').filter(x => x);
+  if (path[0] === 'i' && path[1]) return path[1];
+  return new URLSearchParams(location.search).get('t') || '';
+}
+
+function escapeHtml(s) { return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+async function init() {
+  const token = getToken();
+  const out = document.getElementById('content');
+  if (!token) {
+    out.innerHTML = '<div class="error">ลิงก์ไม่ถูกต้อง</div>';
+    return;
+  }
+  let inv;
+  try {
+    const r = await fetch(APPS_SCRIPT + '?action=inviteLookup&token=' + encodeURIComponent(token));
+    inv = await r.json();
+  } catch (e) {
+    out.innerHTML = '<div class="error">เปิดไม่สำเร็จ: ' + escapeHtml(e) + '</div>';
+    return;
+  }
+  if (!inv.ok) {
+    out.innerHTML = '<div class="error">ลิงก์นี้ใช้ไม่ได้แล้ว</div>';
+    return;
+  }
+
+  let fromName = '';
+  if (inv.referrer) {
+    try {
+      const rr = await fetch(APPS_SCRIPT + '?action=citizenLookup&slug=' + encodeURIComponent(inv.referrer));
+      const rj = await rr.json();
+      if (rj.ok && rj.citizen && rj.citizen.name) fromName = rj.citizen.name;
+    } catch (_) {}
+  }
+
+  const name = inv.name || 'คุณ';
+  out.innerHTML = `
+    <div class="envelope">💌</div>
+    <div class="brand">— ของกำนัล —</div>
+    <div class="greeting">สวัสดีคุณ <em>${escapeHtml(name)}</em></div>
+    <div class="from-line">${fromName ? 'จาก ' + escapeHtml(fromName) : 'มีคนคิดถึงคุณ'}</div>
+    <p class="intro">
+      ผมเป็นผู้ช่วย AI ส่วนตัว · ดูแลทุกเรื่องที่คุณต้องการ<br>
+      ตอบคำถาม · ฟังเสียง · แปลภาษา · ดูแลสุขภาพ · ที่ปรึกษาธุรกิจ
+    </p>
+    <div class="feature-row">
+      <div class="feature-pill">ตอบ 24 ชั่วโมง</div>
+      <div class="feature-pill">รู้จักคุณแล้ว</div>
+      <div class="feature-pill">ใช้ในไลน์</div>
+    </div>
+    <button class="btn btn-primary" onclick="openInLine()">
+      เริ่มคุยในไลน์ของคุณ
+    </button>
+    <a class="btn btn-secondary" href="${OA_URL}">เพิ่มเพื่อน @G2G ก่อน</a>
+    <p class="footnote">
+      เปิดใช้งานแสดงว่าคุณยอมรับ <a href="/privacy">นโยบายความเป็นส่วนตัว</a><br>
+      G2G เก็บข้อมูลเฉพาะที่จำเป็น · ลบบัญชีได้ตลอดเวลา
+    </p>`;
+
+  try { await liff.init({ liffId: LIFF_ID }); } catch (_) {}
+}
+
+async function openInLine() {
+  const token = getToken();
+  try {
+    if (typeof liff === 'undefined' || !liff.isInClient()) {
+      location.href = 'https://liff.line.me/' + LIFF_ID + '?t=' + token;
+      return;
+    }
+  } catch (_) {
+    location.href = 'https://liff.line.me/' + LIFF_ID + '?t=' + token;
+    return;
+  }
+  try {
+    if (!liff.isLoggedIn()) { liff.login({ redirectUri: location.href }); return; }
+    const profile = await liff.getProfile();
+    const r = await fetch(APPS_SCRIPT + '?action=citizenAcceptInvite', {
+      method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify({ token: token, userId: profile.userId, pictureUrl: profile.pictureUrl || '' })
+    });
+    const j = await r.json();
+    const out = document.getElementById('content');
+    if (j.ok) {
+      out.innerHTML = `
+        <div class="success-icon">✓</div>
+        <div class="greeting">พร้อมแล้ว</div>
+        <p class="intro" style="margin-top:14px">ผมส่งข้อความทักทายไปในแชทไลน์ของคุณแล้ว<br>กดดูได้เลย</p>
+        <a class="btn btn-primary" href="${OA_URL}">เปิดแชท</a>
+        <a class="btn btn-secondary" href="${j.personalUrl}">ดูโปรไฟล์ของคุณ</a>`;
+    } else {
+      out.innerHTML = '<div class="error">' + escapeHtml(j.error || '') + '</div>';
+    }
+  } catch (e) {
+    location.href = 'https://liff.line.me/' + LIFF_ID + '?t=' + token;
+  }
+}
+
+init();
+</script>
+</body>
+</html>

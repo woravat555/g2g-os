@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHAT / PLAT · Citizen Super-App · 67 ล้านประชาชน</title>
+<meta name="description" content="แอพประจำตัวคนไทยทุกคน · 36 Hero Apps · 9-tab 4D Framework · Token Mesh · platth.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../components/_tokens.css">
+<link rel="stylesheet" href="../components/_base.css">
+<style>
+  .persona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 32px; }
+  .persona { padding: 18px; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-3); text-align: center; transition: all var(--t-fast); cursor: pointer; }
+  .persona:hover { border-color: var(--brand); transform: translateY(-2px); }
+  .persona .emoji { font-size: 28px; margin-bottom: 8px; }
+  .persona .role { font-size: 13px; font-weight: 600; color: var(--ink-1); }
+  .persona .hero { font-size: 11px; color: var(--gold-deep); font-weight: 600; letter-spacing: 0.06em; margin-top: 4px; }
+  .tabs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 28px; }
+  .tab-item { padding: 22px; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-4); }
+  .tab-item h4 { margin-bottom: 6px; }
+  .tab-item p { font-size: 13px; color: var(--ink-3); margin: 0; }
+  .tab-item .ic { width: 36px; height: 36px; border-radius: 8px; background: var(--brand-soft); color: var(--brand); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-family: var(--font-serif); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="../index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="../about.html">เกี่ยวกับ</a>
+      <a href="../verticals/agritech.html" class="active">Verticals</a>
+      <a href="../internal-os.html">Internal OS</a>
+      <a href="../team.html">ทีม</a>
+      <a href="../news.html">ข่าวสาร</a>
+      <a href="../toc.html">สารบัญ</a>
+      <a href="../contact.html" class="btn btn-primary btn-sm">ติดต่อเรา</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">B · Citizen Super-App</div>
+    <h1 class="h-display"><em>PHAT</em> / PLAT<br>แอพประจำตัวคนไทย<br>ทุกคน</h1>
+    <p class="lead">
+      บนแนวคิด <strong>"แอพคนละแอพ"</strong> — 36 Hero Apps แยกตามอาชีพ
+      ครู เกษตรกร แพทย์ พ่อค้า นักท่องเที่ยว ฯลฯ
+      แต่ใช้ Token Mesh เดียวกัน · เข้าผ่าน LINE หรือ LIFF
+    </p>
+    <div style="display: flex; gap: 12px; margin-top: 28px;">
+      <a class="btn btn-primary btn-lg" href="https://phat-token-mesh-staging.fly.dev" target="_blank">เข้าสู่ Staging →</a>
+      <a class="btn btn-ghost btn-lg" href="#personas">ดู 36 Hero Apps</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="stat-row">
+      <div class="stat"><div class="n">36</div><div class="l">Hero Apps</div></div>
+      <div class="stat"><div class="n">9</div><div class="l">แท็บใน 4D Framework</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">AI Vendors LIVE</div></div>
+      <div class="stat"><div class="n">67M</div><div class="l">ประชาชน target</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--cream-soft);">
+  <div class="container">
+    <div class="eyebrow">4D Framework · 9 แท็บที่ทุก persona ได้</div>
+    <h2>1 แอพ · <em style="color: var(--brand); font-style: italic;">9 มิติชีวิต</em></h2>
+    <div class="tabs-grid">
+      <div class="tab-item"><div class="ic">01</div><h4>Chat</h4><p>คุยกับ HERO ของฉัน · ภาษาไทย+อังกฤษ</p></div>
+      <div class="tab-item"><div class="ic">02</div><h4>Business</h4><p>เครื่องมือธุรกิจตามอาชีพ</p></div>
+      <div class="tab-item"><div class="ic">03</div><h4>Civic</h4><p>เชื่อมบริการรัฐ 20 กระทรวง</p></div>
+      <div class="tab-item"><div class="ic">04</div><h4>Skills</h4><p>คอร์สเรียน · certification · upskill</p></div>
+      <div class="tab-item"><div class="ic">05</div><h4>Wellbeing</h4><p>สุขภาพ · ออกกำลังกาย · จิตใจ</p></div>
+      <div class="tab-item"><div class="ic">06</div><h4>Commerce</h4><p>ขายของ · โพสต์ขาย · ออโต้รีพลาย</p></div>
+      <div class="tab-item"><div class="ic">07</div><h4>Finance</h4><p>คำนวณภาษี · ประกัน · ลงทุน</p></div>
+      <div class="tab-item"><div class="ic">08</div><h4>Advisor</h4><p>ที่ปรึกษารายวัน/สัปดาห์/เดือน</p></div>
+      <div class="tab-item"><div class="ic">09</div><h4>Lifelong</h4><p>บันทึกชีวิตข้ามปี · พิพิธภัณฑ์ส่วนตัว</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="personas">
+  <div class="container">
+    <div class="eyebrow">36 Hero Apps · แอพแต่ละอาชีพ</div>
+    <h2>หาแอพของ<em style="color: var(--brand); font-style: italic;">คุณ</em></h2>
+    <p class="lead">แต่ละ persona มี hero_name (suffix HERO หรือ พญา) · suggested_prompts · knowledge_corpus · default_model</p>
+    <div class="persona-grid">
+      <div class="persona"><div class="emoji">👨‍🏫</div><div class="role">ครู</div><div class="hero">teacherHERO</div></div>
+      <div class="persona"><div class="emoji">👨‍🌾</div><div class="role">เกษตรกร</div><div class="hero">farmerHERO</div></div>
+      <div class="persona"><div class="emoji">👨‍⚕️</div><div class="role">แพทย์</div><div class="hero">doctorHERO</div></div>
+      <div class="persona"><div class="emoji">👩‍⚕️</div><div class="role">พยาบาล</div><div class="hero">nurseHERO</div></div>
+      <div class="persona"><div class="emoji">💊</div><div class="role">เภสัชกร</div><div class="hero">pharmHERO</div></div>
+      <div class="persona"><div class="emoji">⚖️</div><div class="role">ทนาย</div><div class="hero">lawyerHERO</div></div>
+      <div class="persona"><div class="emoji">🏪</div><div class="role">เจ้าของร้าน</div><div class="hero">shopHERO</div></div>
+      <div class="persona"><div class="emoji">🍜</div><div class="role">ร้านอาหาร</div><div class="hero">restoHERO</div></div>
+      <div class="persona"><div class="emoji">🚕</div><div class="role">แท็กซี่</div><div class="hero">taxiHERO</div></div>
+      <div class="persona"><div class="emoji">📦</div><div class="role">ส่งของ</div><div class="hero">delivHERO</div></div>
+      <div class="persona"><div class="emoji">💎</div><div class="role">จิวเวลรี่</div><div class="hero">พญาเพชร</div></div>
+      <div class="persona"><div class="emoji">🎒</div><div class="role">นักเรียน</div><div class="hero">studentHERO</div></div>
+      <div class="persona"><div class="emoji">👮</div><div class="role">ตำรวจ</div><div class="hero">policeHERO</div></div>
+      <div class="persona"><div class="emoji">🪔</div><div class="role">พระสงฆ์</div><div class="hero">monkHERO</div></div>
+      <div class="persona"><div class="emoji">🎨</div><div class="role">ศิลปิน</div><div class="hero">artistHERO</div></div>
+      <div class="persona"><div class="emoji">✈️</div><div class="role">ไกด์</div><div class="hero">guideHERO</div></div>
+    </div>
+    <p style="text-align:center; margin-top: 24px; font-size: 14px; color: var(--ink-4);">+ 20 personas อื่น · รวม 36 Hero Apps</p>
+  </div>
+</section>
+
+<section class="section" style="background: var(--navy-deep); color: var(--ink);">
+  <div class="container">
+    <div class="eyebrow" style="color: var(--gold-light);">Token Mesh · พื้นฐาน AI</div>
+    <h2 style="color: var(--ink); font-size: var(--fs-32);">3 AI Vendors · <em style="color: var(--gold); font-style: italic;">1 API</em> เดียว</h2>
+    <p style="color: var(--ink-cream-2); max-width: 720px; margin-bottom: 32px; font-size: 17px;">
+      Claude Haiku 4.5 · GPT-4o-mini · Gemini 2.5 Flash —
+      เลือกอัตโนมัติตามประเภทคำถาม · UTU cross-category engine · pricing v2 locked ฿299/899/2,499/5,999
+    </p>
+    <a class="btn btn-gold btn-lg" href="https://phat-token-mesh-staging.fly.dev" target="_blank">ดู staging live →</a>
+  </div>
+</section>
+
+<nav class="page-nav-row" aria-label="Page navigation">
+  <div class="page-nav-grid">
+    <a href="agritech.html" class="page-nav-cell prev">
+      <span class="dir">← หน้าก่อน</span>
+      <span class="title">AgriTech Marketplace</span>
+    </a>
+    <a href="../toc.html" class="page-nav-cell toc-link">
+      <span class="dir">⋯</span>
+      <span class="title">สารบัญทั้งหมด</span>
+    </a>
+    <a href="imperial-fruitia.html" class="page-nav-cell next">
+      <span class="dir">หน้าต่อไป →</span>
+      <span class="title">Imperial Fruitia</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div><p style="color: var(--ink-cream-3); font-size: 14px;">ศูนย์บัญชาการกลาง 7 verticals</p></div>
+    <div><h6>Verticals</h6><ul><li><a href="agritech.html">AgriTech</a></li><li><a href="phat-plat.html">PHAT/PLAT</a></li><li><a href="imperial-fruitia.html">Imperial Fruitia</a></li><li><a href="aim-clinic.html">AIM Clinic</a></li><li><a href="le-phaya.html">Le Phaya</a></li></ul></div>
+    <div><h6>บริษัท</h6><ul><li><a href="../about.html">เกี่ยวกับเรา</a></li><li><a href="../team.html">ทีมงาน</a></li><li><a href="../news.html">ข่าวสาร</a></li><li><a href="../careers.html">ร่วมงาน</a></li></ul></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li><li>LINE: @g2g</li><li>Bangkok · Thailand</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.1 · Singapore Region</div></div>
+</footer>
+
+</body>
+</html>

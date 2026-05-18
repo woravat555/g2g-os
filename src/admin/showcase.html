@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ผลงาน · Showcase · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">ผลงานทั้งหมด</div><div class="val" id="k-total">—</div></div>
+        <div class="kpi"><div class="lbl">สัปดาห์นี้</div><div class="val" id="k-week">—</div></div>
+        <div class="kpi"><div class="lbl">ทีมงาน active</div><div class="val" id="k-active">—</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>ผลงานทั้งหมด · Showcase</h2>
+          <span class="sub">สีตัวอักษรของแต่ละ task = สีประจำตัวของผู้ทำ</span>
+        </div>
+        <div id="legend" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px;font-size:12px"></div>
+        <div class="task-grid" id="show-grid"><div class="adm-loading">โหลด...</div></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+<script src="_admin.js"></script>
+<script>
+G2G.boot('showcase', { title: 'ผลงาน · Showcase', crumbs: [
+  { label: 'Dashboard', href: 'index.html' },
+  { label: 'Showcase' }
+]});
+G2G.installTools('หน้านี้คือ Showcase แสดงผลงานที่พนักงานทุกคนทำเสร็จแล้ว สีตัวอักษรแต่ละ task จะแยกตามผู้ทำ ทำให้รู้ว่าใครรับผิดชอบงานชิ้นไหน', 'premwadee');
+
+(async function init() {
+  const staff = await G2G.wbStaffList();
+  document.getElementById('k-active').textContent = staff.length;
+
+  // Legend
+  document.getElementById('legend').innerHTML = staff.map(s =>
+    `<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:50%;background:${s.color}"></span>${G2G.escapeHtml(s.nickname || s.name)}</span>`
+  ).join('');
+
+  // Showcase tasks
+  const tasks = await G2G.wbListShowcase();
+  document.getElementById('k-total').textContent = tasks.length;
+  const weekAgo = Date.now() - 7*24*3600*1000;
+  document.getElementById('k-week').textContent = tasks.filter(t => new Date(t.completedAt).getTime() > weekAgo).length;
+
+  const target = document.getElementById('show-grid');
+  if (!tasks.length) {
+    target.innerHTML = '<div class="adm-empty"><h4>ยังไม่มีผลงาน</h4><p>เมื่อพนักงานทำงานเสร็จจะปรากฏที่นี่ · สีตัวอักษรตามผู้ทำ</p></div>';
+    return;
+  }
+  target.innerHTML = tasks.map(t => `
+    <div class="task-card status-done" style="--staff-color:${t.workerColor}">
+      <span class="cat">${G2G.escapeHtml(t.category)}</span>
+      <h4 style="color:${t.workerColor}">${G2G.escapeHtml(t.title)}</h4>
+      <div class="desc">${G2G.escapeHtml((t.description || '').substring(0, 200))}</div>
+      <div class="meta">
+        <span>เสร็จ ${t.completedAt ? new Date(t.completedAt).toLocaleDateString('th-TH') : ''}</span>
+        <span class="worker">${G2G.escapeHtml(t.workerName)}</span>
+      </div>
+    </div>
+  `).join('');
+})();
+</script>
+</body>
+</html>

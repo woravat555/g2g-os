@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ติดต่อเรา · Contact G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/_tokens.css">
+<link rel="stylesheet" href="components/_base.css">
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px; }
+  .channel-list { display: grid; gap: 16px; }
+  .channel { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-4); padding: 22px 24px; display: flex; align-items: center; gap: 16px; transition: all var(--t-fast); }
+  .channel:hover { border-color: var(--brand); transform: translateX(4px); }
+  .channel .ic { width: 44px; height: 44px; border-radius: 10px; background: var(--brand-soft); color: var(--brand); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .channel .ic.line { background: #06C755; color: white; }
+  .channel .ic.gold { background: var(--gold-soft); color: var(--gold-deep); }
+  .channel h4 { margin-bottom: 4px; font-size: 17px; }
+  .channel p { font-size: 14px; color: var(--ink-3); margin: 0; }
+  .form-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-5); padding: 32px; }
+  .form-row { display: grid; gap: 16px; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } .form-grid-2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="g2g-nav">
+  <div class="g2g-nav-inner">
+    <a href="index.html" class="g2g-brand"><span class="mark"></span><span class="name">G2G<em>·</em>OS</span></a>
+    <div class="g2g-nav-links">
+      <a href="about.html">เกี่ยวกับ</a>
+      <a href="verticals/agritech.html">Verticals</a>
+      <a href="internal-os.html">Internal OS</a>
+      <a href="team.html">ทีม</a>
+      <a href="news.html">ข่าวสาร</a>
+      <a href="toc.html">สารบัญ</a>
+      <a href="contact.html" class="btn btn-primary btn-sm active">ติดต่อเรา</a>
+    </div>
+  </div>
+</nav>
+
+<section class="section-hero">
+  <div class="container">
+    <div class="eyebrow">ติดต่อ · Get In Touch</div>
+    <h1 class="h-display">มา<em>คุยกัน</em></h1>
+    <p class="lead">นัดสาธิตระบบ · ปรึกษา BD · เจรจาเชื่อมระบบกระทรวง · ทำ Personal App แบบ Le Phaya · ตอบทุกข้อความใน 24 ชม.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <h2 style="font-size: 28px; margin-bottom: 8px;">ช่องทาง<em style="color: var(--brand); font-style: italic;"> ติดต่อ</em></h2>
+        <p style="color: var(--ink-3); margin-bottom: 24px;">เลือกช่องทางที่สะดวก · CEO ตอบทาง LINE เป็นหลัก</p>
+
+        <div class="channel-list">
+          <a href="https://line.me/R/ti/p/@g2g" class="channel">
+            <div class="ic line"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.79 2 10.45c0 4.18 3.55 7.69 8.36 8.36.32.07.76.21.87.49.1.25.06.65.03.91l-.14.85c-.04.25-.2.98.86.53 1.07-.45 5.76-3.39 7.86-5.81C20.79 14.21 22 12.45 22 10.45 22 5.79 17.52 2 12 2z"/></svg></div>
+            <div><h4>LINE Official Account</h4><p>@g2g · ตอบเร็วที่สุด · 24/7</p></div>
+          </a>
+
+          <a href="mailto:contact@gov2global.com" class="channel">
+            <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><h4>Email</h4><p>contact@gov2global.com · ตอบใน 24 ชม.</p></div>
+          </a>
+
+          <a href="tel:+6620000000" class="channel">
+            <div class="ic gold"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div><h4>โทรศัพท์</h4><p>02-XXX-XXXX · จ-ศ 09:00-18:00</p></div>
+          </a>
+
+          <a href="#" class="channel">
+            <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h4>สำนักงานใหญ่</h4><p>ใจกลาง CBD · Bangkok · Thailand</p></div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-card">
+          <h2 style="font-size: 24px; margin-bottom: 8px;">ส่งข้อความ</h2>
+          <p style="color: var(--ink-3); margin-bottom: 24px; font-size: 14px;">กรอกฟอร์มด้านล่าง · ทีมจะติดต่อกลับใน 24 ชม.</p>
+
+          <form class="form-row">
+            <div class="form-grid-2">
+              <div>
+                <label class="label">ชื่อ-นามสกุล</label>
+                <input type="text" placeholder="ชื่อ-นามสกุล">
+              </div>
+              <div>
+                <label class="label">บริษัท / องค์กร</label>
+                <input type="text" placeholder="บริษัท / กระทรวง / สวน">
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div>
+                <label class="label">อีเมล</label>
+                <input type="email" placeholder="name@example.com">
+              </div>
+              <div>
+                <label class="label">เบอร์โทร</label>
+                <input type="tel" placeholder="081-XXX-XXXX">
+              </div>
+            </div>
+
+            <div>
+              <label class="label">ต้องการคุยเรื่องอะไร?</label>
+              <select>
+                <option>เลือก ...</option>
+                <option>AgriTech Marketplace</option>
+                <option>PHAT/PLAT Citizen Super-App</option>
+                <option>Imperial Fruitia</option>
+                <option>AIM Clinic</option>
+                <option>Le Phaya / Personal App</option>
+                <option>เชื่อมระบบกระทรวง</option>
+                <option>ลงทุน / พาร์ทเนอร์</option>
+                <option>อื่นๆ</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="label">ข้อความ</label>
+              <textarea placeholder="เล่าให้เราฟัง · เราจะตอบใน 24 ชม."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg" style="justify-self: start;">ส่งข้อความ →</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<nav class="page-nav-row" aria-label="Page navigation">
+  <div class="page-nav-grid">
+    <a href="careers.html" class="page-nav-cell prev">
+      <span class="dir">← หน้าก่อน</span>
+      <span class="title">ร่วมงาน</span>
+    </a>
+    <a href="toc.html" class="page-nav-cell toc-link">
+      <span class="dir">⋯</span>
+      <span class="title">สารบัญทั้งหมด</span>
+    </a>
+    <a href="privacy.html" class="page-nav-cell next">
+      <span class="dir">หน้าต่อไป →</span>
+      <span class="title">ความเป็นส่วนตัว</span>
+    </a>
+  </div>
+</nav>
+
+<footer class="g2g-foot">
+  <div class="g2g-foot-inner">
+    <div><div class="tag">G2G · <em>Gov2Global</em></div><p style="color: var(--ink-cream-3); font-size: 14px;">ศูนย์บัญชาการกลาง 7 verticals</p></div>
+    <div><h6>Verticals</h6><ul><li><a href="verticals/agritech.html">AgriTech</a></li><li><a href="verticals/phat-plat.html">PHAT/PLAT</a></li><li><a href="verticals/imperial-fruitia.html">Imperial Fruitia</a></li><li><a href="verticals/aim-clinic.html">AIM Clinic</a></li><li><a href="verticals/le-phaya.html">Le Phaya</a></li></ul></div>
+    <div><h6>บริษัท</h6><ul><li><a href="about.html">เกี่ยวกับ</a></li><li><a href="team.html">ทีม</a></li><li><a href="news.html">ข่าวสาร</a></li><li><a href="careers.html">ร่วมงาน</a></li></ul></div>
+    <div><h6>ติดต่อ</h6><ul><li>contact@gov2global.com</li><li>LINE: @g2g</li><li>Bangkok · Thailand</li></ul></div>
+  </div>
+  <div class="g2g-foot-bottom"><div>© 2026 G2G · Gov2Global Co., Ltd.</div><div>v0.1 · Singapore Region</div></div>
+</footer>
+
+</body>
+</html>

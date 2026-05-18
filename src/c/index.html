@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G2G ID ประจำตัวประชาชน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #0A1628; --gold: #C9A961; --bg: #F9FAFB;
+    --line: #E5E7EB; --ink-1: #111827; --ink-3: #4B5563; --ink-4: #9CA3AF;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Sarabun', 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--ink-1); }
+  .container { max-width: 480px; margin: 0 auto; padding: 0; min-height: 100vh; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,0.05); }
+  .hero { background: linear-gradient(135deg, #0A1628 0%, #1F2937 100%); color: #fff; padding: 24px 20px; position: relative; }
+  .hero h1 { margin: 0 0 6px; font-size: 22px; font-weight: 700; }
+  .hero p { margin: 0; color: rgba(255,255,255,0.7); font-size: 13px; }
+  .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #fff; margin: 0 auto 12px; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .citizen-code { font-family: monospace; background: rgba(255,255,255,0.1); padding: 6px 14px; border-radius: 8px; font-size: 13px; letter-spacing: 0.05em; display: inline-block; margin-top: 8px; }
+  .card { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .row { display: flex; justify-content: space-between; padding: 8px 0; }
+  .row-label { color: var(--ink-3); font-size: 13px; }
+  .row-value { font-weight: 600; font-size: 13px; }
+  .tier-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .tier-Bronze { background: #FED7AA; color: #78350F; }
+  .tier-Silver { background: #E5E7EB; color: #374151; }
+  .tier-Gold { background: #FEF3C7; color: #92400E; }
+  .tier-Platinum { background: #C7D2FE; color: #312E81; }
+  .btn { display: block; width: 100%; padding: 14px; border: 0; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px; font-family: inherit; }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-outline { background: #fff; color: var(--brand); border: 1px solid var(--brand); }
+  .center { text-align: center; }
+  .loading { padding: 60px 20px; text-align: center; color: var(--ink-4); }
+  .qr { background: #fff; padding: 16px; border-radius: 12px; display: inline-block; }
+  footer { padding: 20px; text-align: center; color: var(--ink-4); font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="content" class="loading">⏳ กำลังโหลด...</div>
+</div>
+
+<script>
+const APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxL1z6_xVzAaJIY5alYypWU6xDQMaNychyX-bPlf4T8H2SjJ1QJ0omz4XW9zlnk024k/exec';
+
+function getSlug() {
+  // /c/{slug} OR ?slug=...
+  const path = location.pathname.split('/').filter(x => x);
+  if (path[0] === 'c' && path[1]) return path[1];
+  return new URLSearchParams(location.search).get('slug') || '';
+}
+
+async function load() {
+  const slug = getSlug();
+  const out = document.getElementById('content');
+  if (!slug) {
+    out.innerHTML = `
+      <div class="hero center">
+        <h1>🆔 G2G ID ประจำตัวประชาชน</h1>
+        <p>กรุณาเปิดผ่าน QR หรือลิงก์ของท่าน</p>
+      </div>
+      <div class="card center">
+        <p style="color:var(--ink-3);margin-bottom:14px">ยังไม่ได้ลงทะเบียน?</p>
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@g2g-citizen">📲 เพิ่มเพื่อน @g2g-citizen เพื่อสมัคร</a>
+      </div>`;
+    return;
+  }
+  try {
+    const r = await fetch(APPS_SCRIPT + '?action=citizenLookup&slug=' + encodeURIComponent(slug));
+    const j = await r.json();
+    if (!j.ok) { out.innerHTML = `<div class="hero"><h1>❌ ไม่พบ ID</h1><p>${j.error || 'unknown'}</p></div>`; return; }
+    const c = j.citizen;
+    const initial = (c.name || '?').charAt(0).toUpperCase();
+    out.innerHTML = `
+      <div class="hero center">
+        <div class="avatar">${c.pictureUrl ? `<img src="${c.pictureUrl}">` : initial}</div>
+        <h1>${escapeHtml(c.name || 'ประชาชน G2G')}</h1>
+        <p>${escapeHtml(c.province || '')} ${c.occupation ? '· ' + escapeHtml(c.occupation) : ''}</p>
+        <div class="citizen-code">ID: ${c.citizenCode}</div>
+      </div>
+      <div class="card">
+        <div class="row"><span class="row-label">Slug</span><span class="row-value"><code>${c.slug}</code></span></div>
+        <div class="row"><span class="row-label">Tier</span><span class="row-value"><span class="tier-badge tier-${c.tier}">${c.tier}</span></span></div>
+        <div class="row"><span class="row-label">G2G Tokens</span><span class="row-value">${(c.tokens || 0).toLocaleString()} 🪙</span></div>
+        <div class="row"><span class="row-label">ภาษา</span><span class="row-value">${c.lang || 'th'}</span></div>
+        <div class="row"><span class="row-label">สมาชิกตั้งแต่</span><span class="row-value">${c.createdAt ? new Date(c.createdAt).toLocaleDateString('th-TH') : '-'}</span></div>
+      </div>
+      <div class="card center">
+        <p style="color:var(--ink-3);font-size:13px;margin-bottom:14px">ใช้แอพประจำตัวของท่านใน LINE</p>
+        <a class="btn btn-primary" href="https://liff.line.me/?slug=${c.slug}">📱 เปิด LIFF App</a>
+        <a class="btn btn-outline" href="https://line.me/R/ti/p/@g2g-citizen">📲 Chat กับ G2G</a>
+      </div>
+      <div class="card">
+        <h3 style="margin:0 0 10px;font-size:14px;color:var(--ink-3)">🔒 PDPA</h3>
+        <p style="font-size:12px;color:var(--ink-4);line-height:1.7">G2G เก็บข้อมูลของท่านเพื่อให้บริการ ID ประจำตัวเท่านั้น · ท่านขอลบข้อมูลได้ผ่าน LINE @g2g-citizen · เราไม่ขายข้อมูลให้บุคคลภายนอก</p>
+      </div>
+      <footer>G2G AgriTech · Citizen ID System · Powered by LINE + AI</footer>`;
+  } catch (e) {
+    out.innerHTML = `<div class="hero"><h1>⚠️ Error</h1><p>${e}</p></div>`;
+  }
+}
+function escapeHtml(s) { return String(s||'').replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' })[c]); }
+load();
+</script>
+</body>
+</html>

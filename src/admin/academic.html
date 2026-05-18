@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>วิชาการเกษตร · อ.ต้อย · G2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+</head>
+<body>
+
+<div class="pin-gate" id="pin-gate">
+  <div class="card">
+    <h3>📚 Academic Library</h3>
+    <p>อ.อำไพวรรณ ภรานุวัฒน์ (อ.ต้อย) · วิชาการเกษตร</p>
+    <input id="g-pin" type="password" placeholder="PIN" maxlength="20" autofocus>
+    <button onclick="doAuth()">เข้าระบบ</button>
+    <div class="err" id="g-err"></div>
+  </div>
+</div>
+
+<div class="adm-shell" id="shell" style="display:none">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="wb-hero" style="--staff-color:#16A34A;background:linear-gradient(135deg,#16A34A 0%,#065F46 100%)">
+        <div class="role-line">วิชาการเกษตร · Academic</div>
+        <h1>📚 <em>Academic Library</em></h1>
+        <p>คลังข้อมูลวิชาการของ อ.ต้อย · ใช้ในการพัฒนาเกษตรกร G2G AgriTech · Token ใช้บริษัทได้ไม่จำกัด</p>
+      </div>
+
+      <div class="qstats">
+        <div class="kpi"><div class="lbl">Library Items</div><div class="val" id="k-total">—</div><div class="delta">ข้อมูลทั้งหมด</div></div>
+        <div class="kpi"><div class="lbl">Images</div><div class="val" id="k-img">—</div></div>
+        <div class="kpi"><div class="lbl">Videos</div><div class="val" id="k-vid">—</div></div>
+        <div class="kpi"><div class="lbl">Synthesis</div><div class="val" id="k-syn">—</div><div class="delta">AI สังเคราะห์</div></div>
+      </div>
+
+      <div class="adm-section">
+        <div class="adm-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>➕ เพิ่มข้อมูลวิชาการ</h3></div>
+            <div class="adm-card-b">
+              <div class="form-row">
+                <label>หัวข้อ</label>
+                <input id="i-title" placeholder="เช่น การจัดการแมลงในสวนทุเรียน">
+              </div>
+              <div class="form-row">
+                <label>หมวด</label>
+                <select id="i-cat">
+                  <option value="ทุเรียน">ทุเรียน</option>
+                  <option value="ส้มโอ">ส้มโอ</option>
+                  <option value="มะยงชิด">มะยงชิด</option>
+                  <option value="ลำไย">ลำไย</option>
+                  <option value="ดิน-ปุ๋ย">ดิน-ปุ๋ย</option>
+                  <option value="ศัตรูพืช">ศัตรูพืช</option>
+                  <option value="หลังเก็บเกี่ยว">หลังเก็บเกี่ยว</option>
+                  <option value="ปรับปรุงพันธุ์">ปรับปรุงพันธุ์</option>
+                  <option value="GAP">GAP/มาตรฐาน</option>
+                  <option value="general">ทั่วไป</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>ประเภท</label>
+                <select id="i-type">
+                  <option value="text">บทความ/ความรู้</option>
+                  <option value="image">รูปภาพ (Drive URL)</option>
+                  <option value="video">วิดีโอ (Drive/YouTube URL)</option>
+                  <option value="pdf">PDF (Drive URL)</option>
+                  <option value="link">ลิงก์อ้างอิง</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label>รายละเอียด / URL</label>
+                <textarea id="i-desc" rows="4" placeholder="พิมพ์บทความ หรือใส่ URL ของไฟล์"></textarea>
+              </div>
+              <div class="form-row">
+                <label>Tags (คั่นด้วย ,)</label>
+                <input id="i-tags" placeholder="เช่น durian, pest, IPM">
+              </div>
+              <button class="btn btn-gold" onclick="addItem()">บันทึก</button>
+              <div id="add-result" style="margin-top:10px;font-size:13px"></div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <div class="adm-card-h"><h3>🔬 AI Synthesis</h3><span class="sub">ให้ AI สังเคราะห์เป็น recommendations</span></div>
+            <div class="adm-card-b">
+              <p style="font-size:13px;color:var(--ink-3)">เลือกหัวข้อ → AI อ่านข้อมูลทั้งหมดในคลัง · สังเคราะห์เป็น 5 recommendations ใช้งานจริงสำหรับเกษตรกร</p>
+              <select id="syn-topic" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;margin-top:8px">
+                <option value="all">ทั้งหมด</option>
+                <option value="ทุเรียน">ทุเรียน</option>
+                <option value="ส้มโอ">ส้มโอ</option>
+                <option value="มะยงชิด">มะยงชิด</option>
+                <option value="ลำไย">ลำไย</option>
+                <option value="ศัตรูพืช">ศัตรูพืช</option>
+                <option value="ดิน-ปุ๋ย">ดิน-ปุ๋ย</option>
+              </select>
+              <button class="btn btn-primary" onclick="synthesize()" style="margin-top:10px">🧠 สังเคราะห์</button>
+              <div id="syn-result" style="margin-top:14px;padding:14px;background:var(--bg);border-radius:8px;font-size:13px;line-height:1.85;display:none;white-space:pre-wrap"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h">
+          <h2>📂 Library</h2>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="q" placeholder="ค้นหา..." style="padding:8px;border:1px solid var(--line);border-radius:6px;width:200px">
+            <button class="btn btn-outline btn-sm" onclick="loadLibrary()">↻</button>
+          </div>
+        </div>
+        <div class="adm-card flat">
+          <div id="library-list"><div class="adm-loading">โหลด...</div></div>
+        </div>
+      </div>
+
+      <div class="adm-section">
+        <div class="h"><h2>💬 AI · ชวนอาจารย์คุย</h2><span class="sub">no limit · ใช้ company token</span></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <div id="tutor-chat" style="max-height:400px;overflow-y:auto;padding:12px;background:var(--bg);border-radius:8px;margin-bottom:10px"></div>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="tutor-input" placeholder="พิมพ์ตอบ AI หรือถามอาจารย์..." style="flex:1;padding:10px;border:1px solid var(--line);border-radius:6px" onkeydown="if(event.key==='Enter')askTutor()">
+              <button class="btn btn-primary" onclick="askTutor()">ส่ง</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+const slug = 'toy';
+let session = null;
+
+async function doAuth() {
+  const pin = document.getElementById('g-pin').value.trim();
+  if (!pin) return;
+  const r = await G2G.wbAuth(slug, pin);
+  if (!r.ok) { document.getElementById('g-err').textContent = r.error || 'PIN ไม่ถูก'; return; }
+  session = { ...r, pin };
+  initPage();
+}
+
+async function initPage() {
+  document.getElementById('pin-gate').style.display = 'none';
+  document.getElementById('shell').style.display = 'grid';
+  G2G.boot('academic', { title: 'Academic Library · อ.ต้อย', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Academic' }], skipAuth: true });
+  G2G.installTools('หน้านี้คือ Academic Library ของอาจารย์ต้อย วิชาการเกษตร อาจารย์สามารถบันทึกข้อมูลวิชาการ ภาพ และวิดีโอ ระบบจะนำไปสังเคราะห์เป็น recommendation สำหรับเกษตรกรในระบบ G2G AgriTech ทั้งหมด ใช้ token บริษัทได้ไม่จำกัด', 'premwadee');
+  loadLibrary();
+  // Proactive AI start
+  appendChat('ai', '🌱 สวัสดีอาจารย์ต้อยครับ ผม Claude ผู้ช่วยวิชาการเกษตรของ G2G AgriTech\n\nหน้านี้อาจารย์สามารถ:\n1) บันทึกความรู้-ภาพ-วิดีโอที่อาจารย์มี\n2) ให้ผมสังเคราะห์เป็น recommendations สำหรับเกษตรกร 2,650 ราย\n3) ออกแบบหลักสูตรอบรม\n4) ช่วยตอบคำถามเกษตรกร\n\nวันนี้อาจารย์อยากเริ่มที่เรื่องอะไรครับ? ผลไม้ตัวไหนที่ระบบยังขาดข้อมูลมาก? หรือ มีปัญหาอะไรในสวนที่เกษตรกรถามเข้ามาบ่อย?', '#16A34A');
+}
+
+async function loadLibrary() {
+  const q = document.getElementById('q').value.trim();
+  const items = q ? (await G2G.academicSearch(q)).items : await G2G.academicList({ limit: 100 });
+  document.getElementById('k-total').textContent = items.length;
+  document.getElementById('k-img').textContent = items.filter(i => i.type === 'image').length;
+  document.getElementById('k-vid').textContent = items.filter(i => i.type === 'video').length;
+  document.getElementById('k-syn').textContent = items.filter(i => i.category === 'synthesis').length;
+  const target = document.getElementById('library-list');
+  if (!items.length) { target.innerHTML = '<div class="adm-empty"><h4>ยังไม่มีข้อมูล</h4><p>เริ่มต้นด้วยการเพิ่มข้อมูลวิชาการที่อาจารย์มี</p></div>'; return; }
+  target.innerHTML = '<table class="adm-tbl"><thead><tr><th>วันที่</th><th>หมวด</th><th>หัวข้อ</th><th>ประเภท</th><th>Tags</th></tr></thead><tbody>' +
+    items.map(i => `<tr>
+      <td>${new Date(i.timestamp).toLocaleDateString('th-TH')}</td>
+      <td><span class="chip gold">${G2G.escapeHtml(i.category)}</span></td>
+      <td><strong>${G2G.escapeHtml(i.title)}</strong><br><span style="font-size:11px;color:var(--ink-4)">${G2G.escapeHtml((i.description||'').substring(0,120))}</span></td>
+      <td>${G2G.escapeHtml(i.type)}</td>
+      <td><span style="font-size:11px;color:var(--ink-4)">${G2G.escapeHtml(i.tags||'')}</span></td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+async function addItem() {
+  const item = {
+    title: document.getElementById('i-title').value.trim(),
+    category: document.getElementById('i-cat').value,
+    type: document.getElementById('i-type').value,
+    description: document.getElementById('i-desc').value.trim(),
+    tags: document.getElementById('i-tags').value.trim(),
+    uploadedBy: 'toy'
+  };
+  if (!item.title) { document.getElementById('add-result').textContent = 'ใส่หัวข้อก่อน'; return; }
+  const r = await G2G.academicAdd(item);
+  document.getElementById('add-result').innerHTML = r.ok ? '<span style="color:var(--ok)">✓ บันทึก · ' + r.itemId + '</span>' : '<span style="color:var(--err)">❌ ' + r.error + '</span>';
+  if (r.ok) {
+    document.getElementById('i-title').value = '';
+    document.getElementById('i-desc').value = '';
+    document.getElementById('i-tags').value = '';
+    loadLibrary();
+  }
+}
+
+async function synthesize() {
+  const topic = document.getElementById('syn-topic').value;
+  const box = document.getElementById('syn-result');
+  box.style.display = 'block';
+  box.textContent = '🧠 กำลังสังเคราะห์... (อาจใช้เวลา 15-30 วินาที)';
+  const r = await G2G.academicSynthesis(topic);
+  box.textContent = r.ok ? r.synthesis : 'error: ' + (r.error || 'failed');
+  loadLibrary();
+}
+
+async function askTutor() {
+  const q = document.getElementById('tutor-input').value.trim();
+  if (!q) return;
+  document.getElementById('tutor-input').value = '';
+  appendChat('me', q);
+  appendChat('ai', '...');
+  const r = await G2G.wbTutorAsk(slug, q);
+  document.querySelector('.typing')?.remove();
+  appendChat('ai', r.answer || r.error || 'no response');
+}
+function appendChat(who, text) {
+  const c = document.getElementById('tutor-chat');
+  const d = document.createElement('div');
+  d.className = (who === 'ai' && text === '...') ? 'typing' : '';
+  d.style.cssText = `padding:10px 14px;margin:6px 0;border-radius:8px;background:${who==='me'?'rgba(22,163,74,0.12)':'#fff'};border:1px solid var(--line);${who==='me'?'margin-left:auto':''};max-width:85%`;
+  const speaker = who === 'me' ? 'อ.ต้อย' : 'AI Tutor (Academic Agriculture)';
+  d.innerHTML = `<div style="font-size:11px;color:${who==='me'?'#16A34A':'#0A1628'};font-weight:600;margin-bottom:4px">${speaker}</div>${G2G.escapeHtml(text).replace(/\n/g,'<br>')}`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+</script>
+</body>
+</html>
