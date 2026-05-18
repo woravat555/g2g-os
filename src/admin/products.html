@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products · G2G OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .products-hero { background: linear-gradient(135deg,#0A1628,#312E81); color: #fff; padding: 28px; border-radius: 16px; margin-bottom: 22px; }
+  .products-hero h1 { font-size: 26px; margin: 0 0 8px; }
+  .products-hero .sub { opacity: 0.85; font-size: 14px; }
+  .prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .prod-grid { grid-template-columns: 1fr; } }
+  .prod-card { background: #fff; border: 2px solid #E5E7EB; border-radius: 16px; padding: 24px; position: relative; overflow: hidden; }
+  .prod-card.plat { border-color: #16A34A; }
+  .prod-card.phat { border-color: #C9A961; }
+  .prod-card .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+  .prod-card.plat .badge { background: #DCFCE7; color: #166534; }
+  .prod-card.phat .badge { background: #FEF3C7; color: #92400E; }
+  .prod-card h2 { font-size: 28px; margin: 0 0 4px; letter-spacing: 0.02em; }
+  .prod-card .tagline { color: #6B7280; font-size: 14px; margin-bottom: 16px; }
+  .prod-card .url { font-family: monospace; font-size: 12px; color: #4B5563; background: #F9FAFB; padding: 6px 10px; border-radius: 6px; margin-bottom: 12px; }
+  .prod-card .url a { color: #2563EB; text-decoration: none; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 14px 0; }
+  .stat-box { background: #F9FAFB; padding: 10px; border-radius: 8px; text-align: center; }
+  .stat-box .v { font-size: 20px; font-weight: 700; color: #0A1628; }
+  .stat-box .l { font-size: 10px; color: #6B7280; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-box.live .v { color: #16A34A; }
+  .stat-box.warn .v { color: #F59E0B; }
+  .prod-card .features { font-size: 13px; line-height: 1.7; color: #374151; margin-bottom: 14px; }
+  .prod-card .features li { padding: 2px 0; }
+  .prod-card .verticals { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .vertical-chip { padding: 4px 10px; background: #F0FDF4; border: 1px solid #16A34A; color: #166534; border-radius: 999px; font-size: 11px; }
+  .prod-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .prod-card .actions a { flex: 1; min-width: 130px; padding: 10px; text-align: center; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .actions a.primary { background: #0A1628; color: #fff; }
+  .actions a.secondary { background: #fff; color: #0A1628; border: 1.5px solid #E5E7EB; }
+  .health-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .health-dot.ok { background: #16A34A; box-shadow: 0 0 8px rgba(22,163,74,0.4); }
+  .health-dot.warn { background: #F59E0B; }
+  .health-dot.err { background: #DC2626; }
+  .company-card { background: linear-gradient(135deg,#FAFAF9,#F0E9DC); border: 1px solid #E5E7EB; border-radius: 14px; padding: 18px; margin-top: 22px; text-align: center; }
+  .company-card .label { font-size: 11px; color: #92400E; letter-spacing: 0.2em; text-transform: uppercase; }
+  .company-card .name { font-size: 22px; font-weight: 700; margin: 4px 0; color: #0A1628; }
+  .company-card .desc { font-size: 13px; color: #4B5563; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+
+      <div class="products-hero">
+        <h1>🏛️ Products · G2G OS</h1>
+        <div class="sub">บริษัท G2G AgriTech พัฒนา 2 platforms · PLAT + PHAT · ตรวจสุขภาพและสถานะที่นี่</div>
+      </div>
+
+      <div class="prod-grid">
+
+        <!-- PLAT -->
+        <div class="prod-card plat">
+          <div class="badge">🌾 Product 1 · B2G + Sector</div>
+          <h2>PLAT</h2>
+          <div class="tagline">Multi-vertical Platform · กระทรวง + sector specific</div>
+          <div class="url">🔗 <a href="https://g2g-platform.fly.dev" target="_blank">g2g-platform.fly.dev</a></div>
+
+          <div class="stats-row">
+            <div class="stat-box live"><div class="v" id="plat-health"><span class="health-dot ok"></span>OK</div><div class="l">Health</div></div>
+            <div class="stat-box"><div class="v" id="plat-apps">5</div><div class="l">Verticals</div></div>
+            <div class="stat-box"><div class="v" id="plat-funcs">11+</div><div class="l">Edge Fns</div></div>
+          </div>
+
+          <div class="verticals">
+            <span class="vertical-chip">🌾 a-farmer</span>
+            <span class="vertical-chip">🛒 b-buyer</span>
+            <span class="vertical-chip">📚 s-student</span>
+            <span class="vertical-chip">👨‍🏫 t-teacher</span>
+            <span class="vertical-chip">👨‍👩‍👧 p-parent</span>
+          </div>
+
+          <ul class="features">
+            <li>📦 TypeScript Express + Inngest weekly cron</li>
+            <li>🗄️ Supabase 28 tables (multi-tenant)</li>
+            <li>📱 5 LIFF apps · 1 codebase</li>
+            <li>🤖 11 Edge Functions (advisor · order · weather · etc.)</li>
+            <li>🛒 LINE OA: phrae555 · @Ai Market (2007523940)</li>
+            <li>🎯 Target: ministry pilots · 10K-1M users</li>
+          </ul>
+
+          <div class="actions">
+            <a href="https://g2g-platform.fly.dev/apps/a-farmer/" target="_blank" class="primary">🌾 Open a-farmer</a>
+            <a href="https://fly.io/apps/g2g-platform/monitoring" target="_blank" class="secondary">📊 Fly monitoring</a>
+          </div>
+        </div>
+
+        <!-- PHAT -->
+        <div class="prod-card phat">
+          <div class="badge">💝 Product 2 · B2C + B2B SaaS</div>
+          <h2>PHAT</h2>
+          <div class="tagline">AI ผู้ช่วยส่วนตัว · LINE-first · mass adoption</div>
+          <div class="url">🔗 <a href="https://g2g-os.fly.dev" target="_blank">g2g-os.fly.dev</a></div>
+
+          <div class="stats-row">
+            <div class="stat-box live"><div class="v" id="phat-health"><span class="health-dot ok"></span>OK</div><div class="l">Health</div></div>
+            <div class="stat-box"><div class="v" id="phat-citizens">—</div><div class="l">Citizens</div></div>
+            <div class="stat-box"><div class="v" id="phat-tokens">—</div><div class="l">Tokens</div></div>
+          </div>
+
+          <div class="verticals">
+            <span class="vertical-chip" style="background:#FEF3C7;border-color:#C9A961;color:#92400E">🏠 LINE OA @PHAT</span>
+            <span class="vertical-chip" style="background:#FEF3C7;border-color:#C9A961;color:#92400E">📱 LIFF App</span>
+            <span class="vertical-chip" style="background:#FEF3C7;border-color:#C9A961;color:#92400E">💎 PHAT Pro 199฿</span>
+            <span class="vertical-chip" style="background:#FEF3C7;border-color:#C9A961;color:#92400E">🏢 PHAT Business</span>
+          </div>
+
+          <ul class="features">
+            <li>📜 Apps Script (dreamingMemory v42) · 4623 lines</li>
+            <li>🗄️ Google Sheets (G2G_SHEET_ID) · 70+ endpoints</li>
+            <li>🧠 R-DISCOVERY 6-tier · Tavily + Perplexity + GPT + CSE</li>
+            <li>🤖 Claude Haiku 4.5 · auto-greeting</li>
+            <li>🛒 LINE OA: @280ezsqs · channel 2010125195</li>
+            <li>🎯 Target: 1K-10M citizens · mass adoption</li>
+          </ul>
+
+          <div class="actions">
+            <a href="https://g2g-os.fly.dev/start.html" target="_blank" class="primary">🎯 Open landing</a>
+            <a href="invite.html" class="secondary">📩 Push invite</a>
+            <a href="discovery.html" class="secondary">🔍 R-DISCOVERY</a>
+            <a href="https://fly.io/apps/g2g-os/monitoring" target="_blank" class="secondary">📊 Fly monitoring</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="company-card">
+        <div class="label">— PARENT COMPANY —</div>
+        <div class="name">G2G AgriTech · Gov2Global Private Co., Ltd.</div>
+        <div class="desc">บริษัทเอกชนไทย · ผลิตและจำหน่ายผลไม้พรีเมียม + อัญมณี + อาหารแปรรูป + สุรา + พัฒนา 2 AI platforms (PLAT · PHAT) สำหรับลูกค้าและประชาชน</div>
+      </div>
+
+      <div class="adm-section" style="margin-top:22px">
+        <div class="h"><h2>📊 Live Stats (real-time)</h2></div>
+        <div class="adm-card">
+          <div class="adm-card-b">
+            <p style="font-size:13px;color:#6B7280">กดปุ่ม Refresh เพื่อดึงข้อมูลล่าสุดจาก backend</p>
+            <button class="btn btn-primary" onclick="refreshStats()" style="margin-top:8px">🔄 Refresh Stats</button>
+            <pre id="stats-out" style="margin-top:14px;font-size:11px;background:#F3F4F6;padding:10px;border-radius:6px;min-height:60px;color:#9CA3AF">(กด Refresh เพื่อดูข้อมูล)</pre>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('products', { title: 'Products', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'Products' }] });
+
+async function refreshStats() {
+  const out = document.getElementById('stats-out');
+  out.style.color = '#374151';
+  out.textContent = 'กำลังโหลด...';
+  const results = {};
+
+  // PHAT health
+  try {
+    const r = await fetch('https://g2g-os.fly.dev/health');
+    results.phat_health = r.ok ? 'OK · 200' : 'WARN · ' + r.status;
+  } catch (e) { results.phat_health = 'ERR · ' + e; }
+
+  // PLAT health
+  try {
+    const r = await fetch('https://g2g-platform.fly.dev/healthz');
+    results.plat_health = r.ok ? 'OK · 200' : 'WARN · ' + r.status;
+  } catch (e) { results.plat_health = 'ERR · ' + e; }
+
+  // PHAT citizens count + tokens (via Apps Script)
+  try {
+    const r = await G2G.apiGet('citizenList', { limit: 1000 });
+    if (r.ok && r.citizens) {
+      results.phat_citizens = r.citizens.length;
+      results.phat_total_tokens = r.citizens.reduce((s, c) => s + (Number(c.tokens) || 0), 0);
+      document.getElementById('phat-citizens').textContent = r.citizens.length;
+      document.getElementById('phat-tokens').textContent = results.phat_total_tokens;
+    } else {
+      results.phat_citizens = '(endpoint not available)';
+    }
+  } catch (e) { results.phat_citizens = 'ERR · ' + e; }
+
+  out.textContent = JSON.stringify(results, null, 2);
+}
+
+// Auto-refresh on load
+setTimeout(refreshStats, 1000);
+</script>
+</body>
+</html>
