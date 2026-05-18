@@ -1,406 +1,140 @@
 <!doctype html>
-<html lang="th">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>🌾 PHAT Farmer Pro · 52-week AI Cultivation</title>
+<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PHAT เกษตรกร · Pain-Driven Pro Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root { --brand: #16A34A; --brand-d: #166534; --brand-soft: #DCFCE7; --line: #E5E7EB; --ink-1: #0A1628; --ink-2: #4B5563; --ink-3: #9CA3AF; --bg: #F9FAFB; }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--ink-1); min-height: 100vh; display: flex; }
-.sidebar { width: 240px; background: #fff; border-right: 1px solid var(--line); position: sticky; top: 0; max-height: 100vh; overflow-y: auto; }
-.side-h { padding: 18px 16px; background: linear-gradient(135deg, var(--brand), var(--brand-d)); color: #fff; }
-.side-h h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; }
-.side-h .sub { font-size: 11px; opacity: 0.85; margin-top: 4px; }
-.nav-item { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #F3F4F6; color: var(--ink-1); text-decoration: none; font-size: 13px; cursor: pointer; }
-.nav-item:hover { background: var(--brand-soft); }
-.nav-item.active { background: var(--brand-soft); border-left: 3px solid var(--brand); font-weight: 600; }
-.main { flex: 1; padding: 20px; max-width: calc(100% - 240px); }
-.mod { display: none; }
-.mod.active { display: block; animation: fadeIn 0.2s; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:none} }
-.mod-h { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
-.mod-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--brand-d); }
-.mod-sub { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
-.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-@media (max-width: 800px) { .row { grid-template-columns: 1fr; } .sidebar { display: none; } .main { max-width: 100%; } }
-.card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
-.card h3 { font-size: 14px; margin-bottom: 10px; color: var(--brand-d); }
-.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
-@media (max-width: 700px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
-.kpi { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px; text-align: center; }
-.kpi-v { font-size: 22px; font-weight: 700; color: var(--brand); }
-.kpi-l { font-size: 10px; color: var(--ink-3); text-transform: uppercase; margin-top: 4px; }
-.crop-pick { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-.crop-btn { padding: 10px 16px; background: #fff; border: 2px solid var(--line); border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 14px; }
-.crop-btn.active { background: var(--brand); color: #fff; border-color: var(--brand); }
-.stage-card { background: linear-gradient(135deg, var(--brand-soft), #fff); border: 2px solid var(--brand); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
-.stage-card h2 { color: var(--brand-d); font-size: 18px; margin-bottom: 8px; }
-.stage-card .desc { font-size: 14px; line-height: 1.7; color: var(--ink-1); }
-.act-list { list-style: none; padding: 0; }
-.act { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 8px; display: flex; gap: 12px; }
-.act .n { background: var(--brand); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-.act .body { flex: 1; font-size: 13.5px; line-height: 1.6; }
-.act .body strong { color: var(--brand-d); }
-.act .rate { display: inline-block; background: #FEF3C7; color: #92400E; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 6px; }
-.btn-pri { background: var(--brand); color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; }
-.btn-sec { background: #fff; border: 1px solid var(--line); padding: 10px 16px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; }
-select, input { padding: 10px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 13px; }
-.ai-card { background: linear-gradient(135deg, #FEF3C7, #FBEFC4); border: 1px solid #F59E0B; border-radius: 12px; padding: 14px; margin-bottom: 12px; }
-.ai-card .icon { display: inline-block; background: #F59E0B; color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
-.ai-card p { font-size: 13px; line-height: 1.6; color: var(--ink-1); }
-.timeline { position: relative; padding-left: 24px; border-left: 2px solid var(--brand); }
-.timeline-item { margin-bottom: 14px; position: relative; }
-.timeline-item::before { content: ''; position: absolute; left: -30px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--brand); }
-.timeline-item .wk { font-size: 11px; color: var(--ink-3); text-transform: uppercase; }
-.timeline-item h4 { font-size: 14px; color: var(--brand-d); margin: 2px 0 4px; }
-.timeline-item p { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
-.upload-zone { border: 2px dashed var(--brand); border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; }
-.upload-zone:hover { background: var(--brand-soft); }
-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-th { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); color: var(--ink-3); font-size: 11px; text-transform: uppercase; }
-td { padding: 10px; border-bottom: 1px solid #F3F4F6; }
-.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-.badge-ok { background: #DCFCE7; color: #166534; }
-.badge-warn { background: #FEF3C7; color: #92400E; }
-.badge-err { background: #FEE2E2; color: #991B1B; }
-</style>
-</head>
+:root{--brand:#16A34A;--bg:#FAFAF9;--ink-1:#0A1628;--ink-2:#4B5563;--ink-3:#9CA3AF;--line:#E5E7EB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--ink-1);min-height:100vh}
+.hero{background:linear-gradient(135deg,#16A34A,#0A1628);color:#fff;padding:40px 24px;text-align:center}
+.hero .e{font-size:56px;line-height:1}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:38px;margin:8px 0 6px}
+.hero p{opacity:0.9;font-size:15px}
+.tabs{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 16px;overflow-x:auto;white-space:nowrap;z-index:10}
+.tabs::-webkit-scrollbar{display:none}
+.tab{display:inline-block;padding:8px 14px;margin-right:4px;border-radius:999px;color:var(--ink-2);text-decoration:none;font-size:13px;cursor:pointer}
+.tab.active{background:#16A34A;color:#fff}
+.main{max-width:1100px;margin:0 auto;padding:24px 16px}
+.sec{display:none}
+.sec.active{display:block;animation:fade 0.2s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+.sec h2{font-family:'Cormorant Garamond',serif;font-size:28px;color:#16A34A;margin-bottom:14px}
+.pain-card{background:#FEF2F2;border-left:4px solid #DC2626;border-radius:8px;padding:14px;margin-bottom:10px;font-size:13.5px}
+.pain-card .label{color:#991B1B;font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px}
+.solution-card{background:#DCFCE7;border-left:4px solid var(--brand);border-radius:8px;padding:14px;margin-bottom:10px;font-size:13.5px}
+.solution-card .label{color:#166534;font-weight:700;font-size:11px;text-transform:uppercase;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{color:#16A34A;font-size:14px;margin-bottom:6px}
+.card p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.card button,.btn-line{background:#06C755;color:#fff;border:0;padding:10px 16px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px;margin-top:10px;text-decoration:none;display:inline-block}
+.line-strip{background:linear-gradient(135deg,#06C75522,#06C75511);border:1px solid #06C755;border-radius:12px;padding:14px;margin-bottom:16px;font-size:13.5px}
+.line-strip strong{color:#06A040}
+.market-iframe{width:100%;height:600px;border:1px solid var(--line);border-radius:12px;background:#fff}
+</style></head>
 <body>
-
-<aside class="sidebar">
-  <div class="side-h">
-    <h2>🌾 PHAT Farmer</h2>
-    <div class="sub">52-Week AI Cultivation · Pro</div>
-  </div>
-  <a class="nav-item active" data-m="dashboard">📊 Dashboard</a>
-  <a class="nav-item" data-m="calendar">📅 ปฏิทินสวน 52 สัปดาห์</a>
-  <a class="nav-item" data-m="plots">🌳 แปลงของฉัน</a>
-  <a class="nav-item" data-m="diagnose">📷 วินิจฉัยพืช AI</a>
-  <a class="nav-item" data-m="cost">💰 ต้นทุน-รายได้</a>
-  <a class="nav-item" data-m="yield">📦 ผลผลิต & คุณภาพ</a>
-  <a class="nav-item" data-m="market">💹 ราคาตลาด</a>
-  <a class="nav-item" data-m="buyers">🤝 ผู้ซื้อ/ล้ง</a>
-  <a class="nav-item" data-m="contracts">📜 สัญญา/ขายล่วงหน้า</a>
-  <a class="nav-item" data-m="weather">🌧️ อากาศ + Alert</a>
-  <a class="nav-item" data-m="water">💧 น้ำ + ปุ๋ย</a>
-  <a class="nav-item" data-m="labor">👷 แรงงาน + ค่าจ้าง</a>
-  <a class="nav-item" data-m="machinery">🚜 เครื่องจักร</a>
-  <a class="nav-item" data-m="inventory">📦 สต๊อกปุ๋ย-สาร</a>
-  <a class="nav-item" data-m="subsidy">🏛️ ตามสิทธิ์รัฐ</a>
-  <a class="nav-item" data-m="cert">📋 GAP/Organic</a>
-  <a class="nav-item" data-m="export">🚢 ส่งออกจีน/EU</a>
-  <a class="nav-item" data-m="copilot">🤖 AI Copilot</a>
-  <a class="nav-item" data-m="community">👥 ชุมชนเกษตร</a>
-  <a class="nav-item" data-m="settings">⚙️ ตั้งค่า</a>
-</aside>
-
+<div class="hero">
+  <div class="e">🌾</div>
+  <h1>PHAT เกษตรกร</h1>
+  <p>Pain-Driven Solution · ใช้งานผ่าน LINE OA @PHAT</p>
+</div>
+<nav class="tabs" id="tabs">
+  <a class="tab active" data-s="pains">🩹 ปัญหาจริง</a>
+  <a class="tab" data-s="solutions">💡 PHAT แก้ยังไง</a>
+  <a class="tab" data-s="market">🏪 Marketplace 4-side</a>
+  <a class="tab" data-s="line">📱 LINE OA Tools</a>
+  <a class="tab" data-s="ai">🤖 AI Copilot</a>
+  <a class="tab" data-s="community">👥 ชุมชน</a>
+  <a class="tab" data-s="money">💰 รายได้/ต้นทุน</a>
+  <a class="tab" data-s="learn">📚 เรียนรู้</a>
+  <a class="tab" data-s="gov">🏛️ สิทธิ์รัฐ</a>
+  <a class="tab" data-s="contact">📞 ติดต่อ</a>
+</nav>
 <main class="main">
 
-<!-- DASHBOARD -->
-<section class="mod active" id="dashboard">
-  <div class="mod-h"><h1 class="mod-title">📊 Dashboard เกษตรกร</h1><p class="mod-sub">ภาพรวมสวนของคุณ · AI insights · งานที่ต้องทำสัปดาห์นี้</p></div>
-  
-  <div class="crop-pick" id="crop-picker"></div>
-  
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-v" id="kpi-stage">-</div><div class="kpi-l">ระยะปัจจุบัน</div></div>
-    <div class="kpi"><div class="kpi-v" id="kpi-week">-</div><div class="kpi-l">สัปดาห์ที่</div></div>
-    <div class="kpi"><div class="kpi-v" id="kpi-tasks">-</div><div class="kpi-l">งานสัปดาห์นี้</div></div>
-    <div class="kpi"><div class="kpi-v" id="kpi-yield">-</div><div class="kpi-l">ผลผลิตคาดการณ์</div></div>
-  </div>
-  
-  <div class="stage-card" id="stage-now">
-    <h2 id="stage-title">⏳ กำลังโหลดข้อมูลสวน...</h2>
-    <div class="desc" id="stage-desc">เลือกผลไม้และสัปดาห์เพื่อดูคำแนะนำ AI</div>
-  </div>
-  
-  <div class="card">
-    <h3>📋 กิจกรรมที่ต้องทำสัปดาห์นี้ (จาก 52-week schedule)</h3>
-    <ul class="act-list" id="acts-now"></ul>
-  </div>
-  
-  <div class="row">
-    <div class="ai-card">
-      <span class="icon">🤖 AI INSIGHT</span>
-      <p id="ai-insight">หนู PHAT วิเคราะห์ข้อมูลสวนของคุณ · พิจารณาอากาศ ราคาตลาด และระยะปัจจุบัน...</p>
-    </div>
-    <div class="ai-card">
-      <span class="icon">⚠️ ALERT</span>
-      <p id="ai-alert">ตรวจสอบ alert ที่สำคัญ · ฝน · เพลี้ย · ราคาตลาด · ใบอนุญาต</p>
-    </div>
-  </div>
+<section class="sec active" id="pains">
+  <h2>🩹 ปัญหาจริงของเกษตรกรในไทย</h2>
+  <p style="color:var(--ink-2);margin-bottom:14px;line-height:1.7"># สรุปปัญหาเกษตรกรไทย
+
+## ปัญหาหลัก 3 ประการ:
+
+**1. ราคาผันผวน**
+- สินค้าเกษตรมีราคาไม่เสถียร ส่งผลให้รายได้ไม่แน่นอน
+
+**2. หนี้สินเรื้อรัง**
+- เมื่อรายได้ไม่พอค่าใช้จ่าย จึงต้องก่อหนี้
+- หนี้สะสมยาวนาน แบกรับภาระ
+
+**3. การถูกกดราคา**
+- ล้ง/พ่อค้าคนกลาง/โรงงานอยู่ในตำแหน่งกำลัง
+- เกษตรกรต่อรองได้น้อย รายได้ลดลง
+
+## ผลเสียในระยะยาว:
+- เสี่ยงต้องขายที่ดิน
+- สูญเสียจิตใจในการทำเกษตร
+- ขาดแรงจูงใจดำเนินงาน
+
+**สาเหตุแท้จริง:** โครงสร้างตลาด/ห่วงโซ่คุณค่าไม่เ</p>
+  <div class="pain-card"><div class="label">PAIN #1</div>ปัญหาหลัก 3 ประการ:</div><div class="pain-card"><div class="label">PAIN #2</div>สินค้าเกษตรมีราคาไม่เสถียร ส่งผลให้รายได้ไม่แน่นอน</div><div class="pain-card"><div class="label">PAIN #3</div>เมื่อรายได้ไม่พอค่าใช้จ่าย จึงต้องก่อหนี้</div><div class="pain-card"><div class="label">PAIN #4</div>หนี้สะสมยาวนาน แบกรับภาระ</div><div class="pain-card"><div class="label">PAIN #5</div>ล้ง/พ่อค้าคนกลาง/โรงงานอยู่ในตำแหน่งกำลัง</div><div class="pain-card"><div class="label">PAIN #6</div>เกษตรกรต่อรองได้น้อย รายได้ลดลง</div><div class="pain-card"><div class="label">PAIN #7</div>ผลเสียในระยะยาว:</div><div class="pain-card"><div class="label">PAIN #8</div>เสี่ยงต้องขายที่ดิน</div>
+  <div class="line-strip"><strong>💬 หนู PHAT:</strong> ปัญหาเหล่านี้ AI ของพี่จะช่วยแก้ทีละจุด · กดแท็บ "💡 PHAT แก้ยังไง" ดู</div>
 </section>
 
-<!-- CALENDAR · 52 weeks -->
-<section class="mod" id="calendar">
-  <div class="mod-h"><h1 class="mod-title">📅 ปฏิทินสวน 52 สัปดาห์</h1><p class="mod-sub">Stage-based · auto-advance ตามวันที่รายงาน</p></div>
-  
-  <div class="card">
-    <h3>เลือกระยะปัจจุบัน (AI advance อัตโนมัติ)</h3>
-    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
-      <select id="stage-pick" style="flex:1;min-width:200px"></select>
-      <button class="btn-pri" onclick="saveStage()">💾 บันทึก</button>
-    </div>
-    <p style="font-size:12px;color:var(--ink-3)">หลังกดบันทึก ระบบจะ auto-advance ทุก 7 วัน · ปรับ stage manual ได้เสมอ</p>
-  </div>
-  
-  <div class="card">
-    <h3>📈 Preview 4 สัปดาห์ถัดไป</h3>
-    <div class="timeline" id="preview-4"></div>
-  </div>
-  
-  <div class="card">
-    <h3>🗓️ ปฏิทินทั้งปี 52 สัปดาห์</h3>
-    <div id="full-calendar" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"></div>
-  </div>
+<section class="sec" id="solutions">
+  <h2>💡 PHAT แก้ปัญหายังไง</h2>
+  <div class="solution-card"><div class="label">SOLUTION #1</div>แก้: <strong>ปัญหาหลัก 3 ประการ:</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div><div class="solution-card"><div class="label">SOLUTION #2</div>แก้: <strong>สินค้าเกษตรมีราคาไม่เสถียร ส่งผลให้รายได้ไม่แน่นอน</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div><div class="solution-card"><div class="label">SOLUTION #3</div>แก้: <strong>เมื่อรายได้ไม่พอค่าใช้จ่าย จึงต้องก่อหนี้</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div><div class="solution-card"><div class="label">SOLUTION #4</div>แก้: <strong>หนี้สะสมยาวนาน แบกรับภาระ</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div><div class="solution-card"><div class="label">SOLUTION #5</div>แก้: <strong>ล้ง/พ่อค้าคนกลาง/โรงงานอยู่ในตำแหน่งกำลัง</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div><div class="solution-card"><div class="label">SOLUTION #6</div>แก้: <strong>เกษตรกรต่อรองได้น้อย รายได้ลดลง</strong><br>วิธี: PHAT AI วิเคราะห์ + แนะนำ + เชื่อม LINE OA + community แก้ปัญหานี้ + chat 24 ชม.</div>
+  <a class="btn-line" href="https://line.me/R/ti/p/@280ezsqs">📱 เริ่มใช้ใน LINE</a>
 </section>
 
-<!-- PLOTS -->
-<section class="mod" id="plots">
-  <div class="mod-h"><h1 class="mod-title">🌳 แปลงของฉัน</h1><p class="mod-sub">บันทึกแปลง · GPS · ขนาด · ผลไม้ที่ปลูก</p></div>
-  <div class="card">
-    <h3>➕ เพิ่มแปลงใหม่</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-      <input placeholder="ชื่อแปลง เช่น แปลง A">
-      <input placeholder="พื้นที่ (ไร่)">
-      <select><option>ทุเรียน</option><option>ส้มเขียวหวาน</option><option>ส้มโอ</option><option>ลำไย</option><option>อื่นๆ</option></select>
-      <input placeholder="ปีที่ปลูก">
-      <input placeholder="GPS lat,lng" style="grid-column:1/3">
-    </div>
-    <button class="btn-pri">บันทึกแปลง</button>
-  </div>
-  <div class="card">
-    <h3>🌳 แปลงทั้งหมด</h3>
-    <table><thead><tr><th>แปลง</th><th>ขนาด</th><th>พืช</th><th>อายุ</th><th>สถานะ</th><th>Action</th></tr></thead>
-    <tbody><tr><td colspan="6" style="text-align:center;color:var(--ink-3);padding:30px">ยังไม่มีแปลง · กดเพิ่มแปลงด้านบน</td></tr></tbody></table>
-  </div>
+<section class="sec" id="market">
+  <h2>🏪 Marketplace 4-Side สำหรับเกษตรกร</h2>
+  <p style="color:var(--ink-2);margin-bottom:14px">เชื่อม Producer → Aggregator → Buyer → Exporter · ผ่าน LINE OA</p>
+  <iframe class="market-iframe" src="/verticals/phat/marketplace.html" loading="lazy"></iframe>
 </section>
 
-<!-- DIAGNOSE · AI photo -->
-<section class="mod" id="diagnose">
-  <div class="mod-h"><h1 class="mod-title">📷 วินิจฉัยพืชด้วย AI</h1><p class="mod-sub">ถ่ายภาพใบ/ผล/ลำต้น · AI บอกโรค + วิธีรักษา</p></div>
-  <div class="upload-zone" onclick="alert('Upload photo via LINE OA @PHAT · เปิด LINE → ส่งภาพ → AI วินิจฉัย')">
-    <div style="font-size:48px">📷</div>
-    <p style="margin-top:12px"><strong>กดเพื่ออัปโหลดภาพ</strong></p>
-    <p style="color:var(--ink-3);font-size:12px;margin-top:6px">หรือส่งภาพใน LINE OA @PHAT</p>
+<section class="sec" id="line">
+  <h2>📱 LINE OA Tools สำหรับเกษตรกร</h2>
+  <div class="grid">
+    <div class="card"><h3>💬 Auto-reply 24 ชม.</h3><p>AI ตอบลูกค้าทันที · สามภาษา · ไม่หลับ</p><a class="btn-line" href="https://line.me/R/ti/p/@280ezsqs">เริ่ม</a></div>
+    <div class="card"><h3>📣 Broadcast</h3><p>ส่งข่าว/โปร ถึงทุก follower ทันที</p><button>broadcast</button></div>
+    <div class="card"><h3>🛒 LINE Shopping</h3><p>เปิดร้านใน LINE · เก็บเงิน LINE Pay</p><button>เปิดร้าน</button></div>
+    <div class="card"><h3>📅 จองนัด/บริการ</h3><p>ตารางผ่าน LINE · เตือนอัตโนมัติ</p><button>set</button></div>
+    <div class="card"><h3>💳 PromptPay collect</h3><p>QR auto · escrow option</p><button>setup</button></div>
+    <div class="card"><h3>📊 Analytics</h3><p>ดูคน follow · message rate · revenue</p><button>ดู stat</button></div>
   </div>
-  <div class="ai-card" style="margin-top:14px">
-    <span class="icon">🧠 Claude Vision</span>
-    <p>AI วินิจฉัยจากภาพ · บอกชื่อโรค/แมลง · ความรุนแรง · สาร/วิธีรักษา · ราคาประมาณ · ป้องกันครั้งต่อไป</p>
-  </div>
-  <div class="card" style="margin-top:14px">
-    <h3>📚 โรค/แมลง พบบ่อย</h3>
-    <ul style="font-size:13px;line-height:2;padding-left:20px">
-      <li>🐛 เพลี้ยไฟ · เพลี้ยไก่แจ้ → อิมิดาคลอพริด, ฟิโพรนิล</li>
-      <li>🕷️ ไรแดง → ไพริดาเบน, โพรพาร์ไกต์</li>
-      <li>🍄 โรคใบจุด · ใบไหม้ · แอนแทรคโนส → อะซอกซีสโตรบิน, แมนโคแซบ</li>
-      <li>🐌 หนอนเจาะดอก · ผล → คาร์บาริล, แลมบ์ดา-ไซฮาโลทริน</li>
-      <li>🦠 โรครากเน่า · โคนเน่า → เมตาแลกซิล, ฟอสอีติล-อะลูมิเนียม</li>
-    </ul>
-  </div>
+  <div class="line-strip"><strong>📱 LINE OA Marketing สำหรับเกษตรกร:</strong> PHAT ติดตั้งให้พร้อมใช้ · ทุกอาชีพ · ไม่ต้องเก่ง LINE Official</div>
 </section>
 
-<!-- COST -->
-<section class="mod" id="cost">
-  <div class="mod-h"><h1 class="mod-title">💰 ต้นทุน-รายได้</h1><p class="mod-sub">บันทึกค่าใช้จ่าย/รายได้ · P&L · ROI ต่อไร่</p></div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-v" style="color:#DC2626">฿—</div><div class="kpi-l">ค่าใช้จ่ายปีนี้</div></div>
-    <div class="kpi"><div class="kpi-v" style="color:#16A34A">฿—</div><div class="kpi-l">รายได้ปีนี้</div></div>
-    <div class="kpi"><div class="kpi-v">฿—</div><div class="kpi-l">กำไรสุทธิ</div></div>
-    <div class="kpi"><div class="kpi-v">—%</div><div class="kpi-l">ROI</div></div>
-  </div>
-  <div class="card">
-    <h3>💸 รายจ่ายล่าสุด</h3>
-    <table><thead><tr><th>วันที่</th><th>หมวด</th><th>รายการ</th><th>จำนวน</th><th>action</th></tr></thead>
-    <tbody><tr><td colspan="5" style="text-align:center;color:var(--ink-3);padding:30px">ยังไม่มีรายการ</td></tr></tbody></table>
-  </div>
+<section class="sec" id="ai">
+  <h2>🤖 AI Copilot สำหรับเกษตรกร</h2>
+  <textarea placeholder="ถามอะไรเกี่ยวกับเกษตรกรก็ได้ · หนู PHAT ตอบ" style="width:100%;min-height:120px;padding:14px;border:1px solid var(--line);border-radius:10px;font-family:inherit"></textarea>
+  <button class="btn-line" style="margin-top:10px">ส่งคำถาม</button>
+  <p style="margin-top:14px;font-size:12px;color:var(--ink-3)">Powered by Claude Sonnet 4.6 + Tavily + Perplexity + Google CSE 50 sites</p>
 </section>
 
-<!-- YIELD -->
-<section class="mod" id="yield">
-  <div class="mod-h"><h1 class="mod-title">📦 ผลผลิต & คุณภาพ</h1><p class="mod-sub">บันทึกผลผลิตต่อแปลง · คาดการณ์ AI · grade A/B/C</p></div>
-  <div class="ai-card">
-    <span class="icon">🤖 AI YIELD PREDICTION</span>
-    <p>หนู PHAT คาดการณ์ผลผลิตจาก: อายุต้น · จำนวนต้น/ไร่ · สภาพอากาศที่ผ่านมา · stage progress · ปัจจัยรอบข้าง</p>
-  </div>
-  <div class="card">
-    <h3>📊 ผลผลิตย้อนหลัง</h3>
-    <div style="height:200px;display:flex;align-items:center;justify-content:center;color:var(--ink-3)">📈 [Chart: ผลผลิต Q-by-Q]</div>
-  </div>
-</section>
+<section class="sec" id="community"><h2>👥 ชุมชนเกษตรกร</h2><div class="card"><p>กลุ่ม LINE สำหรับเกษตรกร · แชร์เทคนิค · ถามตอบ · ช่วยกัน</p><a class="btn-line" href="https://line.me/R/ti/p/@280ezsqs">เข้าร่วม</a></div></section>
 
-<!-- MARKET -->
-<section class="mod" id="market">
-  <div class="mod-h"><h1 class="mod-title">💹 ราคาตลาดสด</h1><p class="mod-sub">ราคาประจำวัน · ตลาดไท · ตลาดกลาง · ราคาส่งออก</p></div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-v">฿—</div><div class="kpi-l">ทุเรียน หมอนทอง</div></div>
-    <div class="kpi"><div class="kpi-v">฿—</div><div class="kpi-l">ส้มเขียวหวาน</div></div>
-    <div class="kpi"><div class="kpi-v">฿—</div><div class="kpi-l">ส้มโอ</div></div>
-    <div class="kpi"><div class="kpi-v">฿—</div><div class="kpi-l">ลำไย อีดอ</div></div>
-  </div>
-  <div class="card">
-    <h3>📈 แนวโน้มราคา 30 วัน · AI predict 7 วันข้างหน้า</h3>
-    <div style="height:240px;display:flex;align-items:center;justify-content:center;color:var(--ink-3)">📊 [Price chart + AI forecast line]</div>
-  </div>
-  <div class="ai-card">
-    <span class="icon">🧠 AI MARKET ANALYSIS</span>
-    <p id="market-ai">ราคาตลาดวันนี้ + แนวโน้ม + คำแนะนำขายตอนนี้ vs ถือไว้</p>
-  </div>
-</section>
+<section class="sec" id="money"><h2>💰 รายได้/ต้นทุน</h2><div class="grid">
+  <div class="card"><h3>📊 บันทึกรายรับ-จ่าย</h3><p>ผ่าน LINE chat · AI สรุปอัตโนมัติ</p><button>เริ่ม</button></div>
+  <div class="card"><h3>📈 P&L Dashboard</h3><p>เห็นกำไร/ขาดทุนเรียลไทม์</p><button>ดู</button></div>
+  <div class="card"><h3>🏦 สินเชื่อ/ออม</h3><p>เปรียบเทียบ ธ.ก.ส. · ออมสิน · ลด ดอกเบี้ย</p><button>ดู</button></div>
+</div></section>
 
-<!-- BUYERS -->
-<section class="mod" id="buyers">
-  <div class="mod-h"><h1 class="mod-title">🤝 ผู้ซื้อ/ล้ง</h1><p class="mod-sub">เครือข่ายผู้ซื้อ · เปรียบเทียบราคา · ส่งตัวอย่าง</p></div>
-  <div class="card">
-    <h3>🏬 ล้งใกล้คุณ (auto match by GPS)</h3>
-    <table><thead><tr><th>ชื่อล้ง</th><th>ระยะทาง</th><th>ราคาเสนอ</th><th>เกรด</th><th>action</th></tr></thead>
-    <tbody><tr><td colspan="5" style="text-align:center;color:var(--ink-3);padding:30px">เพิ่ม GPS สวนเพื่อค้นล้งใกล้</td></tr></tbody></table>
-  </div>
-</section>
+<section class="sec" id="learn"><h2>📚 เรียนรู้</h2><div class="card"><h3>คอร์สเกษตรกร เฉพาะทาง</h3><p>วิดีโอ · เอกสาร · AI tutor · ปริญญาอัพ skill</p><button>เริ่มเรียน</button></div></section>
 
-<!-- CONTRACTS -->
-<section class="mod" id="contracts">
-  <div class="mod-h"><h1 class="mod-title">📜 สัญญา/ขายล่วงหน้า (Contract Farming)</h1><p class="mod-sub">รับ-เซ็นสัญญา · ขายล่วงหน้า · forward contract</p></div>
-  <div class="card">
-    <h3>📋 สัญญาที่ active</h3>
-    <table><thead><tr><th>ผู้ซื้อ</th><th>ปริมาณ</th><th>ราคา</th><th>ส่งมอบ</th><th>สถานะ</th></tr></thead>
-    <tbody><tr><td colspan="5" style="text-align:center;color:var(--ink-3);padding:30px">ยังไม่มีสัญญา · เริ่มจาก buyers</td></tr></tbody></table>
-  </div>
-  <div class="ai-card">
-    <span class="icon">⚖️ AI LEGAL CHECK</span>
-    <p>ก่อนเซ็นสัญญา · ส่งให้ AI ตรวจข้อกำหนด · เตือนข้อเสี่ยง · ต่อรองเงื่อนไข</p>
-  </div>
-</section>
+<section class="sec" id="gov"><h2>🏛️ สิทธิ์ตามรัฐ สำหรับเกษตรกร</h2><div class="card"><p>สิทธิ์ บัตรทอง · ประกันสังคม · เงินกู้ดอกเบี้ยต่ำ · เงินช่วยภัยพิบัติ · AI ตรวจสิทธิ์</p><button>ตรวจสิทธิ์</button></div></section>
 
-<!-- WEATHER -->
-<section class="mod" id="weather">
-  <div class="mod-h"><h1 class="mod-title">🌧️ อากาศ + Alert</h1><p class="mod-sub">พยากรณ์ 7 วัน · alert ฝน/ลม/ความชื้น</p></div>
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-v">—°C</div><div class="kpi-l">ตอนนี้</div></div>
-    <div class="kpi"><div class="kpi-v">—%</div><div class="kpi-l">ความชื้น</div></div>
-    <div class="kpi"><div class="kpi-v">—mm</div><div class="kpi-l">ฝน 7 วัน</div></div>
-    <div class="kpi"><div class="kpi-v">—km/h</div><div class="kpi-l">ลม</div></div>
-  </div>
-  <div class="card"><h3>📅 พยากรณ์ 7 วัน</h3><div id="weather-7day" style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;font-size:12px;text-align:center">⏳</div></div>
-  <div class="ai-card"><span class="icon">⚠️ AI WEATHER IMPACT</span><p>วิเคราะห์ผลกระทบต่อ stage ปัจจุบัน · ปรับแผนพ่นยา/รดน้ำ</p></div>
-</section>
-
-<!-- Stub modules with quick content -->
-<section class="mod" id="water"><div class="mod-h"><h1 class="mod-title">💧 น้ำ + ปุ๋ย</h1></div><div class="card">ระบบจัดการน้ำ · ปุ๋ย schedule · soil moisture (IoT future)</div></section>
-<section class="mod" id="labor"><div class="mod-h"><h1 class="mod-title">👷 แรงงาน + ค่าจ้าง</h1></div><div class="card">แรงงานรายเดือน · รายวัน · รายชิ้น · ค่าจ้าง · ประกันสังคม · PND</div></section>
-<section class="mod" id="machinery"><div class="mod-h"><h1 class="mod-title">🚜 เครื่องจักร</h1></div><div class="card">รถไถ · เครื่องพ่น · drone · ตารางบำรุง · เช่า/ซื้อ</div></section>
-<section class="mod" id="inventory"><div class="mod-h"><h1 class="mod-title">📦 สต๊อกปุ๋ย-สาร</h1></div><div class="card">ปุ๋ย · ยา · เมล็ดพันธุ์ · low-stock alert · ราคาเทียบ</div></section>
-<section class="mod" id="subsidy"><div class="mod-h"><h1 class="mod-title">🏛️ สิทธิ์ตามรัฐ</h1></div>
-  <div class="card"><h3>💰 โครงการที่คุณสมัครได้</h3>
-  <ul style="font-size:13px;line-height:2;padding-left:20px">
-    <li>กยศ.กรมส่งเสริมการเกษตร · เกษตรแปลงใหญ่</li>
-    <li>ประกันรายได้ทุเรียน · ลำไย</li>
-    <li>เงินช่วยน้ำท่วม/ภัยพิบัติ</li>
-    <li>สินเชื่อ ธ.ก.ส. · ดอกเบี้ยต่ำ</li>
-    <li>สิทธิ์บัตรทอง · ประกันสังคม ม.40</li>
-  </ul></div>
-  <div class="ai-card"><span class="icon">🤖 AI ELIGIBILITY CHECK</span><p>หนู PHAT ตรวจสิทธิ์ที่คุณ qualify ได้ทันที · ช่วยกรอกเอกสาร</p></div>
-</section>
-<section class="mod" id="cert"><div class="mod-h"><h1 class="mod-title">📋 GAP/Organic Certification</h1></div><div class="card">เตรียมเอกสาร GAP, มกษ., Organic Thailand, EU Organic · audit prep</div></section>
-<section class="mod" id="export"><div class="mod-h"><h1 class="mod-title">🚢 ส่งออกจีน/EU</h1></div><div class="card">มาตรฐาน CHN GACC · จำกัด pesticide residue · packaging · cold chain · ผู้นำเข้าจีน</div></section>
-<section class="mod" id="copilot"><div class="mod-h"><h1 class="mod-title">🤖 AI Copilot</h1></div>
-  <div class="card"><h3>💬 ถามอะไรก็ได้</h3>
-  <textarea placeholder="เช่น 'ทุเรียนใบเหลือง รักษายังไง' หรือ 'ราคาทุเรียนเดือนหน้าจะเป็นยังไง'" style="width:100%;min-height:80px;padding:12px;border:1px solid var(--line);border-radius:8px;font-family:inherit"></textarea>
-  <button class="btn-pri" style="margin-top:8px">ส่งคำถาม</button>
-  </div>
-  <div class="ai-card"><span class="icon">⚡ POWERED BY</span><p>Claude Sonnet 4.6 (Pro tier) + Tavily + Perplexity + Google CSE 50 sites · multi-AI consensus</p></div>
-</section>
-<section class="mod" id="community"><div class="mod-h"><h1 class="mod-title">👥 ชุมชนเกษตร</h1></div><div class="card">เกษตรกรในจังหวัด · ถามตอบ · share เทคนิค · กลุ่ม LINE ตามผลไม้</div></section>
-<section class="mod" id="settings"><div class="mod-h"><h1 class="mod-title">⚙️ ตั้งค่า</h1></div><div class="card">ข้อมูลส่วนตัว · แจ้งเตือน LINE · ภาษา · PDPA · ลบบัญชี</div></section>
+<section class="sec" id="contact"><h2>📞 ติดต่อ</h2><div class="card"><p>LINE OA @PHAT · 24 ชม. · g2g@gov2global.com</p><a class="btn-line" href="https://line.me/R/ti/p/@280ezsqs">@PHAT</a></div></section>
 
 </main>
-
 <script>
-let SCHEDULE = null;
-let CURRENT_CROP = 'ทุเรียน';
-let CURRENT_WEEK = 1;
-
-async function loadSchedule() {
-  const r = await fetch('schedule-52weeks-multi-fruit.json');
-  SCHEDULE = await r.json();
-  renderCropPicker();
-  renderDashboard();
-  renderCalendar();
+function show(s){
+  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.getElementById(s).classList.add('active');
+  document.querySelector(`.tab[data-s="${s}"]`).classList.add('active');
 }
-
-function renderCropPicker() {
-  const cont = document.getElementById('crop-picker');
-  const crops = Object.keys(SCHEDULE.crops);
-  cont.innerHTML = crops.map(c => `<button class="crop-btn ${c===CURRENT_CROP?'active':''}" onclick="pickCrop('${c}')">${c==='ทุเรียน'?'🥭':c==='ส้มเขียวหวาน'?'🍊':c==='ส้มโอ'?'🍈':'🟤'} ${c}</button>`).join('');
-}
-
-function pickCrop(c) {
-  CURRENT_CROP = c;
-  renderCropPicker();
-  renderDashboard();
-  renderCalendar();
-}
-
-function renderDashboard() {
-  const crop = SCHEDULE.crops[CURRENT_CROP];
-  if (!crop || !crop.weeks) return;
-  const w = crop.weeks.find(x => String(x.week) === String(CURRENT_WEEK)) || crop.weeks[0];
-  const stageName = (w.stage||'').split('\n')[0].trim();
-  document.getElementById('kpi-stage').textContent = stageName.replace('ระยะ','').substring(0,15);
-  document.getElementById('kpi-week').textContent = w.week;
-  document.getElementById('kpi-tasks').textContent = (w.activities||[]).length;
-  document.getElementById('kpi-yield').textContent = '—';
-  document.getElementById('stage-title').textContent = '🌳 ' + stageName + ' · สัปดาห์ที่ ' + w.week;
-  document.getElementById('stage-desc').textContent = w.stage || '';
-  const acts = document.getElementById('acts-now');
-  acts.innerHTML = (w.activities||[]).map((a,i) => `<li class="act"><div class="n">${i+1}</div><div class="body"><strong>${a.title||'กิจกรรม'}</strong>${a.rate?'<span class="rate">'+a.rate+'</span>':''}<br>${(a.detail||'').replace(/\n/g,'<br>')}</div></li>`).join('');
-  document.getElementById('ai-insight').textContent = `หนู PHAT วิเคราะห์: คุณอยู่ระยะ "${stageName}" · กิจกรรมหลัก ${(w.activities||[]).length} ข้อ · ติดตามต่อ 4 สัปดาห์เพื่อเข้าระยะถัดไป`;
-  document.getElementById('ai-alert').textContent = `ในระยะนี้ระวัง: เพลี้ยไฟ · โรคใบจุด · ฝนชุก · ดูภาพรวมในแท็บ "อากาศ + Alert"`;
-}
-
-function renderCalendar() {
-  const crop = SCHEDULE.crops[CURRENT_CROP];
-  if (!crop || !crop.weeks) return;
-  const sp = document.getElementById('stage-pick');
-  sp.innerHTML = crop.weeks.map(w => `<option value="${w.week}">${w.week}. ${(w.stage||'').split('\n')[0].trim()}</option>`).join('');
-  sp.value = CURRENT_WEEK;
-  
-  // 4-week preview
-  const preview = document.getElementById('preview-4');
-  const idx = crop.weeks.findIndex(x => String(x.week) === String(CURRENT_WEEK));
-  const next4 = crop.weeks.slice(idx+1, idx+5);
-  preview.innerHTML = next4.map(w => `<div class="timeline-item"><div class="wk">สัปดาห์ที่ ${w.week}</div><h4>${(w.stage||'').split('\n')[0].trim()}</h4><p>${(w.stage||'').substring(0,150)}...</p></div>`).join('') || '<p style="color:var(--ink-3)">ครบ cycle 52 สัปดาห์</p>';
-  
-  // Full calendar
-  const fc = document.getElementById('full-calendar');
-  fc.innerHTML = crop.weeks.map(w => `<div class="card" style="padding:10px;cursor:pointer" onclick="CURRENT_WEEK=${w.week};renderDashboard();renderCalendar();showMod('dashboard')"><strong style="font-size:11px;color:var(--ink-3)">WK ${w.week}</strong><div style="font-size:12px;margin-top:4px">${(w.stage||'').split('\n')[0].trim().substring(0,30)}</div></div>`).join('');
-}
-
-function saveStage() {
-  const w = document.getElementById('stage-pick').value;
-  CURRENT_WEEK = w;
-  localStorage.setItem('phat_farmer_stage', JSON.stringify({crop:CURRENT_CROP, week:w, set_at: new Date().toISOString()}));
-  renderDashboard();
-  renderCalendar();
-  alert('บันทึกแล้ว · ระบบจะ auto-advance ทุก 7 วัน');
-}
-
-function showMod(id) {
-  document.querySelectorAll('.mod').forEach(m => m.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelector(`.nav-item[data-m="${id}"]`)?.classList.add('active');
-}
-
-document.querySelectorAll('.nav-item').forEach(n => n.addEventListener('click', () => showMod(n.dataset.m)));
-
-// Restore previous stage
-const saved = JSON.parse(localStorage.getItem('phat_farmer_stage') || 'null');
-if (saved) { CURRENT_CROP = saved.crop; CURRENT_WEEK = saved.week; }
-
-loadSchedule();
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.s)));
 </script>
-</body>
-</html>
+</body></html>

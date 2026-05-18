@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHAT Marketplace · 4-side · Producer-Aggregator-Buyer-Exporter</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#16A34A;--bg:#FAFAF9;--line:#E5E7EB;--ink-1:#0A1628;--ink-2:#4B5563;--ink-3:#9CA3AF;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--ink-1);min-height:100vh;padding:24px}
+.container{max-width:1200px;margin:0 auto}
+h1{font-family:'Cormorant Garamond',serif;font-size:36px;margin-bottom:8px}
+.sub{color:var(--ink-2);margin-bottom:24px}
+.role-pick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+@media (max-width:800px){.role-pick{grid-template-columns:repeat(2,1fr)}}
+.role-card{background:#fff;border:2px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:all 0.2s}
+.role-card:hover{transform:translateY(-2px);border-color:var(--brand)}
+.role-card.active{background:#DCFCE7;border-color:var(--brand)}
+.role-card .ico{font-size:32px;margin-bottom:8px}
+.role-card h3{font-size:16px;margin-bottom:4px}
+.role-card .desc{font-size:12px;color:var(--ink-3)}
+.flow-diagram{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:24px;text-align:center}
+.flow-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+.flow-node{padding:14px 18px;background:linear-gradient(135deg,#16A34A,#0A1628);color:#fff;border-radius:10px;font-size:14px}
+.flow-arrow{color:var(--brand);font-size:24px}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.action-grid{grid-template-columns:1fr}}
+.act{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.act h4{color:var(--brand);font-size:14px;margin-bottom:6px}
+.act p{font-size:13px;color:var(--ink-2);line-height:1.6}
+.act button{margin-top:10px;background:var(--brand);color:#fff;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:13px}
+.feature{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:14px}
+.feature h3{color:var(--brand);font-size:15px;margin-bottom:10px}
+.feature ul{list-style:none;padding:0}
+.feature li{padding:6px 0;font-size:13.5px;color:var(--ink-1)}
+.feature li::before{content:'✓ ';color:var(--brand);font-weight:700}
+.ai-strip{background:linear-gradient(135deg,#FEF3C7,#FBEFC4);border:1px solid #F59E0B;border-radius:12px;padding:14px;margin-bottom:14px;font-size:13.5px}
+.ai-strip strong{color:#92400E}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🏪 PHAT Marketplace · 4-Side Trade</h1>
+  <p class="sub">เชื่อม ผู้ปลูก ↔ ล้ง/ผู้รวบรวม ↔ ผู้ซื้อ ↔ ผู้ส่งออก · ผ่าน LINE OA · auto-match · escrow · contract</p>
+
+  <div class="role-pick">
+    <div class="role-card" data-r="producer" onclick="pickRole('producer')">
+      <div class="ico">🌾</div>
+      <h3>ผู้ผลิต/ผู้ปลูก</h3>
+      <div class="desc">เกษตรกร · ผู้เลี้ยง · ชาวประมง · ช่าง · ศิลปิน</div>
+    </div>
+    <div class="role-card" data-r="aggregator" onclick="pickRole('aggregator')">
+      <div class="ico">🏭</div>
+      <h3>ล้ง/ผู้รวบรวม</h3>
+      <div class="desc">middleman · cold chain · grade · packing</div>
+    </div>
+    <div class="role-card" data-r="buyer" onclick="pickRole('buyer')">
+      <div class="ico">🛒</div>
+      <h3>ผู้ซื้อในประเทศ</h3>
+      <div class="desc">ตลาดสด · modern trade · ร้าน · ผู้บริโภค</div>
+    </div>
+    <div class="role-card" data-r="exporter" onclick="pickRole('exporter')">
+      <div class="ico">🚢</div>
+      <h3>ผู้ส่งออก</h3>
+      <div class="desc">จีน · EU · ตะวันออกกลาง · USA</div>
+    </div>
+  </div>
+
+  <div class="flow-diagram">
+    <h3 style="margin-bottom:14px">🔄 Flow ของ Trade</h3>
+    <div class="flow-row">
+      <div class="flow-node">🌾 Producer</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🏭 Aggregator</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">🛒 Buyer / 🚢 Exporter</div>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--ink-2)">PHAT layer: order matching · price discovery · escrow · contract template · cold chain track · compliance (GAP/CHN/EU) · payment · insurance · dispute</p>
+  </div>
+
+  <div class="ai-strip">
+    <strong>🤖 หนู PHAT:</strong> เลือกบทบาทคุณด้านบน · หนูจะแสดง marketplace ที่เหมาะกับคุณ · ทำงานผ่าน LINE OA @PHAT
+  </div>
+
+  <div id="role-content"></div>
+</div>
+
+<script>
+const CONTENT = {
+  producer: {
+    title: '🌾 สำหรับผู้ผลิต/ผู้ปลูก',
+    actions: [
+      {h:'📦 ลงสินค้า', p:'ถ่ายภาพ + ปริมาณ + ราคาเสนอ → PHAT ช่วยตั้งราคาตามตลาด', btn:'ลงประกาศใน LINE'},
+      {h:'🏷️ ขอเสนอราคา (Auction)', p:'เปิดประมูล · ล้ง/ผู้ซื้อแข่งเสนอ · เลือกเอง', btn:'เปิดประมูล'},
+      {h:'📜 สัญญาขายล่วงหน้า', p:'forward contract · ราคาคงที่ · ลด risk', btn:'หาผู้ซื้อล่วงหน้า'},
+      {h:'🤝 จับคู่ล้งใกล้บ้าน', p:'GPS auto match · ราคา · ระยะทาง · เรตติ้ง', btn:'หาล้ง'},
+      {h:'💰 escrow + ประกัน', p:'PHAT กลาง · เงินอยู่ใน escrow · ส่งของแล้วโอน', btn:'ดูระบบ'},
+      {h:'📊 ราคาตลาด real-time', p:'4 ตลาดหลัก · forecast 7 วัน · alert ตอนสูง', btn:'ดูราคา'}
+    ],
+    features: ['LINE OA @PHAT one-tap ลงประกาศ','GAP/Organic auto-verify','รับเงินผ่านพร้อมเพย์','ประกันราคาขั้นต่ำจาก ธ.ก.ส.','community LINE Group ตามผลไม้/สัตว์','คะแนน reputation จากผู้ซื้อ']
+  },
+  aggregator: {
+    title: '🏭 สำหรับล้ง/ผู้รวบรวม',
+    actions: [
+      {h:'📋 รับซื้อรายวัน', p:'เกษตรกรลงประกาศ · auto-match ตาม area + grade', btn:'ดูรายการ'},
+      {h:'⚖️ Grade + QC', p:'ภาพ + AI grade · A/B/C · pricing model', btn:'ระบบ grade'},
+      {h:'❄️ Cold Chain', p:'ติดตาม temp + humidity · ไม่ break chain', btn:'tracking'},
+      {h:'🚛 Logistics', p:'รถบรรทุก · scheduling · route optimize', btn:'จองรถ'},
+      {h:'💼 B2B sales', p:'ขายต่อ modern trade + exporters · bulk pricing', btn:'ขายส่ง'},
+      {h:'📊 P&L per shipment', p:'margin tracking · cost per kg', btn:'รายงาน'}
+    ],
+    features: ['LINE OA bulk message ถึงเกษตรกร 1000+ ในกลุ่ม','API เชื่อม TMS + WMS','สัญญารับซื้อแบบ rolling','เครดิตล่วงหน้ากับเกษตรกร','GAP audit ครบ','ส่งต่อ exporter เครือข่าย']
+  },
+  buyer: {
+    title: '🛒 สำหรับผู้ซื้อในประเทศ',
+    actions: [
+      {h:'🔍 ค้นสินค้า', p:'search + filter + GPS · เลือกที่สด · ราคาดี', btn:'ค้นหา'},
+      {h:'📦 สั่งซื้อตรง', p:'จากเกษตรกร/ล้ง · ตัด middleman 1 ขั้น', btn:'order'},
+      {h:'🚚 Delivery', p:'ขนส่งโดย Kerry · Flash · J&T · LINEMAN', btn:'จัดส่ง'},
+      {h:'⭐ Review + Rating', p:'รีวิวสด · ภาพประกอบ · เครดิตให้ producer', btn:'รีวิว'},
+      {h:'🎁 Subscribe weekly box', p:'รับสินค้าสดสัปดาห์ละครั้ง · ฤดูตามฤดูกาล', btn:'สมัคร box'},
+      {h:'💰 PromptPay + COD', p:'ชำระหลายช่อง · COD ปลายทาง', btn:'payment'}
+    ],
+    features: ['Track order ผ่าน LINE','คืนเงิน + insurance','โปรโมชั่นจาก PHAT','สะสมแต้มแลก Token','recommendation จาก AI','community รีวิวจริง']
+  },
+  exporter: {
+    title: '🚢 สำหรับผู้ส่งออก',
+    actions: [
+      {h:'🌐 Buyer matching (CHN/EU/USA)', p:'จับคู่ผู้นำเข้าตปท. · verified company', btn:'หา buyer'},
+      {h:'📋 Compliance check', p:'GAP · CHN GACC · EU Organic · auto-audit', btn:'ตรวจ'},
+      {h:'🚢 Shipping + Freight', p:'reefer container · freight rate · booking', btn:'จอง'},
+      {h:'💵 Trade finance', p:'L/C · D/P · D/A · letter of credit assist', btn:'finance'},
+      {h:'📋 Phytosanitary cert', p:'ใบสุขอนามัยพืช · auto-apply กรมวิชาการ', btn:'ใบรับรอง'},
+      {h:'📊 Margin + tax', p:'duty drawback · BOI privilege · WHT', btn:'คำนวณ'}
+    ],
+    features: ['LINE OA จับคู่ buyer ตปท.','API กับกรมศุลกากร','สัญญาภาษาอังกฤษ + จีน','Arbitration ผ่าน TAI/SIAC','insurance cargo','BOI/EXIM bank support']
+  }
+};
+
+function pickRole(r) {
+  document.querySelectorAll('.role-card').forEach(c => c.classList.toggle('active', c.dataset.r===r));
+  const c = CONTENT[r];
+  const html = `
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:14px;color:#16A34A">${c.title}</h2>
+    <div class="action-grid">${c.actions.map(a=>`<div class="act"><h4>${a.h}</h4><p>${a.p}</p><button onclick="alert('เปิดใน LINE OA @PHAT')">${a.btn}</button></div>`).join('')}</div>
+    <div class="feature"><h3>🎯 ฟีเจอร์เฉพาะบทบาท</h3><ul>${c.features.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+  `;
+  document.getElementById('role-content').innerHTML = html;
+}
+pickRole('producer');
+</script>
+</body>
+</html>
