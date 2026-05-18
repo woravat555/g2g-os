@@ -169,6 +169,7 @@ window.G2G = (function () {
     { group: 'หน้าหลัก', items: [
       { id: 'dashboard', label: 'Dashboard', href: 'index.html', ico: 'home' },
       { id: 'products', label: '🏛️ Products · PLAT + PHAT', href: 'products.html', ico: 'briefcase' },
+      { id: 'phat-console', label: '🎯 PHAT Verticals · 12 อาชีพ', href: 'phat-console.html', ico: 'briefcase' },
       { id: 'board', label: 'Workboard · งานรวม', href: 'board.html', ico: 'check' },
       { id: 'showcase', label: 'Showcase · ผลงาน', href: 'showcase.html', ico: 'briefcase' },
       { id: 'studio', label: '🎨 Studio Hub · AI Tools', href: 'studio.html', ico: 'megaphone' },

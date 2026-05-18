@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHAT for Verticals · 12 อาชีพ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Sarabun', sans-serif; background: linear-gradient(180deg, #FAFAF9 0%, #F0E9DC 100%); min-height: 100vh; color: #0A1628; padding: 24px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.hero { background: linear-gradient(135deg,#0A1628,#312E81); color: #fff; padding: 50px 32px; border-radius: 24px; margin-bottom: 32px; text-align: center; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; margin: 0 0 12px; }
+.hero h1 em { color: #C9A961; font-style: normal; }
+.hero .sub { opacity: 0.85; font-size: 17px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 32px; }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+.card { background: #fff; border: 2px solid #E5E7EB; border-radius: 16px; padding: 22px; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.card .ico { font-size: 36px; margin-bottom: 12px; line-height: 1; }
+.card h3 { font-size: 18px; margin: 0 0 6px; }
+.card .tagline { font-size: 13px; color: #6B7280; margin-bottom: 12px; line-height: 1.5; }
+.card .feat-count { font-size: 11px; color: #16A34A; font-weight: 600; }
+footer { text-align: center; color: #6B7280; padding: 24px; font-size: 13px; }
+footer a { color: #C9A961; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>PHAT for <em>12 อาชีพ</em></h1>
+    <div class="sub">AI ผู้ช่วยเฉพาะอาชีพ · ระบบทำงาน + ระบบบริหาร · พร้อมใช้ใน LINE</div>
+  </div>
+  <div class="grid" id="grid">⏳ Loading...</div>
+  <footer>
+    🏛️ Powered by G2G AgriTech · <a href="/start.html">PHAT consumer</a> · <a href="/business.html">PHAT for Business</a> · <a href="/admin/products.html">Admin</a>
+  </footer>
+</div>
+<script>
+fetch('_config.json').then(r => r.json()).then(d => {
+  const g = document.getElementById('grid');
+  g.innerHTML = d.verticals.map(v => `
+    <a class="card" href="${v.id}.html" style="border-color:${v.color}33">
+      <div class="ico">${v.emoji}</div>
+      <h3 style="color:${v.color}">${v.name}</h3>
+      <div class="tagline">${v.tagline}</div>
+      <div class="feat-count">${v.features.length} features · ${v.workflows.length} workflows · ${v.kpis.length} KPIs</div>
+    </a>`).join('');
+});
+</script>
+</body>
+</html>

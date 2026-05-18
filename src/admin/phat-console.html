@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHAT Verticals Console</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_admin.css">
+<style>
+  .vert-tab { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .vert-tab button { padding: 10px 16px; border: 2px solid #E5E7EB; background: #fff; border-radius: 999px; cursor: pointer; font-family: inherit; font-size: 13px; transition: all 0.15s; }
+  .vert-tab button.active { background: #0A1628; color: #fff; border-color: #0A1628; }
+  .vert-content { display: none; }
+  .vert-content.active { display: block; }
+  .vert-stat { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  @media (max-width: 700px) { .vert-stat { grid-template-columns: repeat(2, 1fr); } }
+  .stat-box { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: center; }
+  .stat-box .v { font-size: 26px; font-weight: 700; color: #0A1628; line-height: 1; }
+  .stat-box .l { font-size: 11px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 6px; }
+  .vert-section { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+  .vert-section h4 { font-size: 14px; margin: 0 0 12px; color: #0A1628; display: flex; align-items: center; gap: 6px; }
+  .vert-section ul { list-style: none; padding: 0; margin: 0; }
+  .vert-section li { padding: 8px 0; font-size: 13.5px; border-bottom: 1px dashed #F3F4F6; }
+  .vert-section li:last-child { border-bottom: 0; }
+  .vert-section li .check { display: inline-block; width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid #E5E7EB; vertical-align: middle; margin-right: 8px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+  .quick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .quick-actions a { padding: 8px 14px; background: #F9FAFB; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; color: #0A1628; font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="adm-shell">
+  <aside class="adm-side"></aside>
+  <div class="adm-main">
+    <header class="adm-top"></header>
+    <main class="adm-body">
+      <div class="wb-hero">
+        <div class="role-line">🎯 PHAT Verticals Console · 12 อาชีพ · ระบบบริหาร + workflow</div>
+        <h1>🏛️ PHAT Verticals</h1>
+        <p>เลือกอาชีพเพื่อดู citizens · workflow · stats · บริหารแบบเดียวกับ AIM/NK</p>
+      </div>
+
+      <div class="vert-tab" id="tabs">⏳</div>
+      <div id="content"></div>
+
+    </main>
+  </div>
+</div>
+
+<script src="_admin.js"></script>
+<script>
+G2G.boot('phat-console', { title: 'PHAT Verticals', crumbs: [{ label: 'Dashboard', href: 'index.html' }, { label: 'PHAT Verticals' }] });
+
+async function loadVerticals() {
+  const cfg = await fetch('/verticals/phat/_config.json').then(r => r.json());
+  const tabs = document.getElementById('tabs');
+  const content = document.getElementById('content');
+  tabs.innerHTML = cfg.verticals.map((v, i) => `<button onclick="selectV(${i})" id="t${i}" class="${i===0?'active':''}" style="border-color:${v.color}">${v.emoji} ${v.name}</button>`).join('');
+  content.innerHTML = cfg.verticals.map((v, i) => `
+    <div class="vert-content ${i===0?'active':''}" id="v${i}">
+      <div class="adm-card flat" style="margin-bottom:20px;background:linear-gradient(135deg,${v.color}11,#FAFAF9);border-color:${v.color}44">
+        <div class="adm-card-b">
+          <div style="font-size:48px;line-height:1">${v.emoji}</div>
+          <h2 style="margin:8px 0;font-size:24px;color:${v.color}">PHAT for ${v.name}</h2>
+          <div style="color:#6B7280;font-size:14px">${v.tagline}</div>
+          <div class="quick-actions">
+            <a href="/verticals/phat/${v.id}.html" target="_blank">🌐 Landing page</a>
+            <a href="javascript:loadCitizens('${v.id}')">👥 Citizens</a>
+            <a href="javascript:loadWorkflow('${v.id}')">🔄 Workflow</a>
+            <a href="javascript:bcast('${v.id}')">📣 Broadcast</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="vert-stat">
+        <div class="stat-box"><div class="v" id="stat-${v.id}-users">—</div><div class="l">Citizens</div></div>
+        <div class="stat-box"><div class="v" id="stat-${v.id}-msgs">—</div><div class="l">Messages 7d</div></div>
+        <div class="stat-box"><div class="v" id="stat-${v.id}-active">—</div><div class="l">Active 24h</div></div>
+        <div class="stat-box"><div class="v">${v.kpis.length}</div><div class="l">KPIs tracked</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="vert-section">
+          <h4>✨ Features (${v.features.length})</h4>
+          <ul>${v.features.map(f => `<li><span class="check"></span>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="vert-section">
+          <h4>🔄 Workflows (${v.workflows.length})</h4>
+          <ul>${v.workflows.map(w => `<li><span class="check"></span>${w}</li>`).join('')}</ul>
+        </div>
+        <div class="vert-section">
+          <h4>📊 KPIs (${v.kpis.length})</h4>
+          <ul>${v.kpis.map(k => `<li>📈 ${k}</li>`).join('')}</ul>
+        </div>
+        <div class="vert-section">
+          <h4>🎙️ Quick Replies (LINE persona)</h4>
+          <div id="qr-${v.id}" style="font-size:13px;color:#6B7280">Loading...</div>
+        </div>
+      </div>
+
+      <div class="vert-section">
+        <h4>👥 Citizens in this vertical</h4>
+        <div id="citizens-${v.id}" style="font-size:13px;color:#6B7280">กด "👥 Citizens" เพื่อโหลด</div>
+      </div>
+    </div>
+  `).join('');
+  // Pre-load quick replies for all verticals
+  cfg.verticals.forEach(v => loadQR(v));
+}
+
+function selectV(i) {
+  document.querySelectorAll('.vert-tab button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.vert-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('t' + i).classList.add('active');
+  document.getElementById('v' + i).classList.add('active');
+}
+
+async function loadQR(v) {
+  const occMap = { farmer: 'เกษตรกร', merchant: 'ค้าขาย', teacher: 'ครู', student: 'นักเรียน', health: 'หมอ', exec: 'ผู้บริหาร', dev: 'วิศวกร', senior: 'ผู้สูงอายุ', monk: 'พระ', lawyer: 'ทนาย', media: 'นักข่าว', govt: 'ราชการ' };
+  try {
+    const r = await G2G.api('composeGreeting', { name: 'ทดสอบ', occupation: occMap[v.id] });
+    if (r.ok && r.quickReplies) {
+      document.getElementById('qr-' + v.id).innerHTML = r.quickReplies.map(q => `<span style="display:inline-block;padding:4px 10px;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:999px;margin:3px;font-size:12px">${q.label}</span>`).join('');
+    }
+  } catch (e) {}
+}
+
+async function loadCitizens(vid) {
+  const target = document.getElementById('citizens-' + vid);
+  target.innerHTML = 'กำลังโหลด...';
+  const occMap = { farmer: 'เกษตรกร', merchant: 'ค้า', teacher: 'ครู', student: 'นักเรียน', health: 'หมอ', exec: 'บริหาร', dev: 'วิศวกร', senior: 'สูงอายุ', monk: 'พระ', lawyer: 'ทนาย', media: 'ข่าว', govt: 'ราชการ' };
+  try {
+    const r = await G2G.api('citizenList', { limit: 200 });
+    if (r.ok && r.citizens) {
+      const filtered = r.citizens.filter(c => (c.occupation || '').includes(occMap[vid]));
+      document.getElementById('stat-' + vid + '-users').textContent = filtered.length;
+      if (filtered.length === 0) {
+        target.innerHTML = '<em style="color:#9CA3AF">ยังไม่มี citizen ในอาชีพนี้ · invite ได้ที่ <a href="invite.html">/admin/invite.html</a></em>';
+      } else {
+        target.innerHTML = '<table style="width:100%;font-size:13px"><thead><tr><th align="left">ชื่อ</th><th align="left">จังหวัด</th><th align="left">Tier</th><th align="left">Token</th></tr></thead><tbody>' +
+          filtered.slice(0, 20).map(c => `<tr><td>${c.name}</td><td>${c.province||'-'}</td><td>${c.tier||'Bronze'}</td><td>${c.tokens||0}</td></tr>`).join('') +
+          '</tbody></table>';
+      }
+    }
+  } catch (e) { target.innerHTML = '❌ ' + e; }
+}
+
+function loadWorkflow(vid) { alert('Workflow board สำหรับ ' + vid + ' · เปิด /admin/tasks.html?vertical=' + vid + ' (กำลังพัฒนา)'); }
+function bcast(vid) { alert('Broadcast ไปยัง citizens ใน ' + vid + ' · feature เปิดเร็วๆ นี้'); }
+
+loadVerticals();
+</script>
+</body>
+</html>
